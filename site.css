@@ -458,9 +458,10 @@ footer { background: var(--navy); border-top: 1px solid var(--navy-3); color: rg
 .popup-box {
   background: var(--surface-raised); border-radius: var(--r-xl);
   width: 100%; max-width: 480px; position: relative;
-  box-shadow: var(--shadow-3); overflow: hidden;
+  box-shadow: var(--shadow-3); overflow-y: auto; max-height: 92vh;
   transform: translateY(20px) scale(.97);
   transition: transform var(--d-slow) var(--ease);
+  -webkit-overflow-scrolling: touch;
 }
 .popup-overlay.open .popup-box { transform: none; }
 .popup-top {
