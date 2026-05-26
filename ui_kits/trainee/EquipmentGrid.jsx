@@ -1,8 +1,5 @@
 // EquipmentGrid.jsx
-// A tappable photo grid of every piece of gear a tech carries.
-// Used at the top of Module 01 so a new hire can match the name to the object
-// before any procedural content. Clicking any tile opens a focused detail
-// drawer with the photo, name, what it's for, and which module covers it.
+// Hover (desktop) or long-press (mobile) for 1.75s to reveal a brief description.
 
 const EQUIPMENT_ITEMS = [
   {
@@ -10,10 +7,7 @@ const EQUIPMENT_ITEMS = [
     name: 'Water-Fed Pole',
     short: '30 ft carbon fiber + hybrid brush',
     photo: '../../assets/equipment-photos/wfp-system.jpeg',
-    purpose: 'Telescoping 30 ft carbon-fiber pole with a nylon/boar hair hybrid brush at the tip. The whole exterior cleaning system flows through this — pure DI water out the brush, no ladders, no streaks.',
-    where: 'Stays on the truck. Carried out at the start of every exterior job. The brush head is a single hybrid — you don\'t swap it for different surfaces.',
-    moduleNum: 2,
-    moduleLabel: 'Covered in Module 02 — Water-Fed Pole Cleaning',
+    tooltip: 'A 30-ft carbon-fiber telescoping pole that delivers pure deionized water through a hybrid brush head. Cleans all exterior windows from the ground — no ladders, no streaks.',
     tag: 'WFP SETUP',
   },
   {
@@ -21,10 +15,7 @@ const EQUIPMENT_ITEMS = [
     name: 'DI Tank',
     short: 'Deionization tank',
     photo: '../../assets/equipment-photos/di-tank.jpeg',
-    purpose: 'Single-chamber tank packed with deionizing resin that pulls dissolved solids out of tap water. The water that comes out of this tank is what dries on the glass without leaving any spots.',
-    where: 'Sits next to the house, hooked between the garden hose and the WFP hose.',
-    moduleNum: 1,
-    moduleLabel: 'Covered in this module — Equipment & Setup',
+    tooltip: 'Packed with ion-exchange resin that strips dissolved minerals from tap water. The pure water coming out is what dries on glass without leaving any spots.',
     tag: 'WFP SETUP',
   },
   {
@@ -32,10 +23,7 @@ const EQUIPMENT_ITEMS = [
     name: 'Garden Hose',
     short: '100 ft standard hose',
     photo: '../../assets/equipment-photos/garden-hose.jpeg',
-    purpose: 'Connects the home spigot to the DI tank inlet. Tap water in, on its way to be filtered.',
-    where: 'Female end on the spigot. Male end on the tank inlet.',
-    moduleNum: 1,
-    moduleLabel: 'Covered in this module — Equipment & Setup',
+    tooltip: 'Connects the house spigot to the DI tank inlet. Tap water in, on its way to be filtered. Female end on the spigot, male end on the tank.',
     tag: 'WFP SETUP',
   },
   {
@@ -43,10 +31,7 @@ const EQUIPMENT_ITEMS = [
     name: 'Tool Bag',
     short: 'Your kit on the ground',
     photo: '../../assets/equipment-photos/tool-bag.jpg',
-    purpose: 'Holds everything you need on the property that isn\'t the bucket: paint scraper, painters tape, Sharpie, walnut pads, extra gooseneck/angle adapter, extra O-rings for the garden hose, wrench, plumbers tape, metal screen pry, surgical towels, and the barbed hose coupler for hose-burst repair.',
-    where: 'On the porch or driveway near where you set up. Never on a flowerbed.',
-    moduleNum: 1,
-    moduleLabel: 'Covered in this module — Equipment & Setup',
+    tooltip: 'Carries everything you need on the property: scraper, painters tape, Sharpie, walnut pads, O-rings, surgical towels, and the barbed coupler for emergency hose repairs.',
     tag: 'KIT',
   },
   {
@@ -54,10 +39,7 @@ const EQUIPMENT_ITEMS = [
     name: 'Squeegee',
     short: '12 in. channel + rubber blade',
     photo: '../../assets/equipment-photos/squeegee.jpeg',
-    purpose: 'Lives in the bucket. Removes water from glass after the mop applies soap. Interior or super-dirty windows only — never used on WFP exteriors, because DI water dries spot-free.',
-    where: 'In the bucket. Spare rubber blade in the tool bag.',
-    moduleNum: 5,
-    moduleLabel: 'Covered in Module 05 — Traditional Cleaning',
+    tooltip: 'Pulls soapy water off glass after the mop. Used on interior and super-dirty windows only — never on WFP exteriors, because DI water dries spot-free on its own.',
     tag: 'TRADITIONAL',
   },
   {
@@ -65,10 +47,7 @@ const EQUIPMENT_ITEMS = [
     name: 'Mop',
     short: 'T-bar applicator',
     photo: '../../assets/equipment-photos/mop-applicator.webp',
-    purpose: 'Lives in the bucket. Applies soapy water to glass before squeegeeing. Traditional setup only — not used with WFP.',
-    where: 'In the bucket with the squeegee, acidic-solution bottle, and dish soap.',
-    moduleNum: 5,
-    moduleLabel: 'Covered in Module 05 — Traditional Cleaning',
+    tooltip: 'Applies soapy water to glass before squeegeeing. Traditional cleaning setup only — stays in the bucket with the squeegee and is never used with the WFP.',
     tag: 'TRADITIONAL',
   },
   {
@@ -76,10 +55,7 @@ const EQUIPMENT_ITEMS = [
     name: 'Walnut Pad',
     short: 'Crushed-shell scrubber',
     photo: '../../assets/equipment-photos/walnut-pad.webp',
-    purpose: 'Abrasive pad for paint speck or anything the mop with soap couldn\'t lift. Only used on super-dirty windows or interior windows, after the mop — never on a WFP exterior.',
-    where: 'In your tool bag. Stays dry until you need it.',
-    moduleNum: 5,
-    moduleLabel: 'Covered in Module 05 — Traditional Cleaning',
+    tooltip: 'Abrasive pad for grime the mop couldn\'t lift. Use after the mop with light pressure — interior or very dirty windows only. Never on WFP exteriors.',
     tag: 'TRADITIONAL',
   },
   {
@@ -87,42 +63,84 @@ const EQUIPMENT_ITEMS = [
     name: 'Surgical Towel',
     short: 'Lint-free detail towel',
     photo: '../../assets/equipment-photos/surgical-towel.jpeg',
-    purpose: 'Wipes the squeegee rubber after every stroke, details the bottom of the glass and the sill. Lint-free — the only thing that should touch finished glass.',
-    where: 'In your tool bag. Always carry at least two — one will soak through fast.',
-    moduleNum: 5,
-    moduleLabel: 'Covered in Module 05 — Traditional Cleaning',
+    tooltip: 'Lint-free towel for wiping the squeegee rubber after every stroke and detailing edges and sills. Always carry at least two — one soaks through fast.',
     tag: 'BOTH',
   },
 ];
 
 function EquipmentGrid() {
-  const [open, setOpen] = React.useState(null);
-  const active = open ? EQUIPMENT_ITEMS.find(i => i.id === open) : null;
+  const [tooltip, setTooltip] = React.useState(null);
+  const timerRef = React.useRef(null);
+  const touchMovedRef = React.useRef(false);
 
-  // Close on Escape
+  // Dismiss tooltip when tapping/clicking outside any tile
   React.useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => { if (e.key === 'Escape') setOpen(null); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open]);
+    if (!tooltip) return;
+    function dismiss(e) {
+      if (!e.target.closest('.cs-eqtile')) setTooltip(null);
+    }
+    document.addEventListener('click', dismiss);
+    document.addEventListener('touchstart', dismiss, { passive: true });
+    return () => {
+      document.removeEventListener('click', dismiss);
+      document.removeEventListener('touchstart', dismiss);
+    };
+  }, [tooltip]);
+
+  // Desktop hover
+  function onMouseEnter(id) {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setTooltip(id), 1750);
+  }
+  function onMouseLeave() {
+    clearTimeout(timerRef.current);
+    setTooltip(null);
+  }
+
+  // Mobile long-press
+  function onTouchStart(id) {
+    touchMovedRef.current = false;
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      if (!touchMovedRef.current) setTooltip(prev => prev === id ? null : id);
+    }, 1750);
+  }
+  function onTouchMove() {
+    touchMovedRef.current = true;
+    clearTimeout(timerRef.current);
+  }
+  function onTouchEnd(id) {
+    if (touchMovedRef.current) return;
+    if (tooltip === id) {
+      clearTimeout(timerRef.current);
+      setTooltip(null);
+    } else if (tooltip === null) {
+      // Short tap (< 1.75s): don't show
+      clearTimeout(timerRef.current);
+    }
+  }
 
   return (
     <div className="cs-eqgrid-wrap">
       <div className="cs-eqgrid__intro">
         <div className="cs-eqgrid__eyebrow">Know your gear first</div>
-        <h2 className="cs-h2 cs-h2--sky" style={{ marginTop: 6 }}>Tap any tool to see what it is.</h2>
+        <h2 className="cs-h2 cs-h2--sky" style={{ marginTop: 6 }}>Hover or hold any tool for a quick description.</h2>
         <p className="cs-body">
-          Before the procedures, the names. You'll see all of these on every job — match the photo to the name now and the rest of the training will go faster.
+          Before the procedures, the names. Hold for 1.75 seconds on any item to see what it does.
         </p>
       </div>
 
       <div className="cs-eqgrid">
         {EQUIPMENT_ITEMS.map(item => (
-          <button
+          <div
             key={item.id}
-            className={`cs-eqtile ${open === item.id ? 'is-active' : ''}`}
-            onClick={() => setOpen(item.id === open ? null : item.id)}
+            className={`cs-eqtile ${tooltip === item.id ? 'is-active' : ''}`}
+            onMouseEnter={() => onMouseEnter(item.id)}
+            onMouseLeave={onMouseLeave}
+            onTouchStart={() => onTouchStart(item.id)}
+            onTouchMove={onTouchMove}
+            onTouchEnd={() => onTouchEnd(item.id)}
+            onTouchCancel={onTouchMove}
           >
             <div className="cs-eqtile__photo">
               <img src={item.photo} alt={item.name}/>
@@ -130,40 +148,16 @@ function EquipmentGrid() {
             </div>
             <div className="cs-eqtile__name">{item.name}</div>
             <div className="cs-eqtile__short">{item.short}</div>
-          </button>
+
+            {tooltip === item.id && (
+              <div className="cs-eqtile__tooltip" role="tooltip">
+                <div className="cs-eqtile__tooltip-name">{item.name}</div>
+                <div className="cs-eqtile__tooltip-body">{item.tooltip}</div>
+              </div>
+            )}
+          </div>
         ))}
       </div>
-
-      {active ? (
-        <div className="cs-eqdrawer" role="dialog" aria-modal="true">
-          <button className="cs-eqdrawer__close" onClick={() => setOpen(null)} aria-label="Close">
-            <ModuleIcon name="x" size={20}/>
-          </button>
-          <div className="cs-eqdrawer__media">
-            <img src={active.photo} alt={active.name}/>
-          </div>
-          <div className="cs-eqdrawer__body">
-            <div className="cs-eqdrawer__tag">{active.tag}</div>
-            <h3 className="cs-eqdrawer__name">{active.name}</h3>
-            <div className="cs-eqdrawer__short">{active.short}</div>
-
-            <div className="cs-eqdrawer__row">
-              <div className="cs-eqdrawer__label">What it does</div>
-              <div className="cs-eqdrawer__text">{active.purpose}</div>
-            </div>
-
-            <div className="cs-eqdrawer__row">
-              <div className="cs-eqdrawer__label">Where you'll find it</div>
-              <div className="cs-eqdrawer__text">{active.where}</div>
-            </div>
-
-            <div className="cs-eqdrawer__module">
-              <ModuleIcon name="book-open" size={14}/>
-              <span>{active.moduleLabel}</span>
-            </div>
-          </div>
-        </div>
-      ) : null}
     </div>
   );
 }
