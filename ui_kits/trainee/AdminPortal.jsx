@@ -1,6 +1,6 @@
 // AdminPortal.jsx — admin view (CSEADMIN code)
 
-function AdminPortal({ view, liveCompleted, liveStats, liveName }) {
+function AdminPortal({ view, liveCompleted, liveStats, liveName, onOpenModule }) {
   const [trainees, setTrainees] = React.useState([]);
 
   React.useEffect(() => {
@@ -15,6 +15,14 @@ function AdminPortal({ view, liveCompleted, liveStats, liveName }) {
     const interval = setInterval(refresh, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  function deleteTrainee(id) {
+    try {
+      const list = JSON.parse(localStorage.getItem('cse_trainees') || '[]').filter(t => t.id !== id);
+      localStorage.setItem('cse_trainees', JSON.stringify(list));
+      setTrainees(list);
+    } catch {}
+  }
 
   function formatDate(iso) {
     if (!iso) return '—';
@@ -63,11 +71,16 @@ function AdminPortal({ view, liveCompleted, liveStats, liveName }) {
               const completedCount = trainees.filter(t => (t.completedModules || 0) >= modNum).length;
               const pct = trainees.length ? Math.round((completedCount / trainees.length) * 100) : 0;
               return (
-                <div key={mod.id} style={{
+                <div key={mod.id} onClick={() => onOpenModule && onOpenModule(mod.id)} style={{
                   background: 'var(--surface-raised)', border: '1px solid var(--border-1)',
                   borderRadius: 'var(--r-md)', padding: '14px 18px',
                   display: 'flex', alignItems: 'center', gap: 16,
-                }}>
+                  cursor: onOpenModule ? 'pointer' : 'default',
+                  transition: 'border-color 150ms, box-shadow 150ms',
+                }}
+                onMouseEnter={e => { if (onOpenModule) { e.currentTarget.style.borderColor = 'var(--sky)'; e.currentTarget.style.boxShadow = 'var(--shadow-sky)'; }}}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-1)'; e.currentTarget.style.boxShadow = 'none'; }}
+                >
                   <div style={{
                     width: 32, height: 32, borderRadius: '50%',
                     background: 'var(--navy)', color: 'var(--sky)',
@@ -90,6 +103,7 @@ function AdminPortal({ view, liveCompleted, liveStats, liveName }) {
                       </span>
                     </div>
                   </div>
+                  <ModuleIcon name="arrow-right" size={16} style={{ color: 'var(--ink-4)', flexShrink: 0 }}/>
                 </div>
               );
             })}
@@ -161,7 +175,7 @@ function AdminPortal({ view, liveCompleted, liveStats, liveName }) {
         ) : (
           <div className="cs-admin-table">
             <div className="cs-admin-row cs-admin-row--header">
-              <div>Tech</div><div>Started</div><div>Progress</div><div>Status</div><div>Quiz score</div><div>Certified on</div>
+              <div>Tech</div><div>Started</div><div>Progress</div><div>Status</div><div>Quiz score</div><div>Certified on</div><div></div>
             </div>
             {trainees.map((t) => {
               const status = statusOf(t);
@@ -198,6 +212,21 @@ function AdminPortal({ view, liveCompleted, liveStats, liveName }) {
                   </div>
                   <div style={{ font: '500 13px/1 var(--font-mono)', color: 'var(--ink-3)' }}>
                     {formatDate(t.certifiedAt)}
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => { if (confirm(`Remove ${t.name} from the records?`)) deleteTrainee(t.id); }}
+                      style={{
+                        background: 'none', border: 'none', cursor: 'pointer',
+                        color: 'var(--ink-4)', padding: '4px 6px', borderRadius: 6,
+                        transition: 'color 150ms, background 150ms',
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.color = '#FF5F5F'; e.currentTarget.style.background = 'rgba(255,95,95,0.08)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.color = 'var(--ink-4)'; e.currentTarget.style.background = 'none'; }}
+                      title="Remove trainee"
+                    >
+                      <ModuleIcon name="x" size={16}/>
+                    </button>
                   </div>
                 </div>
               );

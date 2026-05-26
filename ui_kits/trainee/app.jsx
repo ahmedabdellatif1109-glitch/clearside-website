@@ -38,6 +38,7 @@ function App() {
   const [quizStats, setQuizStats] = React.useState({ answered: 0, correct: 0 });
   const [workerName, setWorkerName] = React.useState('');
   const [adminView, setAdminView] = React.useState('overview');
+  const [adminModuleId, setAdminModuleId] = React.useState(null);
   const sessionIdRef = React.useRef(null);
 
   const progress  = Math.round((completed.size / MODULES.length) * 100);
@@ -139,8 +140,8 @@ function App() {
         active={role === 'admin' ? adminView : screen}
         progress={progress}
         onNavigate={(id) => {
-          if (id === 'admin') { setAdminView('overview'); setScreen('admin'); }
-          else if (id === 'modules' && role === 'admin') { setAdminView('modules'); }
+          if (id === 'admin') { setAdminView('overview'); setAdminModuleId(null); setScreen('admin'); }
+          else if (id === 'modules' && role === 'admin') { setAdminView('modules'); setAdminModuleId(null); }
           else if (id === 'dashboard') { setScreen('dashboard'); }
           else if (id === 'equipment' || id === 'modules') {
             setScreen('dashboard');
@@ -152,7 +153,8 @@ function App() {
         }}
       />
 
-      {role === 'admin' && <AdminPortal view={adminView} liveCompleted={completed} liveStats={quizStats} liveName={workerName}/>}
+      {role === 'admin' && !adminModuleId && <AdminPortal view={adminView} liveCompleted={completed} liveStats={quizStats} liveName={workerName} onOpenModule={(id) => { setAdminModuleId(id); setAdminView('modules'); }}/>}
+      {role === 'admin' && adminModuleId && <ModuleView moduleId={adminModuleId} adminMode={true} onBack={() => setAdminModuleId(null)}/>}
 
       {role === 'worker' && screen === 'dashboard' && (
         <Dashboard

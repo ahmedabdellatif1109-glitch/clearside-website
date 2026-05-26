@@ -1,7 +1,16 @@
 // ModuleView.jsx — module body + quiz
 // Each module renders custom content; the quiz pattern is shared.
 
-function ModuleView({ moduleId, onBack, onComplete }) {
+function getEffectiveQuestions(moduleId) {
+  const base = QUIZZES[moduleId] || [];
+  try {
+    const overrides = JSON.parse(localStorage.getItem('cse_quiz_overrides') || '{}');
+    const mods = overrides[moduleId] || {};
+    return base.map((q, i) => mods[i] ? { ...q, ...mods[i] } : q);
+  } catch { return base; }
+}
+
+function ModuleView({ moduleId, onBack, onComplete, adminMode }) {
   const mod = MODULES.find(m => m.id === moduleId);
   const colors = ACCENT_COLORS[mod.accent];
   const [stage, setStage] = React.useState('body'); // 'body' | 'quiz' | 'done'
@@ -9,7 +18,36 @@ function ModuleView({ moduleId, onBack, onComplete }) {
   const titleColorClass = mod.accent === 'sky' ? 'cs-h2--sky' : mod.accent === 'salmon' || mod.accent === 'gold' ? 'cs-h2--salmon' : 'cs-h2--navy';
 
   const Body = MODULE_BODIES[moduleId] || (() => <p className="cs-body">Module content placeholder.</p>);
-  const quiz = QUIZZES[moduleId] || [];
+  const [quizQuestions, setQuizQuestions] = React.useState(() => getEffectiveQuestions(moduleId));
+
+  // Admin: edit state
+  const [editingQi, setEditingQi] = React.useState(null);
+  const [editDraft, setEditDraft] = React.useState(null);
+
+  function openEdit(qi) {
+    const q = quizQuestions[qi];
+    setEditDraft({ q: q.q, opts: [...q.opts], correct: q.correct, remediation: q.remediation });
+    setEditingQi(qi);
+  }
+  function saveEdit() {
+    try {
+      const overrides = JSON.parse(localStorage.getItem('cse_quiz_overrides') || '{}');
+      if (!overrides[moduleId]) overrides[moduleId] = {};
+      overrides[moduleId][editingQi] = editDraft;
+      localStorage.setItem('cse_quiz_overrides', JSON.stringify(overrides));
+    } catch {}
+    setQuizQuestions(getEffectiveQuestions(moduleId));
+    setEditingQi(null);
+  }
+  function resetQuestion(qi) {
+    try {
+      const overrides = JSON.parse(localStorage.getItem('cse_quiz_overrides') || '{}');
+      if (overrides[moduleId]) { delete overrides[moduleId][qi]; localStorage.setItem('cse_quiz_overrides', JSON.stringify(overrides)); }
+    } catch {}
+    setQuizQuestions(getEffectiveQuestions(moduleId));
+  }
+
+  const quiz = quizQuestions;
 
   function handleBackToBody() {
     setQuizAttempt(a => a + 1);
@@ -20,6 +58,128 @@ function ModuleView({ moduleId, onBack, onComplete }) {
   function handleQuizDone(correct, total) {
     onComplete(moduleId, { correct, total });
     setStage('done');
+  }
+
+  if (adminMode) {
+    return (
+      <div className="cs-page cs-page--narrow">
+        <div className="cs-modtop" style={{ background: 'var(--navy)' }}>
+          <div className="cs-modtop__crumbs">
+            <a onClick={onBack}>← All Modules</a>
+            <span>›</span>
+            <span style={{ color: 'var(--paper)' }}>{mod.title}</span>
+          </div>
+          <div className="cs-modtop__num">{mod.eyebrow} · Admin Preview</div>
+          <h1 className="cs-modtop__title">{mod.title}</h1>
+          <p className="cs-modtop__sub">{mod.desc}</p>
+          <div className="cs-modtop__meta" style={{ gap: 10 }}>
+            <span><ModuleIcon name="clock" size={14}/> ~{mod.minutes} min</span>
+            <Chip kind="inprogress">ADMIN VIEW</Chip>
+          </div>
+        </div>
+
+        <Body titleColorClass={titleColorClass}/>
+
+        {/* Answer key */}
+        <div className="cs-admin-answerkey">
+          <div className="cs-admin-answerkey__head">
+            <h2 className="cs-admin-answerkey__title">Quiz Answer Key</h2>
+            <span style={{ font: '500 13px/1 var(--font-mono)', color: 'var(--ink-3)' }}>{quiz.length} questions</span>
+          </div>
+          {quiz.map((q, qi) => {
+            const isOverridden = (() => { try { const o = JSON.parse(localStorage.getItem('cse_quiz_overrides') || '{}'); return !!(o[moduleId] && o[moduleId][qi]); } catch { return false; } })();
+            return (
+              <div key={qi} className="cs-admin-answerkey__q">
+                <div className="cs-admin-answerkey__qhead">
+                  <span className="cs-admin-answerkey__qnum">Q{qi + 1}</span>
+                  {isOverridden && <Chip kind="inprogress">EDITED</Chip>}
+                  <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+                    {isOverridden && (
+                      <button className="cs-admin-answerkey__btn cs-admin-answerkey__btn--reset" onClick={() => resetQuestion(qi)}>
+                        Reset
+                      </button>
+                    )}
+                    <button className="cs-admin-answerkey__btn" onClick={() => openEdit(qi)}>
+                      Edit
+                    </button>
+                  </div>
+                </div>
+                <div className="cs-admin-answerkey__qtext">{q.q}</div>
+                <div className="cs-admin-answerkey__opts">
+                  {q.opts.map((opt, oi) => (
+                    <div key={oi} className={`cs-admin-answerkey__opt ${oi === q.correct ? 'is-correct' : ''}`}>
+                      <span className="cs-admin-answerkey__letter">{String.fromCharCode(65 + oi)}</span>
+                      <span>{opt}</span>
+                      {oi === q.correct && <ModuleIcon name="check" size={15}/>}
+                    </div>
+                  ))}
+                </div>
+                <div className="cs-admin-answerkey__remediation">
+                  <span>Remediation:</span> {q.remediation}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="cs-modfoot">
+          <Button variant="secondary" icon="arrow-left" onClick={onBack}>Back to modules</Button>
+        </div>
+
+        {/* Edit modal */}
+        {editingQi !== null && (
+          <div className="cs-admin-editmodal" onClick={e => { if (e.target === e.currentTarget) setEditingQi(null); }}>
+            <div className="cs-admin-editmodal__card">
+              <div className="cs-admin-editmodal__head">
+                <span className="cs-admin-editmodal__title">Edit Q{editingQi + 1}</span>
+                <button className="cs-admin-editmodal__close" onClick={() => setEditingQi(null)}>
+                  <ModuleIcon name="x" size={18}/>
+                </button>
+              </div>
+
+              <label className="cs-admin-editmodal__label">Question</label>
+              <textarea
+                className="cs-admin-editmodal__textarea"
+                value={editDraft.q}
+                onChange={e => setEditDraft(d => ({...d, q: e.target.value}))}
+                rows={3}
+              />
+
+              <label className="cs-admin-editmodal__label">Answer options — select the correct one</label>
+              {editDraft.opts.map((opt, oi) => (
+                <div key={oi} className={`cs-admin-editmodal__optrow ${editDraft.correct === oi ? 'is-correct' : ''}`}>
+                  <button
+                    className="cs-admin-editmodal__radio"
+                    onClick={() => setEditDraft(d => ({...d, correct: oi}))}
+                    title="Mark as correct answer"
+                  >
+                    {editDraft.correct === oi ? <ModuleIcon name="check" size={14}/> : null}
+                  </button>
+                  <input
+                    className="cs-admin-editmodal__optinput"
+                    value={opt}
+                    onChange={e => setEditDraft(d => ({...d, opts: d.opts.map((o, idx) => idx === oi ? e.target.value : o)}))}
+                  />
+                </div>
+              ))}
+
+              <label className="cs-admin-editmodal__label">Remediation (shown when wrong)</label>
+              <textarea
+                className="cs-admin-editmodal__textarea"
+                value={editDraft.remediation}
+                onChange={e => setEditDraft(d => ({...d, remediation: e.target.value}))}
+                rows={4}
+              />
+
+              <div className="cs-admin-editmodal__actions">
+                <Button variant="secondary" onClick={() => setEditingQi(null)}>Cancel</Button>
+                <Button variant="primary" onClick={saveEdit}>Save changes</Button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (
