@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/"
+  to = "/ui_kits/trainee/index.html"
+  status = 301
+
+[[redirects]]
+  from = "/login"
+  to = "/ui_kits/trainee/index.html"
+  status = 301

@@ -1,0 +1,159 @@
+/* ============================================================
+   ClearSide Exteriors — Design Tokens
+   Official brand palette:
+     Sky Blue    #5BB8E8
+     Salmon      #E8967A
+     Dark Navy   #1A2332
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ============================================================
+     COLOR — Brand (official)
+     ============================================================ */
+  --sky:             #5BB8E8;  /* Sky Blue — wordmark, primary blue */
+  --sky-600:         #3FA3D8;  /* hover */
+  --sky-700:         #2589BD;  /* press */
+  --sky-200:         #C2E2F3;  /* fill / pane top */
+  --sky-100:         #E6F3FA;  /* very soft wash */
+
+  --salmon:          #E8967A;  /* Salmon — C-frame, salmon modules */
+  --salmon-600:      #DD7E5E;  /* hover */
+  --salmon-700:      #BD6244;  /* press / dark accent */
+  --salmon-200:      #F5C9B8;  /* hover wash */
+  --salmon-100:      #FBE8DE;  /* very soft wash */
+
+  --navy:            #1A2332;  /* Dark Navy — nav, hero, deep text */
+  --navy-2:          #2A3548;  /* slightly elevated navy */
+  --navy-3:          #3A4659;  /* divider on navy */
+
+  --cream:           #F4E1CC;  /* warm cream — pane bottom in mark */
+
+  /* Module accent colors (matched to the 7 training modules) */
+  --mod-equipment:   #5BB8E8;  /* Equipment & Setup — blue */
+  --mod-wfp:         #5BB8E8;  /* Water-Fed Pole — blue */
+  --mod-special:     #E8B23A;  /* Special Cases — gold */
+  --mod-screens:     #E8967A;  /* Screen Removal — salmon */
+  --mod-traditional: #9B7C5A;  /* Traditional Cleaning — brown */
+  --mod-order:       #5BB8E8;  /* Order of Operations — blue */
+  --mod-customer:    #E8967A;  /* Customer Care — salmon */
+
+  /* Color — Surface */
+  --paper:           #FBF8F2;
+  --paper-2:         #F4EFE5;
+  --paper-3:         #ECE5D6;
+  --surface-raised:  #FFFFFF;
+
+  /* Color — Ink (warm slate, anchored on Dark Navy) */
+  --ink-1:           #1A2332;  /* primary text = brand navy */
+  --ink-2:           #3F4A5C;  /* body */
+  --ink-3:           #6A7585;  /* secondary */
+  --ink-4:           #9AA3B0;  /* placeholder */
+  --ink-5:           #C9CFD7;  /* disabled */
+
+  /* Color — Semantic */
+  --go:              #2E8B5A;
+  --go-bg:           #E2F1E8;
+  --stop:            #D14B3D;
+  --stop-bg:         #FBE3DF;
+  --caution:         #E8B23A;
+  --caution-bg:      #FBEFC9;
+  --info:            #2589BD;
+  --info-bg:         #E6F3FA;
+
+  /* Borders */
+  --border-1:        rgba(26, 35, 50, 0.10);
+  --border-2:        rgba(26, 35, 50, 0.18);
+  --border-strong:   rgba(26, 35, 50, 0.32);
+  --border-dashed:   rgba(232, 150, 122, 0.55);
+
+  /* ============================================================
+     TYPE
+     ============================================================ */
+  --font-display:    'DM Serif Display', 'Cambria', 'Georgia', serif;
+  --font-body:       'DM Sans', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --font-mono:       'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --fs-12: 0.75rem;   --fs-13: 0.8125rem; --fs-14: 0.875rem; --fs-16: 1rem;
+  --fs-18: 1.125rem;  --fs-20: 1.25rem;   --fs-24: 1.5rem;   --fs-30: 1.875rem;
+  --fs-36: 2.25rem;   --fs-48: 3rem;      --fs-64: 4rem;     --fs-80: 5rem;  --fs-96: 6rem;
+
+  --lh-tight:  1.05;
+  --lh-snug:   1.2;
+  --lh-base:   1.5;
+  --lh-loose:  1.65;
+
+  --tracking-tight: -0.015em;
+  --tracking-base:   0;
+  --tracking-wide:   0.04em;
+  --tracking-label:  0.1em;
+
+  /* SPACING — 8px base */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-8: 48px; --space-10: 64px; --space-12: 96px;
+
+  /* RADII */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 18px; --r-xl: 28px; --r-pill: 999px;
+
+  /* SHADOWS */
+  --shadow-1: 0 1px 2px rgba(26,35,50,.06), 0 1px 0 rgba(26,35,50,.04);
+  --shadow-2: 0 6px 16px rgba(26,35,50,.08), 0 1px 2px rgba(26,35,50,.06);
+  --shadow-3: 0 16px 40px rgba(26,35,50,.14), 0 2px 6px rgba(26,35,50,.08);
+  --shadow-salmon: 0 6px 18px rgba(232,150,122,.40);
+  --shadow-sky:    0 6px 18px rgba(91,184,232,.35);
+
+  /* MOTION */
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --d-fast: 150ms; --d-base: 220ms; --d-slow: 320ms;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-1);
+  font-family: var(--font-body);
+  font-size: var(--fs-16);
+  line-height: var(--lh-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, .h1 { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-48); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); color: var(--ink-1); margin: 0; }
+h2, .h2 { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-36); line-height: var(--lh-snug);  letter-spacing: var(--tracking-tight); color: var(--ink-1); margin: 0; }
+h3, .h3 { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-24); line-height: var(--lh-snug);  color: var(--ink-1); margin: 0; }
+h4, .h4 { font-family: var(--font-body); font-weight: 700; font-size: var(--fs-18); line-height: var(--lh-snug); color: var(--ink-1); margin: 0; }
+
+p, .body { font-family: var(--font-body); font-weight: 400; font-size: var(--fs-16); line-height: var(--lh-base); color: var(--ink-2); margin: 0; }
+small, .small { font-size: var(--fs-14); color: var(--ink-3); }
+
+.label   { font-family: var(--font-body); font-weight: 600; font-size: var(--fs-12); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--ink-3); }
+.eyebrow { font-family: var(--font-body); font-weight: 700; font-size: var(--fs-12); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--salmon-700); }
+
+.step-numeral {
+  font-family: var(--font-display); font-weight: 400; font-size: var(--fs-80);
+  line-height: 0.9; color: var(--ink-1); letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums;
+}
+
+code, kbd, samp, .mono { font-family: var(--font-mono); font-size: 0.9em; color: var(--ink-2); }
+
+a { color: var(--sky-700); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color var(--d-fast) var(--ease); }
+a:hover { border-bottom-color: currentColor; }
+
+::selection { background: var(--salmon); color: var(--navy); }
+
+:focus-visible { outline: 2px solid var(--salmon); outline-offset: 2px; border-radius: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    transition-property: opacity !important;
+  }
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" fill="none" stroke="#0B2440" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  
+  <rect x="30" y="30" width="60" height="110" rx="8" fill="#E7F1FA"></rect>
+  <ellipse cx="60" cy="30" rx="30" ry="6" fill="#D2E5F4"></ellipse>
+  <ellipse cx="60" cy="30" rx="30" ry="6"></ellipse>
+  <line x1="30" y1="55" x2="90" y2="55" opacity=".4"></line>
+  <line x1="30" y1="120" x2="90" y2="120" opacity=".4"></line>
+  
+  <rect x="50" y="14" width="20" height="14" rx="3" fill="#F5A524" stroke="#0B2440"></rect>
+  
+  <circle cx="42" cy="140" r="4" fill="#0B2440"></circle>
+  <circle cx="78" cy="140" r="4" fill="#0B2440"></circle>
+  <text x="60" y="90" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#0B2440" stroke="none">DI</text>
+</svg>
