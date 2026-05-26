@@ -269,8 +269,8 @@ section    { padding: var(--space-12) 0; }
 /* ── Footer ── */
 footer { background: var(--navy); border-top: 1px solid var(--navy-3); color: rgba(255,255,255,.6); padding: var(--space-12) 0 var(--space-6); }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: var(--space-10); }
-.footer-brand img { height: 40px; margin-bottom: var(--space-5); }
-.footer-brand p { font-size: var(--fs-14); line-height: var(--lh-loose); max-width: 280px; text-align: center; margin-inline: auto; }
+.footer-brand img { height: 40px; margin-bottom: var(--space-5); display: block; margin-inline: auto; }
+.footer-brand p { font-size: var(--fs-14); line-height: var(--lh-loose); max-width: 280px; text-align: center; margin-inline: auto; color: var(--sky); }
 .footer-socials { display: flex; gap: var(--space-3); margin-top: var(--space-5); }
 .social-link {
   width: 36px; height: 36px; background: rgba(255,255,255,.08); border-radius: var(--r-md);
