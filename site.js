@@ -9,8 +9,8 @@
    4. In Formspree Settings → Integrations → Webhook
       paste your Flyra webhook URL to pipe leads to CRM
 ═══════════════════════════════════════════════ */
-const CONTACT_ENDPOINT = 'https://formspree.io/f/YOUR_CONTACT_FORM_ID';
-const POPUP_ENDPOINT   = 'https://formspree.io/f/YOUR_POPUP_FORM_ID';
+const CONTACT_ENDPOINT = 'https://formspree.io/f/xwvzwovg';
+const POPUP_ENDPOINT   = 'https://formspree.io/f/xwvzwovg';
 
 const POPUP_STORAGE_KEY  = 'cs_popup_seen';
 const POPUP_COOLDOWN_MS  = 7 * 24 * 60 * 60 * 1000; // 7 days
