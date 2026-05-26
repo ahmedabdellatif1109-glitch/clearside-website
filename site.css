@@ -223,7 +223,13 @@ section    { padding: var(--space-12) 0; }
 .plan-tag.best { background: var(--salmon); }
 
 /* ── Reviews ── */
-.reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: var(--space-5); }
+.reviews-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 720px;
+  margin-inline: auto;
+}
 .review-card {
   background: var(--surface-raised); border-radius: var(--r-lg);
   padding: var(--space-6); border: 1px solid var(--border-1);
