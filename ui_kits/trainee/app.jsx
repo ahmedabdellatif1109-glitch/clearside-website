@@ -158,6 +158,7 @@ function App() {
           completedIds={completed}
           currentId={currentId}
           workerName={workerName}
+          quizStats={quizStats}
           onOpenModule={openModule}
           onOpenFinal={() => { setScreen('final'); window.scrollTo({ top: 0, behavior: 'instant' }); }}
         />

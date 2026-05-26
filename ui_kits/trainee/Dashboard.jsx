@@ -1,16 +1,20 @@
 // Dashboard.jsx — worker dashboard
 
-function Dashboard({ progress, completedIds, currentId, onOpenModule, onOpenFinal }) {
+function Dashboard({ progress, completedIds, currentId, workerName, quizStats, onOpenModule, onOpenFinal }) {
   const completedCount = completedIds.size;
   const currentModule = MODULES.find(m => m.id === currentId);
   const allDone = completedCount === MODULES.length;
+  const firstName = workerName ? workerName.split(' ')[0] : null;
+  const quizAnswered = quizStats?.answered || 0;
+  const quizCorrect  = quizStats?.correct  || 0;
+  const quizPct = quizAnswered > 0 ? Math.round((quizCorrect / quizAnswered) * 100) + '%' : '—';
 
   return (
     <div className="cs-page">
       {/* Hero */}
       <div className="cs-hero">
         <div>
-          <div className="cs-hero__eyebrow">Welcome back, Marco</div>
+          <div className="cs-hero__eyebrow">{firstName ? `Welcome, ${firstName}` : 'Welcome'}</div>
           <h1 className="cs-hero__title">
             {allDone
               ? <>One step left. Take the final exam and you're certified.</>
@@ -42,20 +46,20 @@ function Dashboard({ progress, completedIds, currentId, onOpenModule, onOpenFina
         </div>
         <div className="cs-stat cs-stat--accent">
           <div className="cs-stat__label">Quiz score</div>
-          <div className="cs-stat__value">94%</div>
-          <div className="cs-stat__meta">over {completedCount * 3} questions</div>
+          <div className="cs-stat__value">{quizPct}</div>
+          <div className="cs-stat__meta">{quizAnswered > 0 ? `${quizAnswered} questions answered` : 'no quizzes yet'}</div>
         </div>
         <div className="cs-stat">
-          <div className="cs-stat__label">Time spent</div>
-          <div className="cs-stat__value">52m</div>
-          <div className="cs-stat__meta">last session 12m ago</div>
+          <div className="cs-stat__label">Correct answers</div>
+          <div className="cs-stat__value">{quizAnswered > 0 ? quizCorrect : '—'}<span style={{ color: 'var(--ink-4)' }}>{quizAnswered > 0 ? ` / ${quizAnswered}` : ''}</span></div>
+          <div className="cs-stat__meta">{quizAnswered > 0 ? `${quizAnswered - quizCorrect} missed` : 'complete a module first'}</div>
         </div>
         <div className="cs-stat">
           <div className="cs-stat__label">Status</div>
           <div className="cs-stat__value" style={{ fontSize: 22, marginTop: 14 }}>
-            {allDone ? 'Ready for exam' : 'In progress'}
+            {allDone ? 'Ready for exam' : completedCount > 0 ? 'In progress' : 'Not started'}
           </div>
-          <div className="cs-stat__meta">since May 14</div>
+          <div className="cs-stat__meta">{completedCount} of {MODULES.length} modules done</div>
         </div>
       </div>
 
