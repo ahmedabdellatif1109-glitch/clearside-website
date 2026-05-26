@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<!-- ═══════════════════════════════════════════════════════════
+     ClearSide Exteriors — Design Handoff for claude.ai/design
+     Paste this entire file as an HTML artifact.
+     All CSS is inlined. Fonts + FA loaded from CDN.
+     Reveals are pre-visible (no JS needed for design review).
+════════════════════════════════════════════════════════════ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClearSide Exteriors — Design Handoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+/* ── Design tokens ── */
+:root {
+  --sky:#5BB8E8; --sky-600:#3FA3D8; --sky-700:#2589BD; --sky-200:#C2E2F3; --sky-100:#E6F3FA;
+  --salmon:#E8967A; --salmon-600:#DD7E5E; --salmon-700:#BD6244; --salmon-200:#F5C9B8; --salmon-100:#FBE8DE;
+  --navy:#1A2332; --navy-2:#2A3548; --navy-3:#3A4659;
+  --cream:#F4E1CC;
+  --paper:#FBF8F2; --paper-2:#F4EFE5; --paper-3:#ECE5D6;
+  --surface-raised:#FFFFFF;
+  --ink-1:#1A2332; --ink-2:#3F4A5C; --ink-3:#6A7585; --ink-4:#9AA3B0; --ink-5:#C9CFD7;
+  --border-1:rgba(26,35,50,.10); --border-2:rgba(26,35,50,.18);
+  --shadow-1:0 1px 2px rgba(26,35,50,.06),0 1px 0 rgba(26,35,50,.04);
+  --shadow-2:0 6px 16px rgba(26,35,50,.08),0 1px 2px rgba(26,35,50,.06);
+  --shadow-3:0 16px 40px rgba(26,35,50,.14),0 2px 6px rgba(26,35,50,.08);
+  --shadow-salmon:0 6px 18px rgba(232,150,122,.40);
+  --shadow-sky:0 6px 18px rgba(91,184,232,.35);
+  --font-display:'DM Serif Display','Cambria','Georgia',serif;
+  --font-body:'DM Sans',system-ui,-apple-system,'Helvetica Neue',sans-serif;
+  --fs-12:.75rem; --fs-13:.8125rem; --fs-14:.875rem; --fs-16:1rem;
+  --fs-18:1.125rem; --fs-20:1.25rem; --fs-24:1.5rem; --fs-30:1.875rem;
+  --fs-36:2.25rem; --fs-48:3rem;
+  --lh-tight:1.05; --lh-snug:1.2; --lh-base:1.5; --lh-loose:1.65;
+  --tracking-tight:-0.015em; --tracking-label:0.1em;
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:24px; --space-6:32px; --space-8:48px; --space-10:64px; --space-12:96px;
+  --r-sm:8px; --r-md:12px; --r-lg:18px; --r-xl:28px; --r-pill:999px;
+  --ease:cubic-bezier(.2,.7,.2,1); --d-fast:150ms; --d-base:220ms; --d-slow:320ms;
+}
+
+/* ── Reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+img{max-width:100%;display:block;}
+ul{list-style:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+body{font-family:var(--font-body);color:var(--ink-1);background:var(--paper);line-height:var(--lh-base);font-size:var(--fs-16);-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;border-bottom:none;}
+h1{font-family:var(--font-display);font-weight:400;font-size:clamp(2.4rem,4.5vw,3.6rem);line-height:var(--lh-tight);letter-spacing:var(--tracking-tight);}
+h2{font-family:var(--font-display);font-weight:400;font-size:clamp(1.7rem,3vw,2.25rem);line-height:var(--lh-snug);letter-spacing:var(--tracking-tight);}
+h3{font-family:var(--font-display);font-weight:400;font-size:var(--fs-20);line-height:var(--lh-snug);}
+h4{font-family:var(--font-body);font-weight:700;font-size:var(--fs-16);line-height:var(--lh-snug);}
+p{color:var(--ink-2);line-height:var(--lh-loose);}
+.eyebrow{font-family:var(--font-body);font-weight:700;font-size:var(--fs-12);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--salmon-700);}
+
+/* ── Layout ── */
+.container{max-width:1160px;margin:0 auto;padding:0 var(--space-5);}
+section{padding:var(--space-12) 0;}
+.bg-paper{background:var(--paper);}
+.bg-white{background:var(--surface-raised);}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;gap:var(--space-2);padding:14px 28px;border-radius:var(--r-pill);font-family:var(--font-body);font-weight:600;font-size:var(--fs-16);border:2px solid transparent;transition:all var(--d-base) var(--ease);white-space:nowrap;text-decoration:none;cursor:pointer;line-height:1;}
+.btn-primary{background:var(--salmon);color:#fff;border-color:var(--salmon);}
+.btn-primary:hover{background:var(--salmon-600);border-color:var(--salmon-600);transform:translateY(-2px);box-shadow:var(--shadow-salmon);}
+.btn-navy{background:var(--navy);color:#fff;border-color:var(--navy);}
+.btn-navy:hover{background:var(--navy-2);transform:translateY(-2px);}
+.btn-outline-white{background:transparent;color:#fff;border-color:rgba(255,255,255,.55);}
+.btn-outline-white:hover{background:#fff;color:var(--navy);transform:translateY(-2px);}
+.btn-sm{padding:10px 20px;font-size:var(--fs-14);}
+
+/* ── Nav ── */
+.site-nav{position:sticky;top:0;z-index:900;background:rgba(26,35,50,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--navy-3);box-shadow:0 4px 24px rgba(0,0,0,.2);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1160px;margin:0 auto;padding:0 var(--space-5);}
+.nav-logo{display:flex;align-items:center;gap:var(--space-3);}
+.nav-logo img{height:34px;width:auto;}
+.nav-logo-text{font-family:var(--font-display);font-size:var(--fs-20);color:#fff;}
+.nav-logo-text .sky{color:var(--sky);}
+.nav-logo-text .salmon{color:var(--salmon);}
+.nav-links{display:flex;align-items:center;gap:var(--space-6);}
+.nav-links a{font-weight:500;font-size:var(--fs-14);color:rgba(255,255,255,.78);position:relative;}
+.nav-links a.active,.nav-links a:hover{color:#fff;}
+.nav-right{display:flex;align-items:center;gap:var(--space-4);}
+.nav-phone{color:rgba(255,255,255,.7);font-size:var(--fs-14);font-weight:500;}
+
+/* ── Hero ── */
+.hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(160deg,rgba(26,35,50,0.92) 0%,rgba(26,35,50,0.80) 45%,rgba(42,53,72,0.65) 100%),url('https://windowcleaner.com/cdn/shop/articles/DSC00035.jpg?v=1750947989') center/cover no-repeat;padding-top:68px;position:relative;overflow:hidden;}
+.hero-content{max-width:1160px;margin:0 auto;padding:5rem var(--space-5);display:grid;grid-template-columns:1.1fr 0.9fr;gap:5rem;align-items:center;position:relative;z-index:1;width:100%;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);border-radius:var(--r-pill);padding:6px 16px;font-size:var(--fs-13);font-weight:600;color:rgba(255,255,255,.85);margin-bottom:var(--space-5);letter-spacing:.02em;}
+.hero-eyebrow i{color:var(--salmon);}
+.hero h1{color:#fff;margin-bottom:var(--space-5);}
+.hero h1 em{font-style:italic;color:var(--sky);}
+.hero-sub{color:rgba(255,255,255,.75);font-size:var(--fs-18);line-height:var(--lh-loose);margin-bottom:var(--space-6);max-width:520px;}
+.hero-btns{display:flex;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6);}
+.hero-trust{display:flex;gap:var(--space-5);flex-wrap:wrap;}
+.hero-trust-item{display:flex;align-items:center;gap:var(--space-2);color:rgba(255,255,255,.65);font-size:var(--fs-13);font-weight:500;}
+.hero-trust-item i{color:var(--sky);}
+.hero-card{background:rgba(255,255,255,.10);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.18);border-radius:var(--r-xl);padding:var(--space-6);color:#fff;}
+.hero-card-title{font-family:var(--font-body);font-weight:700;font-size:var(--fs-13);letter-spacing:var(--tracking-label);text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:var(--space-4);}
+.hero-card-list{display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-5);}
+.hero-card-item{display:flex;align-items:center;gap:var(--space-3);font-size:var(--fs-16);font-weight:500;}
+.hero-card-item i{color:var(--salmon);}
+.hero-card-divider{height:1px;background:rgba(255,255,255,.15);margin-bottom:var(--space-5);}
+.hero-card-cta-label{font-size:var(--fs-13);color:rgba(255,255,255,.55);margin-bottom:var(--space-2);}
+.hero-card-phone{display:flex;align-items:center;gap:var(--space-2);font-family:var(--font-display);font-size:var(--fs-24);color:#fff;}
+.hero-card-phone i{color:var(--sky);}
+
+/* ── Trust bar ── */
+.trust-bar{background:var(--surface-raised);border-bottom:1px solid var(--border-1);padding:var(--space-5) 0;}
+.trust-grid{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:var(--space-3) var(--space-8);}
+.trust-item{display:flex;align-items:center;gap:var(--space-2);font-weight:600;font-size:var(--fs-14);color:var(--ink-2);}
+.trust-item i{color:var(--sky);}
+
+/* ── Section head ── */
+.section-head{text-align:center;max-width:640px;margin:0 auto var(--space-10);}
+.section-head .eyebrow{display:block;margin-bottom:var(--space-3);}
+.section-head h2{margin-bottom:var(--space-4);}
+.section-head p{color:var(--ink-2);font-size:var(--fs-18);}
+
+/* ── Service cards ── */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-5);}
+.svc-card{background:var(--surface-raised);border-radius:var(--r-lg);padding:var(--space-6);border:1px solid var(--border-1);box-shadow:var(--shadow-1);transition:all var(--d-base) var(--ease);position:relative;overflow:hidden;}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--sky);transform:scaleX(0);transform-origin:left;transition:transform var(--d-base) var(--ease);}
+.svc-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-3);}
+.svc-card:hover::before{transform:scaleX(1);}
+.svc-icon{width:52px;height:52px;border-radius:var(--r-md);background:var(--sky-100);display:flex;align-items:center;justify-content:center;color:var(--sky-700);margin-bottom:var(--space-4);font-size:1.3rem;transition:all var(--d-base) var(--ease);}
+.svc-card:hover .svc-icon{background:var(--sky);color:#fff;}
+.svc-card h3{margin-bottom:var(--space-3);}
+.svc-card p{font-size:var(--fs-14);color:var(--ink-3);line-height:var(--lh-loose);margin-bottom:var(--space-4);}
+.svc-link{display:inline-flex;align-items:center;gap:var(--space-2);font-weight:600;font-size:var(--fs-14);color:var(--sky-700);}
+
+/* ── Why ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.why-features{display:flex;flex-direction:column;gap:var(--space-6);}
+.feature-row{display:flex;gap:var(--space-4);align-items:flex-start;}
+.feat-icon{width:44px;height:44px;border-radius:var(--r-md);background:var(--sky-100);display:flex;align-items:center;justify-content:center;color:var(--sky-700);flex-shrink:0;font-size:1.1rem;}
+.feat-text h4{margin-bottom:var(--space-2);}
+.feat-text p{font-size:var(--fs-14);color:var(--ink-3);}
+.stats-block{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);}
+.stat-tile{background:var(--surface-raised);border-radius:var(--r-lg);padding:var(--space-6) var(--space-5);text-align:center;border:1px solid var(--border-1);box-shadow:var(--shadow-1);}
+.stat-num{font-family:var(--font-display);font-size:var(--fs-48);color:var(--sky);line-height:1;margin-bottom:var(--space-2);}
+.stat-lbl{font-size:var(--fs-13);color:var(--ink-3);font-weight:500;}
+
+/* ── Plans ── */
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:var(--space-4);}
+.plan-card{background:var(--surface-raised);border-radius:var(--r-lg);padding:var(--space-6) var(--space-5);text-align:center;border:2px solid var(--border-1);transition:all var(--d-base) var(--ease);}
+.plan-card.featured{border-color:var(--sky);box-shadow:0 0 0 4px rgba(91,184,232,.12);}
+.plan-card:hover{border-color:var(--sky);transform:translateY(-4px);box-shadow:var(--shadow-3);}
+.plan-freq{font-family:var(--font-display);font-size:var(--fs-36);color:var(--sky);line-height:1;margin:var(--space-3) 0 var(--space-2);}
+.plan-name{font-weight:700;font-size:var(--fs-16);margin-bottom:var(--space-3);}
+.plan-desc{font-size:var(--fs-14);color:var(--ink-3);}
+.plan-tag{display:inline-block;background:var(--sky);color:#fff;font-size:var(--fs-12);font-weight:700;padding:3px 12px;border-radius:var(--r-pill);text-transform:uppercase;letter-spacing:.04em;margin-bottom:var(--space-3);}
+.plan-tag.best{background:var(--salmon);}
+
+/* ── Reviews ── */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:var(--space-5);}
+.review-card{background:var(--surface-raised);border-radius:var(--r-lg);padding:var(--space-6);border:1px solid var(--border-1);box-shadow:var(--shadow-1);transition:all var(--d-base) var(--ease);}
+.review-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-3);}
+.stars{color:#F59E0B;font-size:var(--fs-16);letter-spacing:2px;margin-bottom:var(--space-4);}
+.review-text{font-size:var(--fs-16);color:var(--ink-2);line-height:var(--lh-loose);font-style:italic;margin-bottom:var(--space-5);}
+.reviewer{display:flex;align-items:center;gap:var(--space-3);}
+.reviewer-avatar{width:40px;height:40px;border-radius:50%;background:var(--sky-100);color:var(--sky-700);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--fs-16);flex-shrink:0;}
+.reviewer-name{font-weight:700;font-size:var(--fs-14);color:var(--ink-1);}
+.reviewer-loc{font-size:var(--fs-13);color:var(--ink-3);}
+
+/* ── Area ── */
+.area-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--space-3);max-width:900px;margin:0 auto;}
+.area-tag{background:var(--surface-raised);border:1.5px solid var(--border-1);border-radius:var(--r-md);padding:var(--space-3) var(--space-4);text-align:center;font-size:var(--fs-14);font-weight:500;color:var(--ink-2);transition:all var(--d-fast) var(--ease);}
+.area-tag:hover{border-color:var(--sky);color:var(--sky-700);background:var(--sky-100);}
+.area-tag.primary{border-color:var(--sky);color:var(--sky-700);background:var(--sky-100);font-weight:700;}
+
+/* ── CTA ── */
+.cta-banner{background:var(--navy);padding:var(--space-12) 0;text-align:center;}
+.cta-banner .eyebrow{margin-bottom:var(--space-4);}
+.cta-banner h2{color:#fff;margin-bottom:var(--space-4);}
+.cta-banner p{color:rgba(255,255,255,.65);font-size:var(--fs-18);max-width:520px;margin:0 auto var(--space-8);}
+.cta-btns{display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap;}
+
+/* ── Footer ── */
+footer{background:var(--navy);border-top:1px solid var(--navy-3);color:rgba(255,255,255,.6);padding:var(--space-12) 0 var(--space-6);}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:4rem;margin-bottom:var(--space-10);}
+.footer-brand p{font-size:var(--fs-14);line-height:var(--lh-loose);max-width:280px;}
+.footer-logo{font-family:var(--font-display);font-size:var(--fs-24);color:#fff;margin-bottom:var(--space-5);display:block;}
+.footer-logo .sky{color:var(--sky);}
+.footer-logo .salmon{color:var(--salmon);}
+.footer-socials{display:flex;gap:var(--space-3);margin-top:var(--space-5);}
+.social-link{width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);transition:all var(--d-fast) var(--ease);}
+.social-link:hover{background:var(--sky);color:#fff;}
+.footer-col h4{color:#fff;font-size:var(--fs-14);margin-bottom:var(--space-5);font-weight:600;}
+.footer-col ul{display:flex;flex-direction:column;gap:var(--space-3);}
+.footer-col ul a{color:rgba(255,255,255,.55);font-size:var(--fs-14);transition:color var(--d-fast) var(--ease);}
+.footer-col ul a:hover{color:var(--sky);}
+.footer-contact-row{display:flex;align-items:flex-start;gap:var(--space-3);margin-bottom:var(--space-4);}
+.footer-contact-row i{color:var(--sky);margin-top:3px;font-size:var(--fs-14);}
+.footer-contact-row a,.footer-contact-row span{color:rgba(255,255,255,.55);font-size:var(--fs-14);}
+.footer-bottom{border-top:1px solid var(--navy-3);padding-top:var(--space-5);display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--space-3);}
+.footer-bottom p{font-size:var(--fs-13);color:rgba(255,255,255,.3);}
+
+/* ── Popup ── */
+.popup-overlay{position:fixed;inset:0;z-index:9000;background:rgba(26,35,50,.72);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:var(--space-5);}
+.popup-box{background:var(--surface-raised);border-radius:var(--r-xl);width:100%;max-width:480px;position:relative;box-shadow:var(--shadow-3);overflow:hidden;}
+.popup-top{background:var(--navy);padding:var(--space-8) var(--space-6) var(--space-6);text-align:center;position:relative;}
+.popup-close{position:absolute;top:var(--space-4);right:var(--space-4);width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);cursor:pointer;}
+.popup-badge{display:inline-flex;align-items:center;gap:var(--space-2);background:rgba(232,150,122,.2);border:1px solid rgba(232,150,122,.4);border-radius:var(--r-pill);padding:5px 14px;font-size:var(--fs-13);font-weight:600;color:var(--salmon-200);margin-bottom:var(--space-4);}
+.popup-top h2{color:#fff;font-size:var(--fs-30);margin-bottom:var(--space-3);}
+.popup-top p{color:rgba(255,255,255,.65);font-size:var(--fs-15);}
+.popup-bottom{padding:var(--space-6);}
+.popup-form-group{margin-bottom:var(--space-4);}
+.popup-form-group label{display:block;font-size:var(--fs-13);font-weight:600;color:var(--ink-2);margin-bottom:var(--space-2);}
+.popup-form-group input{width:100%;padding:12px 16px;border:1.5px solid var(--border-2);border-radius:var(--r-md);font-family:var(--font-body);font-size:var(--fs-16);color:var(--ink-1);background:var(--paper);outline:none;}
+.popup-submit{width:100%;justify-content:center;padding:14px;font-size:var(--fs-16);}
+.popup-fine{font-size:var(--fs-12);color:var(--ink-4);text-align:center;margin-top:var(--space-3);}
+.popup-skip{display:block;text-align:center;margin-top:var(--space-4);font-size:var(--fs-13);color:var(--ink-3);cursor:pointer;width:100%;padding:var(--space-2);}
+
+/* ── Reveals pre-visible for design handoff ── */
+.reveal{opacity:1!important;transform:none!important;}
+
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:none;}}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,150,122,.4);}60%{box-shadow:0 0 0 12px rgba(232,150,122,0);}}
+.hero-eyebrow{animation:fadeUp .5s var(--ease) .1s both;}
+.hero h1{animation:fadeUp .65s var(--ease) .2s both;}
+.hero-sub{animation:fadeUp .65s var(--ease) .32s both;}
+.hero-btns{animation:fadeUp .65s var(--ease) .42s both;}
+.hero-trust{animation:fadeUp .65s var(--ease) .52s both;}
+.hero-card{animation:fadeUp .75s var(--ease) .35s both,floatY 6s ease-in-out 1.1s infinite;}
+.cta-banner .btn-primary{animation:pulse 2.8s ease-in-out infinite;}
+
+/* ── Responsive ── */
+@media(max-width:960px){.hero-content,.why-grid,.footer-grid{grid-template-columns:1fr;}.hero-card{max-width:440px;}}
+@media(max-width:768px){section{padding:var(--space-10) 0;}.hero{text-align:center;}.hero-btns,.hero-trust{justify-content:center;}}
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     POPUP (shown by default for design preview)
+════════════════════════════════════ -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-box">
+    <div class="popup-top">
+      <button class="popup-close" onclick="document.getElementById('popupOverlay').style.display='none'">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="popup-badge"><i class="fas fa-tag"></i> Limited-Time Offer</div>
+      <h2>Get 10% Off<br>Your First Cleaning</h2>
+      <p>Drop your email and we'll send the discount straight to your inbox — no spam, ever.</p>
+    </div>
+    <div class="popup-bottom">
+      <div class="popup-form-group">
+        <label>First Name</label>
+        <input type="text" placeholder="Jane">
+      </div>
+      <div class="popup-form-group">
+        <label>Email Address *</label>
+        <input type="email" placeholder="jane@email.com">
+      </div>
+      <button class="btn btn-primary popup-submit"><i class="fas fa-tag"></i> Claim My 10% Off</button>
+      <p class="popup-fine">By submitting you agree to receive occasional emails from ClearSide Exteriors. Unsubscribe anytime.</p>
+      <button class="popup-skip" onclick="document.getElementById('popupOverlay').style.display='none'">No thanks, I'll pay full price</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     NAV
+════════════════════════════════════ -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-text"><span class="sky">Clear</span><span class="salmon">Side</span> Exteriors</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:+12249859327" class="nav-phone"><i class="fas fa-phone"></i> (224) 985-9327</a>
+      <a href="#" class="btn btn-primary btn-sm">Get a Free Quote</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════
+     HERO
+════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-eyebrow"><i class="fas fa-map-marker-alt"></i> Serving the North Shore Since 2022</div>
+      <h1>The North Shore's Window Cleaning <em>Experts</em></h1>
+      <p class="hero-sub">Student-founded at Glenbrook South. Streak-free windows, spotless surfaces, honest pricing — your neighbor, not a national franchise.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn btn-primary"><i class="fas fa-comments-dollar"></i> Get a Free Quote</a>
+        <a href="#" class="btn btn-outline-white"><i class="fas fa-arrow-right"></i> Our Services</a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-item"><i class="fas fa-shield-check"></i> Streak-Free Guarantee</div>
+        <div class="hero-trust-item"><i class="fas fa-tag"></i> Free Estimates</div>
+        <div class="hero-trust-item"><i class="fas fa-clock"></i> Fast Response</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <p class="hero-card-title">What We Offer</p>
+        <div class="hero-card-list">
+          <div class="hero-card-item"><i class="fas fa-check-circle"></i> Residential Window Cleaning</div>
+          <div class="hero-card-item"><i class="fas fa-check-circle"></i> Commercial Window Cleaning</div>
+          <div class="hero-card-item"><i class="fas fa-check-circle"></i> Pressure &amp; Soft Washing</div>
+          <div class="hero-card-item"><i class="fas fa-check-circle"></i> Gutter Cleaning</div>
+          <div class="hero-card-item"><i class="fas fa-check-circle"></i> Screen Cleaning</div>
+        </div>
+        <div class="hero-card-divider"></div>
+        <p class="hero-card-cta-label">Call or text anytime</p>
+        <a href="tel:+12249859327" class="hero-card-phone"><i class="fas fa-phone"></i> (224) 985-9327</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     TRUST BAR
+════════════════════════════════════ -->
+<div class="trust-bar">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item"><i class="fas fa-trophy"></i><span>3+ Years on the North Shore</span></div>
+      <div class="trust-item"><i class="fas fa-graduation-cap"></i><span>Glenbrook South Founded</span></div>
+      <div class="trust-item"><i class="fas fa-map-marker-alt"></i><span>Local — Not a Franchise</span></div>
+      <div class="trust-item"><i class="fas fa-tag"></i><span>Free Estimates, Always</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     SERVICES
+════════════════════════════════════ -->
+<section class="bg-paper">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What We Do</span>
+      <h2>Expert Exterior Cleaning Services</h2>
+      <p>From streak-free residential windows to full commercial facilities and gutters — done right, every time.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card"><div class="svc-icon"><i class="fas fa-house"></i></div><h3>Residential Windows</h3><p>Interior &amp; exterior window cleaning using deionized water. Crystal-clear, streak-free, every pane.</p><a href="#" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a></div>
+      <div class="svc-card"><div class="svc-icon"><i class="fas fa-building"></i></div><h3>Commercial Windows</h3><p>Storefront and office window cleaning scheduled around your business hours. First impressions matter.</p><a href="#" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a></div>
+      <div class="svc-card"><div class="svc-icon"><i class="fas fa-spray-can-sparkles"></i></div><h3>Pressure Washing</h3><p>Driveways, patios, siding, and walkways power-cleaned back to life. Soft wash available too.</p><a href="#" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a></div>
+      <div class="svc-card"><div class="svc-icon"><i class="fas fa-leaf"></i></div><h3>Gutter Cleaning</h3><p>Full gutter clearing and flush — leaves, debris, downspout check. Protect your home from water damage.</p><a href="#" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a></div>
+      <div class="svc-card"><div class="svc-icon"><i class="fas fa-wind"></i></div><h3>Screen Cleaning</h3><p>Every screen hand-scrubbed, frames detailed. Reinstalled clean — the finishing touch most companies skip.</p><a href="#" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a></div>
+      <div class="svc-card"><div class="svc-icon"><i class="fas fa-calendar-check"></i></div><h3>Recurring Plans</h3><p>Quarterly, semi-annual, or annual service plans so your property always looks its best.</p><a href="#" class="svc-link">Learn more <i class="fas fa-arrow-right"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     WHY + STATS
+════════════════════════════════════ -->
+<section class="bg-white">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-content">
+        <span class="eyebrow">Why Choose Us</span>
+        <h2 style="margin-bottom:var(--space-5);">Quality You Can See. Service You Can Count On.</h2>
+        <p style="margin-bottom:var(--space-8);">ClearSide was built on one promise: show up on time, do the job right, and leave your property looking better than we found it.</p>
+        <div class="why-features">
+          <div class="feature-row"><div class="feat-icon"><i class="fas fa-shield-check"></i></div><div class="feat-text"><h4>Streak-Free Guarantee</h4><p>Deionized water, professional technique. If there's a streak, we fix it.</p></div></div>
+          <div class="feature-row"><div class="feat-icon"><i class="fas fa-clock"></i></div><div class="feat-text"><h4>Reliable &amp; On Time</h4><p>We respect your schedule — text before arrival, no mess left behind.</p></div></div>
+          <div class="feature-row"><div class="feat-icon"><i class="fas fa-heart"></i></div><div class="feat-text"><h4>Your North Shore Neighbor</h4><p>Founded locally, based locally. Every job is a chance to make our community look its best.</p></div></div>
+          <div class="feature-row"><div class="feat-icon"><i class="fas fa-tag"></i></div><div class="feat-text"><h4>Honest, Fair Pricing</h4><p>Free estimates, no hidden fees, no surprises. Just great results.</p></div></div>
+        </div>
+      </div>
+      <div class="stats-block">
+        <div class="stat-tile"><i class="fas fa-trophy" style="font-size:1.4rem;color:var(--sky);margin-bottom:.5rem;display:block;"></i><div class="stat-num">3+</div><div class="stat-lbl">Years on the North Shore</div></div>
+        <div class="stat-tile"><i class="fas fa-shield-halved" style="font-size:1.4rem;color:var(--sky);margin-bottom:.5rem;display:block;"></i><div class="stat-num">100%</div><div class="stat-lbl">Streak-Free Guarantee</div></div>
+        <div class="stat-tile"><i class="fas fa-spray-can-sparkles" style="font-size:1.4rem;color:var(--sky);margin-bottom:.5rem;display:block;"></i><div class="stat-num">5</div><div class="stat-lbl">Services Offered</div></div>
+        <div class="stat-tile"><i class="fas fa-tag" style="font-size:1.4rem;color:var(--sky);margin-bottom:.5rem;display:block;"></i><div class="stat-num">Free</div><div class="stat-lbl">Estimates Always</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     PLANS
+════════════════════════════════════ -->
+<section class="bg-paper">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">Recurring Service Plans</span><h2>Never Worry About Dirty Windows Again</h2><p>Set it and forget it. Choose the schedule that works for your home or business.</p></div>
+    <div class="plans-grid">
+      <div class="plan-card"><div class="plan-tag">Annual</div><div class="plan-freq">1×</div><div class="plan-name">Once a Year</div><p class="plan-desc">A full-service seasonal refresh — perfect for lower-maintenance homes.</p></div>
+      <div class="plan-card"><div class="plan-tag">Semi-Annual</div><div class="plan-freq">2×</div><div class="plan-name">Twice a Year</div><p class="plan-desc">Spring and fall cleanings to keep your home looking its best year-round.</p></div>
+      <div class="plan-card"><div class="plan-tag">Triannual</div><div class="plan-freq">3×</div><div class="plan-name">Three Times</div><p class="plan-desc">An extra mid-year visit for spotless windows through every season.</p></div>
+      <div class="plan-card featured"><div class="plan-tag best">Most Popular</div><div class="plan-freq">4×</div><div class="plan-name">Quarterly</div><p class="plan-desc">Four visits a year — the gold standard for year-round clean windows.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:var(--space-8);"><a href="#" class="btn btn-navy">Get a Plan Quote <i class="fas fa-arrow-right"></i></a></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     REVIEWS
+════════════════════════════════════ -->
+<section class="bg-white">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">What Customers Say</span><h2>Trusted by North Shore Homeowners &amp; Businesses</h2></div>
+    <div class="reviews-grid">
+      <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Absolutely love the results! My windows haven't looked this clean since we moved in. Professional, on time, and very reasonably priced."</p><div class="reviewer"><div class="reviewer-avatar">S</div><div><div class="reviewer-name">Sarah M.</div><div class="reviewer-loc">Glenview, IL</div></div></div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Used ClearSide for our storefront and the difference was immediate. Customers commented on how clean our windows looked. Flexible scheduling."</p><div class="reviewer"><div class="reviewer-avatar">M</div><div><div class="reviewer-name">Mike T.</div><div class="reviewer-loc">Business Owner, Glenview</div></div></div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Hired them for spring cleaning — windows, driveway, the whole deal. Can't believe the quality for the price. Supporting local is a bonus!"</p><div class="reviewer"><div class="reviewer-avatar">J</div><div><div class="reviewer-name">Jennifer K.</div><div class="reviewer-loc">Northbrook, IL</div></div></div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Reached out for a quote and had an appointment the next day. The screens looked brand new — extremely thorough and respectful of our property."</p><div class="reviewer"><div class="reviewer-avatar">D</div><div><div class="reviewer-name">David R.</div><div class="reviewer-loc">Wilmette, IL</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     SERVICE AREA
+════════════════════════════════════ -->
+<section class="bg-paper">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">Where We Work</span><h2>Serving the North Shore &amp; Cook County</h2><p>We cover communities across the North Shore and greater Cook County. Don't see your town? Just ask.</p></div>
+    <div class="area-grid">
+      <div class="area-tag primary">Glenview <i class="fas fa-star" style="font-size:.65rem;margin-left:.2rem;"></i></div>
+      <div class="area-tag">Northbrook</div><div class="area-tag">Wilmette</div><div class="area-tag">Skokie</div>
+      <div class="area-tag">Morton Grove</div><div class="area-tag">Niles</div><div class="area-tag">Park Ridge</div>
+      <div class="area-tag">Des Plaines</div><div class="area-tag">Highland Park</div><div class="area-tag">Deerfield</div>
+      <div class="area-tag">Glencoe</div><div class="area-tag">Evanston</div><div class="area-tag">Cook County</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     CTA
+════════════════════════════════════ -->
+<section class="cta-banner">
+  <div class="container">
+    <span class="eyebrow" style="color:rgba(255,255,255,.5);">Ready to Get Started?</span>
+    <h2>Get Your Free Estimate Today</h2>
+    <p>Call, text, or fill out our form. We'll get back to you fast with a no-obligation quote.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn btn-primary"><i class="fas fa-comments-dollar"></i> Request a Quote</a>
+      <a href="tel:+12249859327" class="btn btn-outline-white"><i class="fas fa-phone"></i> (224) 985-9327</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="footer-logo"><span class="sky">Clear</span><span class="salmon">Side</span> Exteriors</span>
+        <p>Professional exterior cleaning for the North Shore and greater Cook County. Student-owned, community-driven, streak-free results.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-link"><i class="fab fa-google"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul><li><a href="#">Home</a></li><li><a href="#">Services</a></li><li><a href="#">About Us</a></li><li><a href="#">Contact</a></li><li><a href="#">Get a Free Quote</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact-row"><i class="fas fa-phone"></i><a href="tel:+12249859327">(224) 985-9327</a></div>
+        <div class="footer-contact-row"><i class="fas fa-envelope"></i><a href="mailto:clearsidexteriors@gmail.com">clearsidexteriors@gmail.com</a></div>
+        <div class="footer-contact-row"><i class="fas fa-map-marker-alt"></i><span>Glenview, IL &amp; Cook County</span></div>
+        <div class="footer-contact-row"><i class="fas fa-comment-sms"></i><span>Call or text — we respond fast</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 ClearSide Exteriors, LLC. All rights reserved.</p>
+      <p>Student-owned &amp; operated — Glenview, IL</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
