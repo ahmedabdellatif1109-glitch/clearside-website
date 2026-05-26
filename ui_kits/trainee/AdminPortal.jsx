@@ -1,6 +1,6 @@
 // AdminPortal.jsx — admin view (CSEADMIN code)
 
-function AdminPortal({ liveCompleted, liveStats, liveName }) {
+function AdminPortal({ view, liveCompleted, liveStats, liveName }) {
   const [trainees, setTrainees] = React.useState([]);
 
   React.useEffect(() => {
@@ -37,6 +37,67 @@ function AdminPortal({ liveCompleted, liveStats, liveName }) {
   const inProgress  = trainees.filter(t => !t.certified && t.completedModules > 0).length;
   const notStarted  = trainees.filter(t => t.completedModules === 0 && !t.certified).length;
   const certRate    = trainees.length ? Math.round((certified / trainees.length) * 100) : 0;
+
+  if (view === 'modules') {
+    return (
+      <div className="cs-page">
+        <div className="cs-hero">
+          <div>
+            <div className="cs-hero__eyebrow">Admin Portal</div>
+            <h1 className="cs-hero__title">Module completion.</h1>
+            <p className="cs-hero__sub">
+              {trainees.length === 0
+                ? 'No trainees yet.'
+                : `Based on ${trainees.length} trainee${trainees.length !== 1 ? 's' : ''} on record.`}
+            </p>
+          </div>
+          <div className="cs-hero__art" aria-hidden><div/><div/><div/><div/></div>
+        </div>
+        <div className="cs-section">
+          <div className="cs-section__head">
+            <h2 className="cs-section__title">All modules</h2>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {MODULES.map((mod, i) => {
+              const modNum = i + 1;
+              const completedCount = trainees.filter(t => (t.completedModules || 0) >= modNum).length;
+              const pct = trainees.length ? Math.round((completedCount / trainees.length) * 100) : 0;
+              return (
+                <div key={mod.id} style={{
+                  background: 'var(--surface-raised)', border: '1px solid var(--border-1)',
+                  borderRadius: 'var(--r-md)', padding: '14px 18px',
+                  display: 'flex', alignItems: 'center', gap: 16,
+                }}>
+                  <div style={{
+                    width: 32, height: 32, borderRadius: '50%',
+                    background: 'var(--navy)', color: 'var(--sky)',
+                    font: '700 13px/32px var(--font-mono)', textAlign: 'center', flexShrink: 0,
+                  }}>{String(modNum).padStart(2,'0')}</div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ font: '600 14px/1.2 var(--font-body)', color: 'var(--ink-1)', marginBottom: 6 }}>
+                      {mod.title}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <div style={{ flex: 1, height: 5, borderRadius: 99, background: 'var(--paper-3)', overflow: 'hidden' }}>
+                        <div style={{
+                          width: `${pct}%`, height: '100%', borderRadius: 99,
+                          background: pct === 100 ? 'var(--go)' : pct > 0 ? 'var(--sky)' : 'var(--ink-5)',
+                          transition: 'width 700ms var(--ease)',
+                        }}/>
+                      </div>
+                      <span style={{ font: '500 12px/1 var(--font-mono)', color: 'var(--ink-3)', whiteSpace: 'nowrap' }}>
+                        {completedCount} / {trainees.length} · {pct}%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="cs-page">

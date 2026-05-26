@@ -37,6 +37,7 @@ function App() {
   const [completed, setCompleted] = React.useState(initialDone);
   const [quizStats, setQuizStats] = React.useState({ answered: 0, correct: 0 });
   const [workerName, setWorkerName] = React.useState('');
+  const [adminView, setAdminView] = React.useState('overview');
   const sessionIdRef = React.useRef(null);
 
   const progress  = Math.round((completed.size / MODULES.length) * 100);
@@ -135,12 +136,13 @@ function App() {
     <>
       <TopNav
         role={role}
-        active={screen === 'admin' ? 'admin' : screen}
+        active={role === 'admin' ? adminView : screen}
         progress={progress}
         onNavigate={(id) => {
-          if (id === 'dashboard' || id === 'admin') {
-            setScreen(id);
-          } else if (id === 'equipment' || id === 'modules') {
+          if (id === 'admin') { setAdminView('overview'); setScreen('admin'); }
+          else if (id === 'modules' && role === 'admin') { setAdminView('modules'); }
+          else if (id === 'dashboard') { setScreen('dashboard'); }
+          else if (id === 'equipment' || id === 'modules') {
             setScreen('dashboard');
             setTimeout(() => document.getElementById('cs-modlist')?.scrollIntoView({ behavior: 'smooth' }), 50);
           } else if (id === 'contact') {
@@ -150,7 +152,7 @@ function App() {
         }}
       />
 
-      {role === 'admin' && <AdminPortal liveCompleted={completed} liveStats={quizStats} liveName={workerName}/>}
+      {role === 'admin' && <AdminPortal view={adminView} liveCompleted={completed} liveStats={quizStats} liveName={workerName}/>}
 
       {role === 'worker' && screen === 'dashboard' && (
         <Dashboard

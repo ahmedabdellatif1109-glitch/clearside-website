@@ -1678,14 +1678,14 @@ html, body { overflow-x: hidden; }
 
   /* ── Top nav ─────────────────────────────────────────────── */
   .cs-topnav {
-    padding: 10px 16px;
-    gap: 8px;
+    padding: 8px 12px;
+    gap: 6px;
   }
-  .cs-topnav__nav { display: none; }
-  .cs-topnav__brand-name { font-size: 15px; }
+  .cs-topnav__nav { display: flex; gap: 2px; }
+  .cs-topnav__nav-item { font-size: 12px; padding: 6px 10px; }
   .cs-topnav__user-info { display: none; }
-  .cs-topnav__avatar { width: 30px; height: 30px; font-size: 11px; }
-  .cs-topnav__user { padding-left: 10px; gap: 8px; }
+  .cs-topnav__avatar { width: 28px; height: 28px; font-size: 11px; }
+  .cs-topnav__user { padding-left: 8px; gap: 6px; }
   .cs-topnav__progress { padding: 5px 10px; gap: 7px; }
   .cs-topnav__pip { width: 7px; height: 7px; }
 
