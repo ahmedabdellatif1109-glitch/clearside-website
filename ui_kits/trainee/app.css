@@ -1146,6 +1146,7 @@ body { background: var(--paper); }
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+  align-items: start;
   overflow: visible;
 }
 @media (max-width: 760px) { .cs-eqgrid { grid-template-columns: repeat(2, 1fr); } }
@@ -1159,7 +1160,6 @@ body { background: var(--paper); }
   text-align: left;
   display: flex; flex-direction: column;
   position: relative;
-  overflow: hidden;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
@@ -1215,33 +1215,17 @@ body { background: var(--paper); }
   padding: 0 4px 6px;
 }
 
-/* Description overlay — slides up from bottom of card on hover */
-.cs-eqtile__tooltip {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: rgba(17, 24, 39, 0.93);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  color: var(--paper);
-  border-radius: 0 0 var(--r-md) var(--r-md);
-  padding: 12px 14px 14px;
-  z-index: 10;
-  pointer-events: none;
-  animation: cs-tooltip-in 160ms var(--ease) both;
+/* Description — expands inline below card name/short, pushes card bottom down */
+.cs-eqtile__desc {
+  font: 400 12px/1.55 var(--font-body);
+  color: var(--ink-2);
+  padding: 8px 4px 4px;
+  border-top: 1px solid var(--border-1);
+  margin-top: 8px;
+  animation: cs-desc-in 160ms var(--ease) both;
 }
-.cs-eqtile__tooltip-name {
-  font: 700 12px/1.2 var(--font-body);
-  color: var(--sky, #5BB8E8);
-  margin-bottom: 5px;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-}
-.cs-eqtile__tooltip-body {
-  font: 400 12px/1.5 var(--font-body);
-  color: rgba(255,255,255,0.88);
-}
-@keyframes cs-tooltip-in {
-  from { opacity: 0; transform: translateY(6px); }
+@keyframes cs-desc-in {
+  from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -1931,7 +1915,10 @@ html, body { overflow-x: hidden; }
   .cs-wfp-diagram__footer { flex-direction: column; gap: 8px; font-size: 12px; }
 
   /* ── Equipment grid ──────────────────────────────────────── */
-  .cs-eqgrid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .cs-eqgrid { grid-template-columns: repeat(2, 1fr); gap: 8px; align-items: start; }
+  .cs-eqtile__name { font-size: 15px; }
+  .cs-eqtile__short { font-size: 11px; }
+  .cs-eqtile__desc { font-size: 12px; }
 
   /* ── Equipment drawer ────────────────────────────────────── */
   .cs-eqdrawer { grid-template-columns: 1fr; }

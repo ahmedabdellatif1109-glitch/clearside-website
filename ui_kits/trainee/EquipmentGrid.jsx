@@ -111,12 +111,8 @@ function EquipmentGrid() {
             </div>
             <div className="cs-eqtile__name">{item.name}</div>
             <div className="cs-eqtile__short">{item.short}</div>
-
             {tooltip === item.id && (
-              <div className="cs-eqtile__tooltip" role="tooltip">
-                <div className="cs-eqtile__tooltip-name">{item.name}</div>
-                <div className="cs-eqtile__tooltip-body">{item.tooltip}</div>
-              </div>
+              <div className="cs-eqtile__desc">{item.tooltip}</div>
             )}
           </div>
         ))}

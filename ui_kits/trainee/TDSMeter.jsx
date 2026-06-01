@@ -61,12 +61,12 @@ function TDSMeter({ onSawFailure }) {
     caution: {
       pill:  'RINSE THOROUGHLY',
       title: '10 PPM — give each window an extra rinse pass.',
-      body:  <>At 10 PPM, the water will still dry clean if you rinse thoroughly — <strong>extra top-down passes on each pane</strong>. Text Ahmed or your tech manager your TDS reading so we can track how fast the tank is dropping.</>,
+      body:  <>At 10 PPM, the water will still dry clean if you rinse thoroughly — <strong>extra top-down passes on each pane</strong>. Text Ahmed or your manager your TDS reading so we can track how fast the resin is dropping.</>,
     },
     warn: {
       pill:  'HIGH — EXTRA RINSING',
       title: 'Above 10 PPM — manageable with thorough rinsing.',
-      body:  <>Light spots are possible if you rush the rinse. <strong>Rinse each pane extra thoroughly — at least two full top-down passes.</strong> This is a field situation, not a stop-work order. DI tanks take about a week to ship, so thorough rinsing is your tool here. Let Ahmed know your reading.</>,
+      body:  <>Light spots are possible if you rush the rinse. <strong>Rinse each pane extra thoroughly — at least two full top-down passes.</strong> This is a field situation, not a stop-work order. DI resin takes about a week to ship, so thorough rinsing is your tool here. Let Ahmed know your reading.</>,
     },
   };
 

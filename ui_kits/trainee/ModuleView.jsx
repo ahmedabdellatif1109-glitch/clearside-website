@@ -323,8 +323,8 @@ const MODULE_BODIES = {
         <ul className="cs-tds-bands">
           <li><span className="cs-tds-band cs-tds-band--perfect">0 PPM</span>Pure water. Glass dries perfectly clear — no effort.</li>
           <li><span className="cs-tds-band cs-tds-band--good">1–9 PPM</span>Completely fine. This is your normal working range — start the job.</li>
-          <li><span className="cs-tds-band cs-tds-band--caution">10 PPM</span>Give each pane an extra rinse pass. Text Ahmed or your tech manager your reading.</li>
-          <li><span className="cs-tds-band cs-tds-band--warn">11+ PPM</span>Rinse every pane with <strong>at least two full top-down passes</strong>. DI tanks take about a week to ship — thorough rinsing is your field tool. Notify Ahmed.</li>
+          <li><span className="cs-tds-band cs-tds-band--caution">10 PPM</span>Give each pane an extra rinse pass. Text Ahmed or your manager your reading.</li>
+          <li><span className="cs-tds-band cs-tds-band--warn">11+ PPM</span>Rinse every pane with <strong>at least two full top-down passes</strong>. DI resin takes about a week to ship — thorough rinsing is your field tool. Notify Ahmed.</li>
         </ul>
         <p className="cs-body">
           Use the arrows on the meter below to scrub through readings and see what each band means. Push past 10 to see the field guidance — the rest of the lesson unlocks once you do.
