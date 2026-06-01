@@ -1159,6 +1159,7 @@ body { background: var(--paper); }
   text-align: left;
   display: flex; flex-direction: column;
   position: relative;
+  overflow: hidden;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
@@ -1214,44 +1215,34 @@ body { background: var(--paper); }
   padding: 0 4px 6px;
 }
 
-/* Tooltip */
+/* Description overlay — slides up from bottom of card on hover */
 .cs-eqtile__tooltip {
   position: absolute;
-  top: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 210px;
-  background: var(--navy, #1A2332);
+  bottom: 0; left: 0; right: 0;
+  background: rgba(17, 24, 39, 0.93);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   color: var(--paper);
-  border-radius: var(--r-md);
-  padding: 12px 14px;
-  z-index: 200;
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  padding: 12px 14px 14px;
+  z-index: 10;
   pointer-events: none;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.28);
-  animation: cs-tooltip-in 130ms var(--ease) both;
-}
-.cs-eqtile__tooltip::before {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-bottom-color: var(--navy, #1A2332);
+  animation: cs-tooltip-in 160ms var(--ease) both;
 }
 .cs-eqtile__tooltip-name {
-  font: 600 13px/1.2 var(--font-body);
+  font: 700 12px/1.2 var(--font-body);
   color: var(--sky, #5BB8E8);
-  margin-bottom: 6px;
-  letter-spacing: .02em;
+  margin-bottom: 5px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
 }
 .cs-eqtile__tooltip-body {
   font: 400 12px/1.5 var(--font-body);
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.88);
 }
 @keyframes cs-tooltip-in {
-  from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Drawer */

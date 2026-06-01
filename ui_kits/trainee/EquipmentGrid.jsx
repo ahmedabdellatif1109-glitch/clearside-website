@@ -1,5 +1,4 @@
 // EquipmentGrid.jsx
-// Hover (desktop) or long-press (mobile) for 1.75s to reveal a brief description.
 
 const EQUIPMENT_ITEMS = [
   {
@@ -70,63 +69,27 @@ const EQUIPMENT_ITEMS = [
 
 function EquipmentGrid() {
   const [tooltip, setTooltip] = React.useState(null);
-  const timerRef = React.useRef(null);
   const touchMovedRef = React.useRef(false);
 
-  // Dismiss tooltip when tapping/clicking outside any tile
-  React.useEffect(() => {
-    if (!tooltip) return;
-    function dismiss(e) {
-      if (!e.target.closest('.cs-eqtile')) setTooltip(null);
-    }
-    document.addEventListener('click', dismiss);
-    document.addEventListener('touchstart', dismiss, { passive: true });
-    return () => {
-      document.removeEventListener('click', dismiss);
-      document.removeEventListener('touchstart', dismiss);
-    };
-  }, [tooltip]);
+  // Desktop: instant hover
+  function onMouseEnter(id) { setTooltip(id); }
+  function onMouseLeave() { setTooltip(null); }
 
-  // Desktop hover
-  function onMouseEnter(id) {
-    clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => setTooltip(id), 1750);
-  }
-  function onMouseLeave() {
-    clearTimeout(timerRef.current);
-    setTooltip(null);
-  }
-
-  // Mobile long-press
-  function onTouchStart(id) {
-    touchMovedRef.current = false;
-    clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      if (!touchMovedRef.current) setTooltip(prev => prev === id ? null : id);
-    }, 1750);
-  }
-  function onTouchMove() {
-    touchMovedRef.current = true;
-    clearTimeout(timerRef.current);
-  }
+  // Mobile: tap to toggle
+  function onTouchStart() { touchMovedRef.current = false; }
+  function onTouchMove() { touchMovedRef.current = true; }
   function onTouchEnd(id) {
     if (touchMovedRef.current) return;
-    if (tooltip === id) {
-      clearTimeout(timerRef.current);
-      setTooltip(null);
-    } else if (tooltip === null) {
-      // Short tap (< 1.75s): don't show
-      clearTimeout(timerRef.current);
-    }
+    setTooltip(prev => prev === id ? null : id);
   }
 
   return (
     <div className="cs-eqgrid-wrap">
       <div className="cs-eqgrid__intro">
         <div className="cs-eqgrid__eyebrow">Know your gear first</div>
-        <h2 className="cs-h2 cs-h2--sky" style={{ marginTop: 6 }}>Hover or hold any tool for a quick description.</h2>
+        <h2 className="cs-h2 cs-h2--sky" style={{ marginTop: 6 }}>Know your gear.</h2>
         <p className="cs-body">
-          Before the procedures, the names. Hold for 1.75 seconds on any item to see what it does.
+          Before the procedures, the names. Hover any item to see what it does.
         </p>
       </div>
 
@@ -137,7 +100,7 @@ function EquipmentGrid() {
             className={`cs-eqtile ${tooltip === item.id ? 'is-active' : ''}`}
             onMouseEnter={() => onMouseEnter(item.id)}
             onMouseLeave={onMouseLeave}
-            onTouchStart={() => onTouchStart(item.id)}
+            onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={() => onTouchEnd(item.id)}
             onTouchCancel={onTouchMove}
