@@ -1,9 +1,7 @@
-[[redirects]]
-  from = "/"
-  to = "/ui_kits/trainee/index.html"
-  status = 301
+[build]
+  publish = "ui_kits/trainee"
 
 [[redirects]]
   from = "/login"
-  to = "/ui_kits/trainee/index.html"
+  to = "/"
   status = 301
