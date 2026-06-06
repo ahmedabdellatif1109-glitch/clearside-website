@@ -10,7 +10,7 @@ function TopNav({ active, onNavigate, progress, role }) {
   return (
     <nav className="cs-topnav">
       <a className="cs-topnav__brand" onClick={() => onNavigate(role === 'admin' ? 'admin' : 'dashboard')}>
-        <img src="../../assets/logo/clearside-full-transparent.png" alt="ClearSide"/>
+        <img src="assets/logo/clearside-full-transparent.png" alt="ClearSide"/>
       </a>
       <div className="cs-topnav__nav">
         {items.map(it => (

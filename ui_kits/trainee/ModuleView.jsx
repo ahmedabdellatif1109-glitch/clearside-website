@@ -378,7 +378,7 @@ const MODULE_BODIES = {
       </p>
 
       <ProductInContext
-        photoSrc="../../assets/equipment-photos/wfp-system.jpeg"
+        photoSrc="assets/equipment-photos/wfp-system.jpeg"
         photoLabel="30 ft carbon-fiber pole · hybrid brush"
         eyebrow="Pole &amp; brush"
         title="One brush, one head."
@@ -456,7 +456,7 @@ const MODULE_BODIES = {
       </ol>
 
       <ProductInContext
-        photoSrc="../../assets/equipment-photos/tool-bag.jpg"
+        photoSrc="assets/equipment-photos/tool-bag.jpg"
         photoLabel="Tool bag · screen pry inside"
         eyebrow="Screen pry"
         title="The flat end goes under the corner tab."
@@ -493,7 +493,7 @@ const MODULE_BODIES = {
       </Callout>
 
       <ProductInContext
-        photoSrc="../../assets/equipment-photos/squeegee.jpeg"
+        photoSrc="assets/equipment-photos/squeegee.jpeg"
         photoLabel="12 in. squeegee"
         eyebrow="Squeegee"
         title="One channel, replaceable rubber."
@@ -501,7 +501,7 @@ const MODULE_BODIES = {
       />
 
       <ProductInContext
-        photoSrc="../../assets/equipment-photos/mop-applicator.webp"
+        photoSrc="assets/equipment-photos/mop-applicator.webp"
         photoLabel="Mop applicator + squeegee combo"
         eyebrow="Mop"
         title="Apply, don't soak."
@@ -509,7 +509,7 @@ const MODULE_BODIES = {
       />
 
       <ProductInContext
-        photoSrc="../../assets/equipment-photos/walnut-pad.webp"
+        photoSrc="assets/equipment-photos/walnut-pad.webp"
         photoLabel="Walnut pad in use"
         eyebrow="Walnut pad"
         title="Only after the mop. Only when it's needed."
@@ -517,7 +517,7 @@ const MODULE_BODIES = {
       />
 
       <ProductInContext
-        photoSrc="../../assets/equipment-photos/surgical-towel.jpeg"
+        photoSrc="assets/equipment-photos/surgical-towel.jpeg"
         photoLabel="Surgical towel detailing a frame"
         eyebrow="Surgical towel"
         title="Wipe between every stroke."

@@ -32,7 +32,7 @@ function AccessGate({ onEnter }) {
       <div className="cs-gate">
         <form className="cs-gate__card cs-gate__card--animate" onSubmit={submitName}>
           <div className="cs-gate__brand">
-            <img src="../../assets/logo/clearside-full-transparent.png" alt="ClearSide Exteriors"/>
+            <img src="assets/logo/clearside-full-transparent.png" alt="ClearSide Exteriors"/>
           </div>
           <div className="cs-gate__title">What's your name?</div>
           <div className="cs-gate__sub">Your name will appear on your certification when you finish.</div>
@@ -61,7 +61,7 @@ function AccessGate({ onEnter }) {
     <div className="cs-gate">
       <form className="cs-gate__card cs-gate__card--animate" onSubmit={submitCode}>
         <div className="cs-gate__brand">
-          <img src="../../assets/logo/clearside-full-transparent.png" alt="ClearSide Exteriors"/>
+          <img src="assets/logo/clearside-full-transparent.png" alt="ClearSide Exteriors"/>
         </div>
         <div className="cs-gate__title">Technician Onboarding</div>
         <div className="cs-gate__sub">Enter your access code to start training.</div>
