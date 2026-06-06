@@ -14,8 +14,8 @@ function AccessGate({ onEnter }) {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      if (c === 'CSEWINDOWS') { setError(''); setStep('name'); }
-      else if (c === 'CSEADMIN') { setError(''); onEnter('admin', ''); }
+      if (c === 'WINDOWS') { setError(''); setStep('name'); }
+      else if (c === 'ADMIN') { setError(''); onEnter('admin', ''); }
       else setError("That code doesn't match. Ask Ahmed (224) 504-4650 if you've lost yours.");
     }, 480);
   }
