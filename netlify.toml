@@ -1,8 +1,2 @@
 [build]
-  publish = "ui_kits/trainee"
-  command = "cp -r assets ui_kits/trainee/"
-
-[[redirects]]
-  from = "/login"
-  to = "/"
-  status = 301
+  publish = "."
