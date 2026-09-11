@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ── Before/after photo transition ── */
+  initBeforeAfter();
+
   /* ── Popup logic ── */
   initPopup();
 
@@ -127,6 +130,21 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
 
 });
+
+/* ═══════════════ BEFORE/AFTER ═══════════════ */
+function initBeforeAfter() {
+  var before = document.querySelector('.ba-before');
+  var badge  = document.getElementById('baBadge');
+  if (!before || !badge) return;
+  var showingBefore = true;
+  function toggle() {
+    showingBefore = !showingBefore;
+    before.classList.toggle('faded', !showingBefore);
+    badge.textContent = showingBefore ? 'BEFORE' : 'AFTER';
+    setTimeout(toggle, showingBefore ? 2000 : 3000);
+  }
+  setTimeout(toggle, 2000);
+}
 
 /* ═══════════════ POPUP ═══════════════ */
 function initPopup() {
