@@ -61,8 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach(el => observer.observe(el));
   }
 
-  /* ── Expandable service cards ── */
+  /* ── Expandable service cards (services page) ── */
   document.querySelectorAll('.ec').forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('a')) return;
+      card.classList.toggle('open');
+    });
+  });
+
+  /* ── Expandable service cards (homepage) ── */
+  document.querySelectorAll('.svc-card').forEach(card => {
     card.addEventListener('click', e => {
       if (e.target.closest('a')) return;
       card.classList.toggle('open');
