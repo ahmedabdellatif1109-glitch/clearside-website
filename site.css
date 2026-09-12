@@ -467,6 +467,14 @@ footer { background: var(--navy); border-top: 1px solid var(--navy-3); color: rg
 .ba-badge { position: absolute; top: var(--space-4); right: var(--space-5); z-index: 3; background: rgba(26,35,50,.85); backdrop-filter: blur(8px); color: #fff; font-size: var(--fs-12); font-weight: 700; padding: var(--space-2) var(--space-4); border-radius: var(--r-pill); letter-spacing: .1em; pointer-events: none; }
 .plans-photo { border-radius: var(--r-xl); overflow: hidden; max-height: 380px; margin-bottom: var(--space-8); }
 .plans-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+.plans-section-bg {
+  position: relative;
+  background: linear-gradient(rgba(10,18,32,.68), rgba(10,18,32,.68)),
+              url('assets/photos/diamond-window-cleaning.jpg') center / cover no-repeat;
+}
+.plans-section-bg .section-head .eyebrow { color: rgba(255,255,255,.55); }
+.plans-section-bg .section-head h2 { color: #fff; }
+.plans-section-bg .section-head p { color: rgba(255,255,255,.72); }
 .founder-quote { max-width: 760px; margin: 0 auto; text-align: center; }
 .quote-mark { font-family: Georgia, serif; font-size: 5rem; color: var(--sky); line-height: 1; display: block; margin-bottom: -1rem; }
 .founder-quote blockquote { font-family: var(--font-display); font-size: var(--fs-20); font-style: italic; color: var(--ink-1); line-height: var(--lh-loose); margin-bottom: var(--space-5); }
