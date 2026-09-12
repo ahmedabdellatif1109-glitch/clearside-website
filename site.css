@@ -207,7 +207,8 @@ section    { padding: var(--space-12) 0; }
   line-height: 1; margin-bottom: var(--space-2);
 }
 .stat-lbl { font-size: var(--fs-13); color: var(--ink-3); font-weight: 500; }
-.stats-block .stat-tile:nth-child(3) { grid-column: 1 / -1; }
+.stats-block .stat-tile:nth-child(3),
+.stats-block .stat-tile:nth-child(4) { grid-column: 1 / -1; }
 .stat-tile-cta {
   grid-column: 1 / -1; text-decoration: none; border-bottom: none;
   transition: background var(--d-base) var(--ease), border-color var(--d-base) var(--ease), transform var(--d-base) var(--ease), box-shadow var(--d-base) var(--ease);
