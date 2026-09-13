@@ -170,7 +170,7 @@ function initBeforeAfter() {
         reset();
       }
     });
-  }, { threshold: 0.4 }).observe(container);
+  }, { threshold: 0.1 }).observe(container);
 }
 
 /* ═══════════════ POPUP ═══════════════ */
