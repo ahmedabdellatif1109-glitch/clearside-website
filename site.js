@@ -6,11 +6,22 @@
       • "ClearSide Popup / Email Capture" → same email
    2. For each, copy the form ID (e.g. xpzgkwqr)
    3. Replace the placeholders below
-   4. In Formspree Settings → Integrations → Webhook
-      paste your Flyra webhook URL to pipe leads to CRM
+   4. Leads also go to Flyra through /api/lead (Netlify Function),
+      which needs FLYRA_API_KEY set in Netlify environment variables
 ═══════════════════════════════════════════════ */
 const CONTACT_ENDPOINT = 'https://formspree.io/f/xwvzwovg';
 const POPUP_ENDPOINT   = 'https://formspree.io/f/xwvzwovg';
+// Netlify Function that creates the lead in Flyra (netlify/functions/lead.mjs)
+const FLYRA_LEAD_ENDPOINT = '/api/lead';
+
+// Best effort: a Flyra failure never blocks the Formspree submission.
+function sendLeadToFlyra(form) {
+  return fetch(FLYRA_LEAD_ENDPOINT, {
+    method: 'POST',
+    body: new FormData(form),
+    keepalive: true,
+  }).catch(err => console.error('Flyra lead failed', err));
+}
 
 const POPUP_STORAGE_KEY  = 'cs_popup_seen';
 const POPUP_COOLDOWN_MS  = 7 * 24 * 60 * 60 * 1000; // 7 days
@@ -237,6 +248,7 @@ function initPopup() {
       btn.disabled = true;
 
       try {
+        sendLeadToFlyra(popupForm);
         const res = await fetch(POPUP_ENDPOINT, {
           method: 'POST',
           headers: { 'Accept': 'application/json' },
@@ -271,6 +283,7 @@ function initContactForm() {
     btn.disabled = true;
 
     try {
+      sendLeadToFlyra(form);
       const res = await fetch(CONTACT_ENDPOINT, {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
