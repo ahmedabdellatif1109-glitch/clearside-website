@@ -14,7 +14,7 @@ FACEBOOK_PROFILE = 'https://www.facebook.com/ClearSideExteriorsLLC/'
 INSTAGRAM_PROFILE = ''
 # Elfsight Google Reviews widget ID (the part after "elfsight-app-" in the
 # embed code). Leave empty to show the three fixed reviews instead.
-ELFSIGHT_APP_ID = ''
+ELFSIGHT_APP_ID = '0ca80300-dbde-4dbe-825a-c13dda83a027'
 YEARS_IN_BUSINESS = '4+'
 HOMES_SERVICED = '600+'
 
