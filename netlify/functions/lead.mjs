@@ -58,7 +58,9 @@ async function connectionCheck(apiKey, keyName, rawKey) {
     ...(!apiKey.startsWith('flr_live_') && {
       keyHint: apiKey.startsWith('flr_')
         ? `Starts with "${apiKey.split('_').slice(0, 2).join('_')}_" instead of "flr_live_".`
-        : `Does not start with "flr_". It is ${apiKey.length} characters long. Copy the secret key value (flr_live_...), not the key's name or ID.`,
+        : apiKey.startsWith('eyJ')
+          ? `This is a login token (starts with "eyJ"), not an API key. Create an API key at https://app.flyra.io/developer and copy its flr_live_ value.`
+          : `No flr_live_ key found anywhere in the value. It is ${apiKey.length} characters long and starts with "${apiKey.slice(0, 3)}". Copy the secret key value (flr_live_...), not the key's name or ID.`,
     }),
     hadExtraSpacesOrQuotes: rawKey !== apiKey,
     flyraAcceptsKey: res.ok,
@@ -71,7 +73,9 @@ export default async (req) => {
   const keyName = ['FLYRA_API_KEY2', 'FLYRA_API_KEY', 'flyraapikey'].find(name => process.env[name]);
   const rawKey = keyName ? process.env[keyName] : '';
   // Tolerate spaces, line breaks or quote marks picked up when pasting into Netlify
-  const apiKey = rawKey.trim().replace(/^['"]+|['"]+$/g, '').trim();
+  // and use the flr_live_ key even if other text came along with it.
+  const apiKey = rawKey.match(/flr_live_[A-Za-z0-9_-]+/)?.[0]
+    || rawKey.trim().replace(/^['"]+|['"]+$/g, '').trim();
   if (req.method === 'GET') return connectionCheck(apiKey, keyName, rawKey);
   if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
 
