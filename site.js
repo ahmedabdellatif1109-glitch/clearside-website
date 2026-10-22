@@ -150,6 +150,19 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Service Areas map (Leaflet + OpenStreetMap, loaded only on that page) ── */
   initTownMap();
 
+  /* ── Announcement bar: scroll at half speed once the visitor scrolls down ── */
+  const barScroll = document.querySelector('.announce-track')?.getAnimations?.()[0];
+  if (barScroll) {
+    let slowed = false;
+    const setBarSpeed = () => {
+      const slow = window.scrollY > 40;
+      if (slow !== slowed) { slowed = slow; barScroll.updatePlaybackRate(slow ? 0.5 : 1); }
+    };
+    window.addEventListener('scroll', setBarSpeed, { passive: true });
+    setBarSpeed();
+  }
+  document.querySelector('.announce-bar')?.addEventListener('click', () => track('announcement_bar_click', { page: window.location.pathname }));
+
   /* ── Footer year ── */
   document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
 
@@ -265,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(anchor.getAttribute('href'));
       if (target) {
         e.preventDefault();
-        window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - document.querySelector('.site-nav').offsetHeight - 12, behavior: 'smooth' });
       }
     });
   });
