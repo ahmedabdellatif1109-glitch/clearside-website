@@ -30,7 +30,7 @@ function discountEmail(firstName) {
   <p>Thanks for signing up! Here is your code for <strong>10% off your first cleaning</strong> with ClearSide Exteriors:</p>
   <p style="font-size:24px;font-weight:bold;letter-spacing:2px;background:#E6F3FA;border:2px dashed #5BB8E8;border-radius:12px;padding:14px;text-align:center">${DISCOUNT_CODE}</p>
   <p>Mention the code when you book. To get your free quote, reply to this email, call or text <a href="tel:+12249859327">(224) 985-9327</a>, or use our <a href="https://clearsideexteriors.com/contact.html#quote">quote form</a>.</p>
-  <p>Talk soon,<br>ClearSide Exteriors<br>Glenview, IL</p>
+  <p>Talk soon,<br>ClearSide Exteriors</p>
 </div>`;
 }
 
