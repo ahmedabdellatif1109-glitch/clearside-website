@@ -1164,7 +1164,7 @@ a.area-tag { justify-content: flex-start; text-align: left; }
   text-decoration: none; border-bottom: none; font-size: var(--fs-13); font-weight: 700; letter-spacing: .02em;
 }
 .announce-bar:hover { background: var(--salmon-600); }
-.announce-track { display: flex; width: max-content; animation: announce-scroll 40s linear infinite; }
+.announce-track { display: flex; width: max-content; animation: announce-scroll 75s linear infinite; }
 .announce-bar:hover .announce-track, .announce-bar:focus-visible .announce-track { animation-play-state: paused; }
 .announce-group { display: flex; flex-shrink: 0; }
 .announce-item { display: inline-flex; align-items: center; gap: .45rem; white-space: nowrap; padding: 0 1.75rem; position: relative; }
@@ -1172,7 +1172,7 @@ a.area-tag { justify-content: flex-start; text-align: left; }
 .announce-item i { font-size: .9em; }
 .announce-cta { text-decoration: underline; text-underline-offset: 3px; }
 @keyframes announce-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (max-width: 768px) { :root { --bar-h: 32px; } .announce-bar { font-size: var(--fs-12); } .announce-item { padding: 0 1.25rem; } .announce-track { animation-duration: 30s; } }
+@media (max-width: 768px) { :root { --bar-h: 32px; } .announce-bar { font-size: var(--fs-12); } .announce-item { padding: 0 1.25rem; } .announce-track { animation-duration: 60s; } }
 @media (prefers-reduced-motion: reduce) { .announce-track { animation: none; } }
 
 /* Everything below the header moves down by the bar's height */
