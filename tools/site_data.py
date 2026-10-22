@@ -212,30 +212,20 @@ TOWNS = [
      'blurb': 'Golf is a small village tucked inside Glenview, just minutes from our base.'},
     {'name': 'Prospect Heights', 'county': 'Cook County', 'zips': '60070',
      'blurb': 'Prospect Heights is a short drive west of Glenview and a regular stop on our routes.'},
-    {'name': 'Wheeling', 'county': 'Cook and Lake Counties', 'zips': '60090',
-     'blurb': 'We clean homes and businesses all across Wheeling.'},
     {'name': 'Winnetka', 'county': 'Cook County', 'zips': '60093',
      'blurb': 'We bring careful, detail-first window cleaning to Winnetka homes of every size.'},
     {'name': 'Kenilworth', 'county': 'Cook County', 'zips': '60043',
      'blurb': 'Kenilworth sits between Wilmette and Winnetka, right along our North Shore routes.'},
     {'name': 'Highland Park', 'county': 'Lake County', 'zips': '60035',
      'blurb': 'We serve Highland Park homeowners with streak-free windows, clean gutters and spotless driveways.'},
-    {'name': 'Highwood', 'county': 'Lake County', 'zips': '60040',
-     'blurb': 'Highwood homes and storefronts get the same pure-water, streak-free service we bring everywhere.'},
     {'name': 'Buffalo Grove', 'county': 'Cook and Lake Counties', 'zips': '60089',
      'blurb': 'From townhomes to single-family houses, we keep Buffalo Grove windows and driveways clean.'},
     {'name': 'Riverwoods', 'county': 'Lake County', 'zips': '60015',
      'blurb': 'Riverwoods homes surrounded by trees need clear gutters and clean glass, and that is what we do.'},
-    {'name': 'Bannockburn', 'county': 'Lake County', 'zips': '60015',
-     'blurb': 'We serve Bannockburn homes with detail-first exterior cleaning.'},
-    {'name': 'Lincolnshire', 'county': 'Lake County', 'zips': '60069',
-     'blurb': 'Lincolnshire is a short drive north of Glenview and part of our regular service area.'},
     {'name': 'Rolling Meadows', 'county': 'Cook County', 'zips': '60008',
      'blurb': 'Rolling Meadows is a regular part of our northwest suburbs routes.'},
     {'name': 'Elk Grove Village', 'county': 'Cook and DuPage Counties', 'zips': '60007',
      'blurb': 'We clean homes and businesses throughout Elk Grove Village.'},
-    {'name': 'Palatine', 'county': 'Cook County', 'zips': '60067 and 60074',
-     'blurb': 'Palatine homeowners trust us for spotless windows, screens and gutters.'},
     {'name': 'Schaumburg', 'county': 'Cook and DuPage Counties', 'zips': '60173, 60193, 60194 and 60195',
      'blurb': 'We serve Schaumburg homes and businesses with pure-water, streak-free cleaning.'},
 ]
@@ -279,9 +269,7 @@ TOWN_CENTERS = {
     'Golf': (42.0581, -87.7898), 'Niles': (42.0189, -87.8028), 'Highland Park': (42.1817, -87.8003),
     'Northfield': (42.0997, -87.7809), 'Buffalo Grove': (42.1664, -87.9631), 'Kenilworth': (42.0859, -87.7176),
     'Winnetka': (42.1081, -87.7359), 'Evanston': (42.0451, -87.6877), 'Riverwoods': (42.1675, -87.8973),
-    'Skokie': (42.0324, -87.7416), 'Morton Grove': (42.0406, -87.7826), 'Glencoe': (42.1350, -87.7581),
-    'Palatine': (42.1103, -88.0342), 'Wheeling': (42.1392, -87.9290), 'Rolling Meadows': (42.0842, -88.0131),
-    'Highwood': (42.1998, -87.8092), 'Bannockburn': (42.1934, -87.8662), 'Lincolnshire': (42.1900, -87.9084),
+    'Skokie': (42.0324, -87.7416), 'Morton Grove': (42.0406, -87.7826), 'Glencoe': (42.1350, -87.7581), 'Rolling Meadows': (42.0842, -88.0131),
     'Elk Grove Village': (42.0039, -87.9703), 'Schaumburg': (42.0334, -88.0834),
 }
 
@@ -305,7 +293,7 @@ GENERAL_FAQS = [
      'Usually within a few hours. The fastest way to reach us is to call or text ' + PHONE_DISPLAY + '.'),
     ('What areas do you serve?',
      'We are based in Glenview and serve every town within about 10 miles, across the North Shore and the '
-     'northwest suburbs, from Evanston and Winnetka to Palatine, Schaumburg and Elk Grove Village. See the full list '
+     'northwest suburbs, from Evanston and Winnetka to Arlington Heights, Schaumburg and Elk Grove Village. See the full list '
      'on our Service Areas page, and if you do not see your town, just ask.'),
     ('What does it cost?',
      'Exterior window cleaning starts at $150, interior window cleaning at $200, gutter cleaning at $200, patio '
