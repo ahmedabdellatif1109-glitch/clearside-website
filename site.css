@@ -419,8 +419,8 @@ footer { background: var(--navy); border-top: 1px solid var(--navy-3); color: rg
   .ec:hover .ec-title h3 { color: var(--sky-700); }
   .ec:hover .ec-chevron { background: var(--sky-100); color: var(--sky-700); }
   .ec:hover .ec-photo img { transform: scale(1.04); }
-  /* Opens only after the pointer rests on the card for a full second; closes right away */
-  .ec:hover .ec-body { max-height: 600px; border-top-width: 1.5px; transition-delay: 1s; }
+  /* Opens only after the pointer rests on the card for half a second; closes right away */
+  .ec:hover .ec-body { max-height: 600px; border-top-width: 1.5px; transition-delay: .5s; }
   .ec.open:hover .ec-body { transition-delay: 0s; }
 }
 .ec-body-inner { padding: var(--space-6); }
