@@ -29,7 +29,7 @@ function sendLeadToFlyra(form) {
    Until it is set, nothing is loaded. Phone taps, text taps and form
    submissions are sent as events either way once it is set.
 ═══════════════════════════════════════════════ */
-const GA_MEASUREMENT_ID = '';
+const GA_MEASUREMENT_ID = 'G-26M58N46XW';
 
 // New-customer discount shown in the popup. Keep in sync with
 // DISCOUNT_CODE in netlify/functions/lead.mjs (the email copy).
