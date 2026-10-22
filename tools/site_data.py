@@ -269,6 +269,37 @@ TOWNS = [
      'blurb': 'We serve Schaumburg homes and businesses with pure-water, streak-free cleaning.'},
 ]
 
+# Real job photos and videos (assets/jobs). 'town' is where the job was done.
+JOBS = {
+    'glenview-patio': {'kind': 'pair', 'before': 'patio-before.jpg', 'after': 'patio-after.jpg',
+                       'caption': 'Brick patio pressure washing', 'town': 'Glenview', 'service': 'pressure-washing'},
+    'glenview-window': {'kind': 'pair', 'before': 'window-before.jpg', 'after': 'window-after.jpg',
+                        'caption': 'Exterior window cleaning', 'town': 'Glenview', 'service': 'window-cleaning'},
+    'ah-driveway': {'kind': 'pair', 'before': 'driveway-before.jpg', 'after': 'driveway-after.jpg',
+                    'caption': 'Driveway pressure washing', 'town': 'Arlington Heights', 'service': 'pressure-washing'},
+    'commercial': {'kind': 'photo', 'src': 'commercial-pole-cleaning.jpg',
+                   'caption': 'Commercial window cleaning', 'town': 'Arlington Heights / Mount Prospect',
+                   'service': 'commercial-window-cleaning'},
+    'nb-sidewalk': {'kind': 'pair', 'before': 'sidewalk-before.jpg', 'after': 'sidewalk-after.jpg',
+                    'caption': 'Walkway pressure washing', 'town': 'Northbrook', 'service': 'pressure-washing'},
+    'mp-window': {'kind': 'pair', 'before': 'window2-before.jpg', 'after': 'window2-after.jpg',
+                  'caption': 'Window cleaning', 'town': 'Mount Prospect', 'service': 'window-cleaning'},
+    'pr-siding': {'kind': 'video', 'src': 'house-wash.mp4', 'poster': 'house-wash-poster.jpg',
+                  'caption': 'House soft wash', 'town': 'Park Ridge', 'service': 'pressure-washing'},
+    'df-squeegee': {'kind': 'video', 'src': 'window-squeegee.mp4', 'poster': 'window-squeegee-poster.jpg',
+                    'caption': 'Window cleaning', 'town': 'Deerfield', 'service': 'window-cleaning'},
+}
+
+# Which jobs belong to which town. Other towns get a rotating mix labeled "near".
+TOWN_JOBS = {
+    'Glenview': ['glenview-patio', 'glenview-window'],
+    'Arlington Heights': ['ah-driveway', 'commercial'],
+    'Mount Prospect': ['mp-window', 'commercial'],
+    'Northbrook': ['nb-sidewalk'],
+    'Park Ridge': ['pr-siding'],
+    'Deerfield': ['df-squeegee'],
+}
+
 # Towns listed in the footer; every town is on the Service Areas page.
 FOOTER_TOWNS = ['Glenview', 'Northbrook', 'Wilmette', 'Winnetka', 'Evanston', 'Skokie', 'Highland Park',
                 'Deerfield', 'Park Ridge', 'Des Plaines', 'Arlington Heights', 'Mount Prospect']

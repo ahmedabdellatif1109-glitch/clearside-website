@@ -385,6 +385,8 @@ def build_service(svc):
   </div>
 </section>
 
+{service_work_section(svc)}
+
 <section class="bg-paper">
   <div class="container">
     <div class="section-head">
@@ -432,6 +434,90 @@ def build_service(svc):
           breadcrumb_schema([('Home', ''), ('Services', 'services.html'), (svc['name'], path)])],
          body)
     return path
+
+
+# ── Real job photos and videos ────────────────────────────────
+
+def job_img(name, alt):
+    w, h = Image.open(os.path.join(ROOT, 'assets/jobs', name)).size
+    return (f'<img src="assets/jobs/{name}" width="{w}" height="{h}" alt="{esc(alt)}" '
+            'loading="lazy" decoding="async">')
+
+
+def job_card(key):
+    j = D.JOBS[key]
+    where = j['town']
+    if j['kind'] == 'pair':
+        media = f'''<div class="ba-pair">
+          <div class="ba-half">{job_img(j['before'], j['caption'] + ' before, ' + where)}<span class="ba-tag">Before</span></div>
+          <div class="ba-half">{job_img(j['after'], j['caption'] + ' after, ' + where)}<span class="ba-tag ba-tag-after">After</span></div>
+        </div>'''
+    elif j['kind'] == 'video':
+        w, h = Image.open(os.path.join(ROOT, 'assets/jobs', j['poster'])).size
+        media = (f'<div class="job-media"><video class="lazy-video" '
+                 f'poster="assets/jobs/{j["poster"]}" width="{w}" height="{h}" muted loop playsinline preload="none" '
+                 f'aria-label="{esc(j["caption"])} in {esc(where)}">'
+                 f'<source data-src="assets/jobs/{j["src"].replace(".mp4", ".webm")}" type="video/webm">'
+                 f'<source data-src="assets/jobs/{j["src"]}" type="video/mp4"></video></div>')
+    else:
+        media = f'<div class="job-media">{job_img(j["src"], j["caption"] + ", " + where)}</div>'
+    return f'''      <figure class="job-card">
+        {media}
+        <figcaption><strong>{esc(j['caption'])}</strong><span><i class="fas fa-map-marker-alt"></i> {esc(where)}</span></figcaption>
+      </figure>'''
+
+
+def _rotation():
+    """Two jobs per town without its own, cycling so neighbors differ."""
+    pool = list(D.JOBS)
+    others = [t['name'] for t in sorted_towns() if t['name'] not in D.TOWN_JOBS]
+    return {name: [pool[(2 * i) % len(pool)], pool[(2 * i + 1) % len(pool)]] for i, name in enumerate(others)}
+
+
+def jobs_for(town_name, svc=None, n=2):
+    """Returns (job keys, whether they are the town's own work)."""
+    own = D.TOWN_JOBS.get(town_name, [])
+    if own:
+        return own[:n], True
+    keys = []
+    if svc:
+        match = [k for k, j in D.JOBS.items() if j['service'] == svc['slug']]
+        if match:
+            start = [t['name'] for t in sorted_towns()].index(town_name)
+            keys = [match[(start + i) % len(match)] for i in range(min(n, len(match)))]
+    for k in _rotation()[town_name]:
+        if len(keys) >= n:
+            break
+        if k not in keys:
+            keys.append(k)
+    return keys, False
+
+
+def work_section(eyebrow, heading, keys, bg='bg-white'):
+    cards = '\n'.join(job_card(k) for k in keys)
+    return f'''<section class="{bg}">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{eyebrow}</span>
+      <h2>{heading}</h2>
+    </div>
+    <div class="job-grid">
+{cards}
+    </div>
+  </div>
+</section>'''
+
+
+def town_work_section(name, svc=None):
+    keys, own = jobs_for(name, svc)
+    return work_section('Real Results', f'Recent Work in {name}' if own else f'Recent Work Near {name}', keys)
+
+
+def service_work_section(svc):
+    keys = [k for k, j in D.JOBS.items() if j['service'] == svc['slug']][:3]
+    if not keys:
+        return ''
+    return work_section('Real Results', f'Recent {svc["name"]} Jobs', keys)
 
 
 # ── Town pages ────────────────────────────────────────────────
@@ -517,6 +603,8 @@ def build_town(town):
   </div>
 </section>
 
+{town_work_section(name)}
+
 {town_trust_section(town, f'Why {name} Chooses ClearSide', 'Your Neighbor, Not a Franchise', f'We also serve nearby {near_links}.', f'<a href="{QUOTE}" class="btn btn-primary">Get Your {name} Quote <i class="fas fa-arrow-right"></i></a>')}
 
 {reviews_section()}
@@ -595,6 +683,8 @@ def build_town_service(town, svc):
     </div>
   </div>
 </section>
+
+{town_work_section(name, svc)}
 
 {town_trust_section(town, 'Local &amp; Trusted', f'Why {name} Homeowners Choose ClearSide', f'Also serving nearby: {near_links}.', f'<a href="{town_slug(name)}" class="btn btn-primary">All Services in {name} <i class="fas fa-arrow-right"></i></a>')}
 

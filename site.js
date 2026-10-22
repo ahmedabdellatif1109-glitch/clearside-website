@@ -125,6 +125,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  /* ── Job videos: load and play only while on screen ── */
+  const videos = document.querySelectorAll('video.lazy-video');
+  if (videos.length) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const videoObserver = new IntersectionObserver(entries => {
+      entries.forEach(({ target: v, isIntersecting }) => {
+        if (isIntersecting) {
+          if (!v.dataset.loaded) {
+            v.querySelectorAll('source[data-src]').forEach(s => { s.src = s.dataset.src; });
+            v.dataset.loaded = '1';
+            v.load();
+          }
+          if (reduceMotion) { v.controls = true; return; }
+          v.play().catch(() => { v.controls = true; });
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, { rootMargin: '200px 0px', threshold: 0.25 });
+    videos.forEach(v => videoObserver.observe(v));
+  }
+
   /* ── Footer year ── */
   document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
 
