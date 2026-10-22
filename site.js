@@ -147,6 +147,9 @@ document.addEventListener('DOMContentLoaded', () => {
     videos.forEach(v => videoObserver.observe(v));
   }
 
+  /* ── Service Areas map (Leaflet + OpenStreetMap, loaded only on that page) ── */
+  initTownMap();
+
   /* ── Footer year ── */
   document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
 
@@ -522,4 +525,37 @@ function initContactForm() {
     }
     el.textContent = msg;
   }
+}
+
+/* ═══════════════ TOWN MAP ═══════════════ */
+function initTownMap() {
+  const el = document.getElementById('town-map');
+  if (!el) return;
+  const css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = 'assets/vendor/leaflet/leaflet.css';
+  document.head.appendChild(css);
+  const script = document.createElement('script');
+  script.src = 'assets/vendor/leaflet/leaflet.js';
+  script.onload = () => {
+    const towns = JSON.parse(el.dataset.towns);
+    const map = L.map(el, { scrollWheelZoom: false, tap: true });
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 16,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+    const pins = towns.map(t => {
+      const pin = L.circleMarker([t.lat, t.lon], {
+        radius: 9, weight: 3, color: '#ffffff', fillColor: '#E8967A', fillOpacity: 1,
+      }).addTo(map);
+      pin.bindTooltip(t.name, { direction: 'top', offset: [0, -8] });
+      pin.bindPopup(`<div class="map-popup"><strong>${t.name}</strong><a href="${t.url}">See ${t.name} services &rarr;</a></div>`);
+      pin.on('click', () => track('map_town_click', { town: t.name }));
+      return pin;
+    });
+    map.fitBounds(L.featureGroup(pins).getBounds(), { padding: [24, 24] });
+    // Let people scroll the page past the map on desktop; zoom on click
+    map.once('focus click', () => map.scrollWheelZoom.enable());
+  };
+  document.head.appendChild(script);
 }

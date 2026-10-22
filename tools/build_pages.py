@@ -743,6 +743,8 @@ def build_town_service(town, svc):
 # ── Service areas page ────────────────────────────────────────
 
 def build_areas():
+    map_towns = [{'name': x['name'], 'url': town_slug(x['name']), 'lat': D.TOWN_CENTERS[x['name']][0],
+                  'lon': D.TOWN_CENTERS[x['name']][1]} for x in sorted_towns()]
     cards = '\n'.join(f'''      <div class="area-card">
         <a class="area-card-head" href="{town_slug(t['name'])}">
           <i class="fas fa-map-marker-alt"></i>
@@ -765,6 +767,10 @@ def build_areas():
 
 <section class="bg-paper">
   <div class="container">
+    <div class="town-map-wrap">
+      <div id="town-map" class="town-map" role="region" aria-label="Map of the towns we serve" data-towns="{esc(json.dumps(map_towns))}"></div>
+      <p class="town-map-hint"><i class="fas fa-hand-pointer"></i> Tap a pin to see that town's page</p>
+    </div>
     <div class="area-cards">
 {cards}
     </div>

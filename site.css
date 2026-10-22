@@ -1063,3 +1063,18 @@ a.area-tag { justify-content: flex-start; text-align: left; }
 /* Same card size whether a page has 1, 2 or 3 jobs */
 .job-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 460px)); justify-content: center; max-width: none; }
 @media (max-width: 480px) { .job-grid { grid-template-columns: 1fr; } }
+
+/* Service Areas map */
+.town-map-wrap { margin-bottom: var(--space-8); }
+.town-map {
+  height: 460px; border-radius: var(--r-lg); overflow: hidden;
+  border: 1px solid var(--border-1); box-shadow: var(--shadow-2); background: var(--paper-2); z-index: 0;
+}
+.town-map-hint { text-align: center; margin-top: var(--space-3); font-size: var(--fs-14); color: var(--ink-3); }
+.town-map-hint i { color: var(--sky-700); margin-right: .3rem; }
+.map-popup { display: flex; flex-direction: column; gap: 4px; font-family: var(--font-body); }
+.map-popup strong { font-size: var(--fs-16); color: var(--ink-1); }
+.map-popup a { color: var(--sky-700); font-weight: 700; text-decoration: none; }
+.leaflet-tooltip { font-family: var(--font-body); font-weight: 600; }
+@media (max-width: 768px) { .town-map { height: 360px; } }
+.leaflet-interactive:focus { outline: none; }
