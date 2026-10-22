@@ -300,9 +300,16 @@ TOWN_JOBS = {
     'Deerfield': ['df-squeegee'],
 }
 
-# Towns listed in the footer; every town is on the Service Areas page.
-FOOTER_TOWNS = ['Glenview', 'Northbrook', 'Wilmette', 'Winnetka', 'Evanston', 'Skokie', 'Highland Park',
-                'Deerfield', 'Park Ridge', 'Des Plaines', 'Arlington Heights', 'Mount Prospect']
+# Customers with completed work per town, from Flyra (2026-10-22). Towns are
+# listed in this order everywhere (most customers first, then A-Z), and the
+# footer shows the top 12. Glenview has 100+; its exact count isn't needed.
+CUSTOMER_COUNTS = {
+    'Glenview': 100, 'Arlington Heights': 87, 'Park Ridge': 78, 'Northbrook': 38, 'Deerfield': 36,
+    'Mount Prospect': 17, 'Prospect Heights': 15, 'Wilmette': 9, 'Des Plaines': 5, 'Golf': 5, 'Niles': 4,
+    'Highland Park': 3, 'Northfield': 3, 'Buffalo Grove': 2, 'Kenilworth': 2, 'Winnetka': 2,
+    'Evanston': 1, 'Riverwoods': 1,
+}
+FOOTER_TOWN_COUNT = 12
 
 GENERAL_FAQS = [
     ('Are you licensed and insured?',

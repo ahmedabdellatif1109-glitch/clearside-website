@@ -40,7 +40,8 @@ def zip_codes(town):
 
 
 def sorted_towns():
-    return sorted(D.TOWNS, key=lambda x: x['name'])
+    """Towns where we've done the most work first, then alphabetical."""
+    return sorted(D.TOWNS, key=lambda x: (-D.CUSTOMER_COUNTS.get(x['name'], 0), x['name']))
 
 
 def service_file(svc):
@@ -137,7 +138,7 @@ def shared_footer():
         f'          <a href="{u}" class="social-link" aria-label="{l}" target="_blank" rel="noopener"><i class="fab {i}"></i></a>'
         for u, l, i in socials if u)
     svc_links = '\n'.join(f'          <li><a href="{service_file(s)}">{s["name"]}</a></li>' for s in D.SERVICES)
-    footer_towns = [x for x in D.TOWNS if x['name'] in D.FOOTER_TOWNS]
+    footer_towns = sorted_towns()[:D.FOOTER_TOWN_COUNT]
     town_links = '\n'.join(f'          <li><a href="{town_slug(t["name"])}">{t["name"]}</a></li>' for t in footer_towns)
     town_links += f'\n          <li class="footer-all-areas"><a href="areas.html">All {len(D.TOWNS)} areas <i class="fas fa-arrow-right"></i></a></li>'
     return f'''<footer>
@@ -588,8 +589,14 @@ def build_town(town):
       <i class="fas fa-chevron-right"></i>
       <span>{name}</span>
     </div>
-    <h1>{name} Exterior Cleaning: Windows, Pressure Washing &amp; Gutters</h1>
+    <h1>Exterior Cleaning in {name}, IL</h1>
     <p>{esc(town['blurb'])}</p>
+    <div class="service-picker">
+      <span class="service-picker-label">What do you need in {name}?</span>
+      <div class="service-picker-options">
+{chr(10).join(f'        <a href="{town_service_file(name, s)}"><i class="fas {s["icon"]}"></i> {s["name"]} <i class="fas fa-arrow-right"></i></a>' for s in D.SERVICES if is_local(s))}
+      </div>
+    </div>
 {hero_buttons()}
   </div>
 </section>
@@ -739,9 +746,6 @@ def build_areas():
           <span><strong>{t['name']}</strong><small>{' · '.join(zip_codes(t))}</small></span>
           <i class="fas fa-arrow-right area-card-arrow"></i>
         </a>
-        <div class="area-card-links">
-{chr(10).join(f'          <a href="{town_service_file(t["name"], s)}">{s["name"]}</a>' for s in D.SERVICES if is_local(s))}
-        </div>
       </div>''' for t in sorted_towns())
     body = f'''<section class="page-hero">
   <div class="container">

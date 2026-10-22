@@ -1014,3 +1014,32 @@ a.area-tag { justify-content: flex-start; text-align: left; }
 }
 .footer-brand img { width: auto; height: 44px; }
 .footer-brand img { height: 54px; }
+
+/* Service picker at the top of each town page */
+.service-picker { margin: var(--space-6) auto 0; max-width: 760px; }
+.service-picker-label { display: block; font-size: var(--fs-13); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: var(--space-3); }
+.service-picker-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+.service-picker-options a {
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+  padding: 14px 16px; border-radius: var(--r-md);
+  background: #fff; color: var(--ink-1); font-weight: 700; font-size: var(--fs-15);
+  text-decoration: none; border-bottom: none; box-shadow: var(--shadow-2);
+  transition: transform var(--d-fast) var(--ease), box-shadow var(--d-fast) var(--ease);
+}
+.service-picker-options a i:first-child { color: var(--sky-700); }
+.service-picker-options a i:last-child { color: var(--salmon-700); font-size: .8em; margin-left: auto; }
+.service-picker-options a:hover { transform: translateY(-2px); box-shadow: var(--shadow-3); }
+.service-picker + .page-hero-btns { margin-top: var(--space-5); }
+@media (max-width: 768px) {
+  .service-picker-options { grid-template-columns: 1fr; }
+  .service-picker-options a { justify-content: flex-start; }
+}
+/* Service Areas cards are now a single link */
+.area-card-head { border-bottom: none; }
+@media (max-width: 768px) {
+  .area-cards { grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  .area-card-head { padding: var(--space-4) var(--space-3); gap: var(--space-2); }
+  .area-card-head > i:first-child, .area-card-arrow { display: none; }
+  .area-card-head strong { font-size: var(--fs-16); line-height: 1.25; }
+  .area-card-head small { font-size: var(--fs-12); }
+}
