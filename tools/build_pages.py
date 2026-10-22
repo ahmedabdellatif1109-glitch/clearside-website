@@ -35,6 +35,10 @@ def town_slug(name):
     return town_key(name) + '-il.html'
 
 
+def sorted_towns():
+    return sorted(D.TOWNS, key=lambda x: x['name'])
+
+
 def service_file(svc):
     return svc['slug'] + '.html'
 
@@ -129,7 +133,9 @@ def shared_footer():
         f'          <a href="{u}" class="social-link" aria-label="{l}" target="_blank" rel="noopener"><i class="fab {i}"></i></a>'
         for u, l, i in socials if u)
     svc_links = '\n'.join(f'          <li><a href="{service_file(s)}">{s["name"]}</a></li>' for s in D.SERVICES)
-    town_links = '\n'.join(f'          <li><a href="{town_slug(t["name"])}">{t["name"]}</a></li>' for t in D.TOWNS)
+    footer_towns = [x for x in D.TOWNS if x['name'] in D.FOOTER_TOWNS]
+    town_links = '\n'.join(f'          <li><a href="{town_slug(t["name"])}">{t["name"]}</a></li>' for t in footer_towns)
+    town_links += f'\n          <li class="footer-all-areas"><a href="areas.html">All {len(D.TOWNS)} areas <i class="fas fa-arrow-right"></i></a></li>'
     return f'''<footer>
   <div class="container">
     <div class="footer-grid">
@@ -334,7 +340,7 @@ def build_service(svc):
     path = service_file(svc)
     price_rows = '\n'.join(f'          <li><span>{esc(n)}</span><strong>{esc(p)}</strong></li>' for n, p in svc['prices'])
     included = '\n'.join(f'          <li><i class="fas fa-circle-check"></i> {esc(i)}</li>' for i in svc['included'])
-    towns = '\n'.join(f'      <a class="area-tag" href="{town_service_file(t["name"], svc)}">{t["name"]}</a>' for t in D.TOWNS)
+    towns = '\n'.join(f'      <a class="area-tag" href="{town_service_file(t["name"], svc)}">{t["name"]}</a>' for t in sorted_towns())
     others = '\n'.join(f'      <a class="svc-mini" href="{service_file(s)}"><i class="fas {s["icon"]}"></i> {s["name"]}</a>'
                        for s in D.SERVICES if s is not svc)
     body = f'''<section class="page-hero">
@@ -642,7 +648,7 @@ def build_areas():
         <div class="area-card-links">
 {chr(10).join(f'          <a href="{town_service_file(t["name"], s)}">{s["name"]}</a>' for s in D.SERVICES if is_local(s))}
         </div>
-      </div>''' for t in D.TOWNS)
+      </div>''' for t in sorted_towns())
     body = f'''<section class="page-hero">
   <div class="container">
     <div class="breadcrumb">
@@ -725,6 +731,10 @@ def fill_shared(path):
     text = fill(text, 'head', SHARED_HEAD)
     text = fill(text, 'nav', SHARED_NAV)
     text = fill(text, 'footer', shared_footer())
+    # Town buttons on hand-written pages always list every town we serve
+    tags = '\n'.join(f'      <a class="area-tag" href="{town_slug(x["name"])}"><i class="fas fa-map-marker-alt"></i> '
+                     f'{x["name"]} <i class="fas fa-chevron-right area-tag-arrow"></i></a>' for x in sorted_towns())
+    text = re.sub(r'(<div class="area-grid">\n).*?(\n    </div>)', lambda m: m.group(1) + tags + m.group(2), text, flags=re.S)
     if '<!-- shared:reviews -->' in text:
         text = fill(text, 'reviews', reviews_section())
     if path == 'index.html':

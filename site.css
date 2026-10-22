@@ -961,3 +961,4 @@ a.area-tag:hover .area-tag-arrow { transform: translateX(3px); opacity: 1; }
 .area-card-links a { padding: 6px 12px; border-radius: var(--r-pill); background: var(--sky-100); color: var(--sky-700); font-size: var(--fs-13); font-weight: 600; text-decoration: none; border-bottom: none; }
 .area-card-links a:hover { background: var(--sky); color: #fff; }
 a.area-tag { justify-content: flex-start; text-align: left; }
+.footer-all-areas { grid-column: 1 / -1; } .footer-all-areas a { color: var(--sky) !important; font-weight: 600; }
