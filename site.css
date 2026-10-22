@@ -805,8 +805,8 @@ a.area-tag { text-decoration: none; border-bottom-width: 1.5px; }
 
 /* Plans: three options, only the best-value plan highlighted */
 .plan-card.featured { border-color: var(--salmon); box-shadow: 0 0 0 4px rgba(232,150,122,.25), var(--shadow-3); transform: scale(1.03); }
-.plans-grid { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin-inline: auto; }
-@media (max-width: 768px) { .plans-grid { grid-template-columns: 1fr; max-width: 420px; } .plan-card.featured { transform: none; } }
+.plans-grid { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 768px) { .plans-grid { grid-template-columns: 1fr; } .plan-card.featured { transform: none; } }
 
 /* Room for the mobile action bar inside the footer, not as a white strip below it */
 @media (max-width: 768px) {
