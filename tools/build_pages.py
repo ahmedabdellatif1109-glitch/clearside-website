@@ -63,7 +63,7 @@ def photo(name, alt, sizes='(max-width: 768px) 100vw, 50vw', lazy=True, cls=''):
 
 # ── Shared blocks ─────────────────────────────────────────────
 
-SHARED_HEAD = f'''  <meta name="theme-color" content="#40B0F8">
+SHARED_HEAD = f'''  <meta name="theme-color" content="#1A2332">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -85,7 +85,7 @@ SHARED_HEAD = f'''  <meta name="theme-color" content="#40B0F8">
 SHARED_NAV = f'''<nav class="site-nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <img src="assets/logo/clearside-full-white-sm.png" alt="ClearSide Exteriors logo" width="300" height="113">
+      <img src="assets/logo/clearside-full-transparent-sm.png" alt="ClearSide Exteriors logo" width="300" height="113">
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -132,7 +132,7 @@ def shared_footer():
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="assets/logo/clearside-full-white-sm.png" alt="ClearSide Exteriors" width="300" height="113" loading="lazy">
+        <img src="assets/logo/clearside-full-transparent-sm.png" alt="ClearSide Exteriors" width="300" height="113" loading="lazy">
         <p>Professional exterior cleaning for Glenview and greater Cook County. Student-owned, community-driven, streak-free results.</p>
         <p class="footer-licensed"><i class="fas fa-shield-halved"></i> Licensed &amp; Insured</p>
         <div class="footer-socials">

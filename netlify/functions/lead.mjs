@@ -42,10 +42,28 @@ function flyra(url, apiKey, body) {
   });
 }
 
+// Opening /api/lead in a browser reports whether the key is set and whether
+// Flyra accepts it. It never reveals the key itself.
+async function connectionCheck(apiKey) {
+  if (!apiKey) {
+    return Response.json({ keySet: false, problem: 'FLYRA_API_KEY is not set for this deploy in Netlify.' });
+  }
+  const res = await flyra('https://app.flyra.io/v2026-06-01/actions/flyra_list_organizations', apiKey, {});
+  const detail = res.ok ? '' : (await res.text()).slice(0, 300);
+  return Response.json({
+    keySet: true,
+    keyLooksRight: apiKey.startsWith('flr_live_'),
+    flyraAcceptsKey: res.ok,
+    flyraStatus: res.status,
+    ...(detail && { flyraSays: detail }),
+  });
+}
+
 export default async (req) => {
+  const apiKey = process.env.FLYRA_API_KEY || process.env.flyraapikey;
+  if (req.method === 'GET') return connectionCheck(apiKey);
   if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
 
-  const apiKey = process.env.FLYRA_API_KEY || process.env.flyraapikey;
   if (!apiKey) return Response.json({ error: 'Flyra API key is not set' }, { status: 500 });
 
   let fields;

@@ -803,115 +803,12 @@ a.area-tag { text-decoration: none; border-bottom-width: 1.5px; }
 .form-group .field-invalid { border-color: #D14B3D; background: #FEF3F2; }
 .form-group .field-invalid:focus { border-color: #D14B3D; }
 
-/* ══════════════════════════════════════
-   BRAND BLUE THEME
-   The logo's light blue replaces the dark navy surfaces. Text on the
-   blue is navy, since white on this blue is too faint to read.
-══════════════════════════════════════ */
-:root { --logo-blue: #40B0F8; --on-blue: #1A2332; --on-blue-soft: rgba(26,35,50,.78); --on-blue-line: rgba(26,35,50,.14); }
-
-/* Nav + mobile menu */
-.site-nav { background: rgba(64,176,248,.97); border-bottom-color: var(--on-blue-line); }
-.site-nav.scrolled { box-shadow: 0 4px 24px rgba(26,35,50,.18); }
-.nav-links a, .nav-phone { color: var(--on-blue-soft); }
-.nav-links a:hover, .nav-links a.active, .nav-phone:hover { color: var(--on-blue); }
-.nav-links a::after { background: var(--on-blue); }
-.hamburger span { background: var(--on-blue); }
-.nav-icon-btn { background: rgba(255,255,255,.35); color: var(--on-blue); }
-.nav-icon-btn:hover { background: #fff; }
-.mobile-menu { background: var(--logo-blue); border-bottom-color: var(--on-blue-line); }
-.mobile-menu a { color: var(--on-blue); border-bottom-color: var(--on-blue-line); }
-.mobile-menu a:hover, .mobile-menu a i { color: var(--on-blue); }
-.mobile-menu .btn-primary { color: #fff; }
-
-/* Outline buttons used on blue sections */
-.btn-outline-white { color: var(--on-blue); border-color: rgba(26,35,50,.55); }
-.btn-outline-white:hover { background: var(--on-blue); color: #fff; }
-.btn-navy { background: var(--logo-blue); border-color: var(--logo-blue); color: var(--on-blue); }
-.btn-navy:hover { background: #2FA3EE; border-color: #2FA3EE; }
-
-/* Homepage hero */
-.hero {
-  background:
-    linear-gradient(160deg, rgba(64,176,248,0.94) 0%, rgba(64,176,248,0.86) 45%, rgba(64,176,248,0.74) 100%),
-    url('assets/photos/residential-home-exterior.jpg') center / cover no-repeat;
-}
-@media (max-width: 768px) {
-  .hero {
-    background:
-      linear-gradient(160deg, rgba(64,176,248,0.94) 0%, rgba(64,176,248,0.86) 45%, rgba(64,176,248,0.74) 100%),
-      url('assets/photos/residential-home-exterior-sm.jpg') center / cover no-repeat;
-  }
-}
-.hero h1, .hero h1 em { color: var(--on-blue); }
-.hero-sub, .hero-trust-item { color: var(--on-blue-soft); }
-.hero-sub span { color: var(--on-blue) !important; }
-.hero-trust-item svg, .hero-trust-item i { color: var(--on-blue); }
-.hero-eyebrow { background: rgba(255,255,255,.35); border-color: rgba(255,255,255,.5); color: var(--on-blue); }
-
-/* Interior page heroes */
-.page-hero { background: var(--logo-blue); }
-.page-hero h1 { color: var(--on-blue); }
-.page-hero p { color: var(--on-blue-soft); }
-.breadcrumb, .breadcrumb a { color: rgba(26,35,50,.6); }
-.breadcrumb a:hover { color: var(--on-blue); }
-
-/* Call-to-action banner */
-.cta-banner { background: var(--logo-blue); }
-.cta-banner h2 { color: var(--on-blue); }
-.cta-banner p { color: var(--on-blue-soft); }
-.cta-banner .eyebrow { color: rgba(26,35,50,.6) !important; }
-
-/* Plans section photo overlay */
-.plans-section-bg {
-  background: linear-gradient(rgba(64,176,248,.86), rgba(64,176,248,.86)),
-              url('assets/photos/diamond-window-cleaning.jpg') center / cover no-repeat;
-}
-@media (max-width: 768px) {
-  .plans-section-bg {
-    background: linear-gradient(rgba(64,176,248,.86), rgba(64,176,248,.86)),
-                url('assets/photos/diamond-window-cleaning-sm.jpg') center / cover no-repeat;
-  }
-}
-.plans-section-bg .section-head h2 { color: var(--on-blue); }
-.plans-section-bg .section-head p { color: var(--on-blue-soft); }
-.plans-section-bg .section-head .eyebrow { color: rgba(26,35,50,.6); }
+/* Plans: three options, only the best-value plan highlighted */
 .plan-card.featured { border-color: var(--salmon); box-shadow: 0 0 0 4px rgba(232,150,122,.25), var(--shadow-3); transform: scale(1.03); }
 .plans-grid { grid-template-columns: repeat(3, 1fr); max-width: 900px; margin-inline: auto; }
 @media (max-width: 768px) { .plans-grid { grid-template-columns: 1fr; max-width: 420px; } .plan-card.featured { transform: none; } }
 
-/* Footer */
-footer { background: var(--logo-blue); border-top-color: var(--on-blue-line); color: var(--on-blue-soft); }
-.footer-brand p, .footer-licensed { color: var(--on-blue) !important; }
-.footer-col h4 { color: var(--on-blue); }
-.footer-col ul a, .footer-contact-row a, .footer-contact-row span { color: var(--on-blue-soft); }
-.footer-col ul a:hover, .footer-contact-row a:hover { color: var(--on-blue); text-decoration: underline; }
-.footer-contact-row svg, .footer-contact-row i, .footer-licensed i { color: var(--on-blue); }
-.social-link { background: rgba(255,255,255,.35); color: var(--on-blue); }
-.social-link:hover { background: #fff; color: var(--on-blue); }
-.footer-bottom { border-top-color: var(--on-blue-line); }
-.footer-bottom p { color: rgba(26,35,50,.65); }
-
-/* Popup header */
-.popup-top { background: var(--logo-blue); }
-.popup-top h2 { color: var(--on-blue); }
-.popup-top p { color: var(--on-blue-soft); }
-.popup-badge { background: rgba(255,255,255,.4); border-color: rgba(255,255,255,.6); color: var(--on-blue); }
-.popup-close { background: rgba(255,255,255,.35); color: var(--on-blue); }
-.popup-close:hover { background: #fff; color: var(--on-blue); }
-
-/* Small labels over photos */
-.ba-badge, .why-photo-caption { background: rgba(64,176,248,.92); color: var(--on-blue); }
-
-/* Mobile action bar */
-@media (max-width: 768px) {
-  .mobile-cta-bar { background: rgba(64,176,248,.97); border-top-color: var(--on-blue-line); }
-  .mobile-cta-bar a { background: rgba(255,255,255,.4); color: var(--on-blue); }
-  .mobile-cta-bar a.mcb-quote { background: var(--salmon); color: #fff; }
-}
-.btn-navy { background: #fff; border-color: #fff; color: var(--on-blue); }
-.btn-navy:hover { background: var(--on-blue); border-color: var(--on-blue); color: #fff; }
-/* Room for the mobile action bar inside the blue footer, not as a white strip below it */
+/* Room for the mobile action bar inside the footer, not as a white strip below it */
 @media (max-width: 768px) {
   body { padding-bottom: 0; }
   footer { padding-bottom: calc(var(--space-6) + 72px + env(safe-area-inset-bottom)); }

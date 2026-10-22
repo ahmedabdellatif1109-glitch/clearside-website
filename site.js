@@ -369,6 +369,12 @@ function initPopup() {
 
       if (results.some(r => r.status === 'fulfilled')) {
         document.getElementById('popupCode').textContent = DISCOUNT_CODE;
+        // Only promise an email when /api/lead confirms it was sent
+        let emailed = false;
+        if (results[0].status === 'fulfilled') {
+          try { emailed = (await results[0].value.json()).emailed === true; } catch {}
+        }
+        if (emailed) document.getElementById('popupEmailNote').textContent = "We've also emailed you a copy (check your Promotions tab).";
         popupForm.style.display = 'none';
         document.getElementById('popupSkip').style.display = 'none';
         document.getElementById('popupSuccess').style.display = 'block';
