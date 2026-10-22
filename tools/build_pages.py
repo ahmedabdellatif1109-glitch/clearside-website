@@ -7,6 +7,7 @@ contact) only have the blocks between <!-- shared:... --> markers rewritten.
 """
 import html
 import json
+import math
 import os
 import re
 from datetime import date
@@ -33,6 +34,15 @@ def town_key(name):
 def town_slug(name):
     """The town's hub page, e.g. wilmette-il.html."""
     return town_key(name) + '-il.html'
+
+
+def nearest_towns(name, n=3):
+    """The n closest towns we serve, by distance between town centres."""
+    lat, lon = D.TOWN_CENTERS[name]
+    def miles(t):
+        la, lo = D.TOWN_CENTERS[t['name']]
+        return math.hypot((la - lat) * 69.0, (lo - lon) * 69.0 * math.cos(math.radians(lat)))
+    return sorted((t for t in D.TOWNS if t['name'] != name), key=miles)[:n]
 
 
 def sorted_towns():
@@ -565,9 +575,8 @@ def town_trust_section(town, eyebrow, heading, near_html, button_html):
 
 def build_town(town):
     path = town_slug(town['name'])
-    by_name = {t['name']: t for t in D.TOWNS}
-    near = [by_name[n] for n in town['near'] if n in by_name]
-    near_links = ', '.join(f'<a href="{town_slug(t["name"])}">{t["name"]}</a>' for t in near)
+    near_links = ', '.join(f'<a href="{town_slug(t["name"])}">{t["name"]}</a>' for t in nearest_towns(town['name']))
+    near_links += ' <a href="areas.html">and more</a>'
     name = town['name']
     cards = '\n'.join(f'''      <a class="svc-link-card" href="{town_service_file(name, s) if is_local(s) else service_file(s)}">
         <div class="svc-icon"><i class="fas {s['icon']}"></i></div>
@@ -635,10 +644,9 @@ def build_town_service(town, svc):
     name = town['name']
     path = town_service_file(name, svc)
     title = f"{name} {svc['name']}"
-    by_name = {t['name']: t for t in D.TOWNS}
-    near = [by_name[n] for n in town['near'] if n in by_name]
-    near_links = ', '.join(f'<a href="{town_service_file(t["name"], svc)}">{t["name"]} {svc["name"].lower()}</a>'
-                           for t in near)
+    near_links = ', '.join(f'<a href="{town_service_file(t["name"], svc)}">{t["name"]}</a>'
+                           for t in nearest_towns(name))
+    near_links += ' <a href="areas.html">and more</a>'
     price_rows = '\n'.join(f'          <li><span>{esc(n)}</span><strong>{esc(p)}</strong></li>' for n, p in svc['prices'])
     included = '\n'.join(f'          <li><i class="fas fa-circle-check"></i> {esc(i)}</li>' for i in svc['included'])
     others = '\n'.join(f'      <a class="svc-mini" href="{town_service_file(name, s) if is_local(s) else service_file(s)}">'
