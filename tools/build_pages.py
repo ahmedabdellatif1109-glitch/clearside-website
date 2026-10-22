@@ -35,6 +35,10 @@ def town_slug(name):
     return town_key(name) + '-il.html'
 
 
+def zip_codes(town):
+    return re.findall(r'\d{5}', town['zips'])
+
+
 def sorted_towns():
     return sorted(D.TOWNS, key=lambda x: x['name'])
 
@@ -553,7 +557,7 @@ def town_trust_section(town, eyebrow, heading, near_html, button_html):
       </div>
       <dl class="town-facts">
         <div><dt>County</dt><dd>{town['county']}</dd></div>
-        <div><dt>ZIP codes</dt><dd>{town['zips']}</dd></div>
+        <div><dt>ZIP codes</dt><dd class="zip-chips">{''.join(f'<span>{z}</span>' for z in zip_codes(town))}</dd></div>
         <div><dt>Response</dt><dd>Within a few hours</dd></div>
         <div><dt>Estimates</dt><dd>Always free</dd></div>
       </dl>
@@ -732,7 +736,7 @@ def build_areas():
     cards = '\n'.join(f'''      <div class="area-card">
         <a class="area-card-head" href="{town_slug(t['name'])}">
           <i class="fas fa-map-marker-alt"></i>
-          <span><strong>{t['name']}</strong><small>{t['zips']}</small></span>
+          <span><strong>{t['name']}</strong><small>{' · '.join(zip_codes(t))}</small></span>
           <i class="fas fa-arrow-right area-card-arrow"></i>
         </a>
         <div class="area-card-links">
