@@ -44,7 +44,7 @@ function flyra(url, apiKey, body) {
 
 // Opening /api/lead in a browser reports whether the key is set and whether
 // Flyra accepts it. It never reveals the key itself.
-async function connectionCheck(apiKey, keyName) {
+async function connectionCheck(apiKey, keyName, rawKey) {
   if (!apiKey) {
     return Response.json({ keySet: false, problem: 'FLYRA_API_KEY2 is not set for this deploy in Netlify.' });
   }
@@ -54,6 +54,13 @@ async function connectionCheck(apiKey, keyName) {
     keySet: true,
     usingVariable: keyName,
     keyLooksRight: apiKey.startsWith('flr_live_'),
+    // Hints only; the key itself is never shown
+    ...(!apiKey.startsWith('flr_live_') && {
+      keyHint: apiKey.startsWith('flr_')
+        ? `Starts with "${apiKey.split('_').slice(0, 2).join('_')}_" instead of "flr_live_".`
+        : `Does not start with "flr_". It is ${apiKey.length} characters long. Copy the secret key value (flr_live_...), not the key's name or ID.`,
+    }),
+    hadExtraSpacesOrQuotes: rawKey !== apiKey,
     flyraAcceptsKey: res.ok,
     flyraStatus: res.status,
     ...(detail && { flyraSays: detail }),
@@ -62,8 +69,10 @@ async function connectionCheck(apiKey, keyName) {
 
 export default async (req) => {
   const keyName = ['FLYRA_API_KEY2', 'FLYRA_API_KEY', 'flyraapikey'].find(name => process.env[name]);
-  const apiKey = keyName ? process.env[keyName] : '';
-  if (req.method === 'GET') return connectionCheck(apiKey, keyName);
+  const rawKey = keyName ? process.env[keyName] : '';
+  // Tolerate spaces, line breaks or quote marks picked up when pasting into Netlify
+  const apiKey = rawKey.trim().replace(/^['"]+|['"]+$/g, '').trim();
+  if (req.method === 'GET') return connectionCheck(apiKey, keyName, rawKey);
   if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
 
   if (!apiKey) return Response.json({ error: 'Flyra API key is not set' }, { status: 500 });
