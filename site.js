@@ -514,7 +514,7 @@ function initContactForm() {
       console.error(err);
       btn.innerHTML = orig;
       btn.disabled = false;
-      showFormError('Something went wrong — please call or text (224) 985-9327.');
+      showFormError('Something went wrong. Please call or text (224) 985-9327.');
     }
   });
 
