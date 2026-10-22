@@ -1141,3 +1141,15 @@ a.area-tag { justify-content: flex-start; text-align: left; }
   .pc-commercial-options > div { padding: var(--space-3) var(--space-4); }
   .pc-commercial-options i { margin: 0 var(--space-2) 0 0; font-size: 1rem; }
 }
+
+/* Service cards: the last row stretches so both rows line up edge to edge */
+@media (min-width: 1025px) {
+  .expand-grid { grid-template-columns: repeat(6, 1fr); }
+  .expand-grid > .ec { grid-column: span 2; }
+  .expand-grid > .ec:nth-last-child(2):nth-child(3n + 1),
+  .expand-grid > .ec:nth-last-child(1):nth-child(3n + 2) { grid-column: span 3; }
+  .expand-grid > .ec:nth-last-child(1):nth-child(3n + 1) { grid-column: 1 / -1; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .expand-grid > .ec:nth-last-child(1):nth-child(odd) { grid-column: 1 / -1; }
+}
