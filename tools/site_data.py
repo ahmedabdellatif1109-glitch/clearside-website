@@ -94,8 +94,9 @@ SERVICES = [
         'photo_alt': 'Driveway before and after pressure washing',
         'photo2': 'deck-pressure-washing',
         'photo2_alt': 'Deck pressure washing in progress',
-        'from': 150,
-        'prices': [('Patio pressure washing', 'from $150'), ('Driveway pressure washing', 'from $200'),
+        'from': 75,
+        'prices': [('Sidewalk pressure washing', 'from $75'), ('Patio pressure washing', 'from $150'),
+                   ('Driveway pressure washing', 'from $200'),
                    ('House soft wash (siding)', 'from $300')],
         'intro': ('Pressure washing strips years of dirt, algae, mold, mildew and oil stains off hard surfaces. '
                   'On driveways we pre-treat, surface clean and post-treat with an eco-friendly solution so the '
@@ -111,7 +112,7 @@ SERVICES = [
              'Not when it is done right. We adjust pressure and technique for every surface, and we soft wash '
              'siding at low pressure instead of blasting it.'),
             ('How much does pressure washing cost?',
-             'Patios start at $150, driveways at $200 and a house soft wash at $300. Every quote is free.'),
+             'Sidewalks start at $75, patios at $150, driveways at $200 and a house soft wash at $300. Every quote is free.'),
             ('Is the cleaning solution safe for my lawn and pets?',
              'We use an eco-friendly solution and rinse thoroughly. We are happy to walk you through what we use '
              'before we start.'),
@@ -156,7 +157,8 @@ SERVICES = [
         'photo2': 'diamond-window-cleaning',
         'photo2_alt': 'Detailed window cleaning on divided-light windows',
         'from': None,
-        'prices': [('Commercial window cleaning', 'quoted per building, free walkthrough')],
+        'prices': [('Window cleaning', 'free walkthrough quote'), ('Pressure washing', 'free walkthrough quote'),
+                   ('Gutter cleaning', 'free walkthrough quote')],
         'intro': ('Clean glass is the first thing customers see. We clean storefronts, offices and low-rise '
                   'commercial buildings with the same pure-water system we use on homes, and we can set you up '
                   'on a weekly, monthly or quarterly route so you never have to think about it.'),
@@ -296,8 +298,8 @@ GENERAL_FAQS = [
      'northwest suburbs, from Evanston and Winnetka to Arlington Heights, Schaumburg and Elk Grove Village. See the full list '
      'on our Service Areas page, and if you do not see your town, just ask.'),
     ('What does it cost?',
-     'Exterior window cleaning starts at $150, interior window cleaning at $200, gutter cleaning at $200, patio '
-     'washing at $150 and driveway washing at $200. Your exact price depends on the size of the job, and we always '
+     'Exterior window cleaning starts at $150, interior window cleaning at $200, gutter cleaning at $200, sidewalk '
+     'washing at $75, patio washing at $150 and driveway washing at $200. Your exact price depends on the size of the job, and we always '
      'quote it before we start.'),
     ('Do you offer a discount for new customers?',
      'Yes. New customers get 10% off their first cleaning. Sign up from the offer on our homepage, or just mention '

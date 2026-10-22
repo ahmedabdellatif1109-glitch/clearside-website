@@ -1104,3 +1104,40 @@ a.area-tag { justify-content: flex-start; text-align: left; }
   .svc-card-img { position: relative; }
   .svc-card-img img { position: absolute; inset: 0; width: 100%; }
 }
+
+/* Pricing: three services in a row, commercial full width below (highlighted) */
+.pc-grid { grid-template-columns: repeat(3, 1fr); }
+.pc-commercial {
+  grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.6fr; gap: var(--space-8); align-items: center;
+  border: 2px solid var(--salmon); box-shadow: 0 0 0 4px rgba(232,150,122,.18), var(--shadow-2);
+}
+.pc-commercial .plan-tag { margin-bottom: var(--space-4); }
+.pc-commercial .pc-head { margin-bottom: var(--space-3); }
+.pc-commercial-intro p { color: var(--ink-2); font-size: var(--fs-15); margin-bottom: var(--space-5); }
+.pc-commercial-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.pc-commercial-options > div {
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;
+  padding: var(--space-6) var(--space-4); background: var(--paper); border: 1px solid var(--border-1); border-radius: var(--r-md);
+}
+.pc-commercial-options i { color: var(--sky-700); font-size: 1.3rem; margin-bottom: 4px; }
+.pc-commercial-options strong { color: var(--ink-1); font-size: var(--fs-15); }
+.pc-commercial-options span { color: var(--ink-3); font-size: var(--fs-13); }
+.price-strip { grid-template-columns: repeat(6, 1fr); max-width: 1100px; }
+@media (max-width: 1024px) {
+  .pc-grid { grid-template-columns: 1fr 1fr; }
+  .pc-commercial { grid-template-columns: 1fr; }
+  .price-strip { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .pc-grid { grid-template-columns: 1fr; }
+  .pc-commercial-options { grid-template-columns: 1fr; }
+  .pc-commercial-options > div { flex-direction: row; text-align: left; justify-content: flex-start; padding: var(--space-4); }
+  .pc-commercial-options span { margin-left: auto; }
+}
+@media (max-width: 480px) { .price-strip { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 768px) {
+  .pc-commercial-options span { display: none; }
+  .pc-commercial-options { gap: var(--space-2); }
+  .pc-commercial-options > div { padding: var(--space-3) var(--space-4); }
+  .pc-commercial-options i { margin: 0 var(--space-2) 0 0; font-size: 1rem; }
+}
