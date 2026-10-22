@@ -279,6 +279,16 @@ function initPopup() {
 
   let triggered = false;
 
+  // Visitors who head straight for a quote are already converting:
+  // never interrupt them with the discount popup, now or on later visits.
+  document.addEventListener('click', e => {
+    if (!e.target.closest('a[href^="contact.html"]') || e.target.closest('#popupOverlay')) return;
+    triggered = true;
+    clearTimeout(timer);
+    window.removeEventListener('scroll', scrollHandler);
+    try { localStorage.setItem(POPUP_STORAGE_KEY, Date.now().toString()); } catch {}
+  });
+
   function openPopup() {
     if (triggered) return;
     triggered = true;
