@@ -150,6 +150,18 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Service Areas map (Leaflet + OpenStreetMap, loaded only on that page) ── */
   initTownMap();
 
+  /* ── Rotating announcement bar ── */
+  const msgs = document.querySelectorAll('.announce-msg');
+  if (msgs.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let i = 0;
+    setInterval(() => {
+      msgs[i].classList.remove('is-active');
+      i = (i + 1) % msgs.length;
+      msgs[i].classList.add('is-active');
+    }, 3500);
+  }
+  document.querySelector('.announce-bar')?.addEventListener('click', () => track('announcement_bar_click', { page: window.location.pathname }));
+
   /* ── Footer year ── */
   document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
 
@@ -265,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(anchor.getAttribute('href'));
       if (target) {
         e.preventDefault();
-        window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - document.querySelector('.site-nav').offsetHeight - 12, behavior: 'smooth' });
       }
     });
   });
