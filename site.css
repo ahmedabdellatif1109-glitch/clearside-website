@@ -813,3 +813,18 @@ a.area-tag { text-decoration: none; border-bottom-width: 1.5px; }
   body { padding-bottom: 0; }
   footer { padding-bottom: calc(var(--space-6) + 72px + env(safe-area-inset-bottom)); }
 }
+
+/* Plan savings: own list under the description, separated by a divider */
+.plan-card { display: flex; flex-direction: column; }
+.plan-desc { margin-bottom: var(--space-5); }
+.plan-perks {
+  margin-top: auto; padding-top: var(--space-4); border-top: 1px solid var(--border-1);
+  display: grid; gap: var(--space-2); text-align: left;
+}
+.plan-perks li { display: flex; align-items: flex-start; gap: var(--space-2); font-size: var(--fs-14); font-weight: 600; color: var(--ink-1); line-height: 1.4; }
+.plan-perks i { color: var(--sky-700); margin-top: 3px; flex-shrink: 0; }
+.plan-card.featured .plan-perks i { color: var(--salmon-700); }
+@media (max-width: 768px) { .plan-perks { text-align: left; max-width: 260px; margin-inline: auto; width: 100%; } }
+.plan-tag { align-self: center; }
+.plan-perks { text-align: center; max-width: none; }
+.plan-perks li { justify-content: center; }
