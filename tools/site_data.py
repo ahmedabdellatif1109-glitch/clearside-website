@@ -178,58 +178,61 @@ SERVICES = [
 ]
 
 TOWNS = [
-    {'name': 'Glenview', 'county': 'Cook County', 'zips': '60025 and 60026',
+    {'name': 'Glenview', 'county': 'Cook County',
      'blurb': 'Glenview is home base for ClearSide. We started here, most of our customers are here, and we are '
               'never more than a few minutes away.'},
-    {'name': 'Wilmette', 'county': 'Cook County', 'zips': '60091',
+    {'name': 'Wilmette', 'county': 'Cook County',
      'blurb': 'Wilmette is right next door to our Glenview base, and we clean homes here every week of the season.'},
-    {'name': 'Northfield', 'county': 'Cook County', 'zips': '60093',
+    {'name': 'Northfield', 'county': 'Cook County',
      'blurb': 'Northfield borders Glenview, so getting on our schedule is quick and easy.'},
-    {'name': 'Niles', 'county': 'Cook County', 'zips': '60714',
+    {'name': 'Niles', 'county': 'Cook County',
      'blurb': 'Niles sits just south of Glenview and is a regular stop on our routes.'},
-    {'name': 'Arlington Heights', 'county': 'Cook County', 'zips': '60004 and 60005',
+    {'name': 'Arlington Heights', 'county': 'Cook County',
      'blurb': 'We serve homes and businesses across Arlington Heights, from the neighborhoods around downtown to '
               'the north side.'},
-    {'name': 'Mount Prospect', 'county': 'Cook County', 'zips': '60056',
+    {'name': 'Mount Prospect', 'county': 'Cook County',
      'blurb': 'Mount Prospect homeowners get the same pure-water, streak-free service we bring to every North '
               'Shore home.'},
-    {'name': 'Des Plaines', 'county': 'Cook County', 'zips': '60016 and 60018',
+    {'name': 'Des Plaines', 'county': 'Cook County',
      'blurb': 'Des Plaines is a short drive from our Glenview base, and we clean homes and storefronts here '
               'throughout the season.'},
-    {'name': 'Northbrook', 'county': 'Cook County', 'zips': '60062',
+    {'name': 'Northbrook', 'county': 'Cook County',
      'blurb': 'Northbrook is right next to Glenview and one of the towns we serve most.'},
-    {'name': 'Skokie', 'county': 'Cook County', 'zips': '60076 and 60077',
+    {'name': 'Skokie', 'county': 'Cook County',
      'blurb': 'From single-family homes to small businesses, we keep Skokie windows and driveways clean.'},
-    {'name': 'Morton Grove', 'county': 'Cook County', 'zips': '60053',
+    {'name': 'Morton Grove', 'county': 'Cook County',
      'blurb': 'Morton Grove borders Glenview, so we are always close by.'},
-    {'name': 'Park Ridge', 'county': 'Cook County', 'zips': '60068',
+    {'name': 'Park Ridge', 'county': 'Cook County',
      'blurb': 'Park Ridge homeowners trust us for streak-free windows and spotless driveways.'},
-    {'name': 'Deerfield', 'county': 'Lake and Cook Counties', 'zips': '60015',
+    {'name': 'Deerfield', 'county': 'Lake and Cook Counties',
      'blurb': 'Deerfield is just north of Northbrook and a regular part of our North Shore routes.'},
-    {'name': 'Glencoe', 'county': 'Cook County', 'zips': '60022',
+    {'name': 'Glencoe', 'county': 'Cook County',
      'blurb': 'We bring careful, detail-first window and exterior cleaning to Glencoe homes.'},
-    {'name': 'Evanston', 'county': 'Cook County', 'zips': '60201, 60202 and 60203',
+    {'name': 'Evanston', 'county': 'Cook County',
      'blurb': 'We clean homes, two-flats and storefronts across Evanston.'},
-    {'name': 'Golf', 'county': 'Cook County', 'zips': '60029',
+    {'name': 'Golf', 'county': 'Cook County',
      'blurb': 'Golf is a small village tucked inside Glenview, just minutes from our base.'},
-    {'name': 'Prospect Heights', 'county': 'Cook County', 'zips': '60070',
+    {'name': 'Prospect Heights', 'county': 'Cook County',
      'blurb': 'Prospect Heights is a short drive west of Glenview and a regular stop on our routes.'},
-    {'name': 'Winnetka', 'county': 'Cook County', 'zips': '60093',
+    {'name': 'Winnetka', 'county': 'Cook County',
      'blurb': 'We bring careful, detail-first window cleaning to Winnetka homes of every size.'},
-    {'name': 'Kenilworth', 'county': 'Cook County', 'zips': '60043',
+    {'name': 'Kenilworth', 'county': 'Cook County',
      'blurb': 'Kenilworth sits between Wilmette and Winnetka, right along our North Shore routes.'},
-    {'name': 'Highland Park', 'county': 'Lake County', 'zips': '60035',
+    {'name': 'Highland Park', 'county': 'Lake County',
      'blurb': 'We serve Highland Park homeowners with streak-free windows, clean gutters and spotless driveways.'},
-    {'name': 'Buffalo Grove', 'county': 'Cook and Lake Counties', 'zips': '60089',
+    {'name': 'Buffalo Grove', 'county': 'Cook and Lake Counties',
      'blurb': 'From townhomes to single-family houses, we keep Buffalo Grove windows and driveways clean.'},
-    {'name': 'Riverwoods', 'county': 'Lake County', 'zips': '60015',
+    {'name': 'Riverwoods', 'county': 'Lake County',
      'blurb': 'Riverwoods homes surrounded by trees need clear gutters and clean glass, and that is what we do.'},
-    {'name': 'Rolling Meadows', 'county': 'Cook County', 'zips': '60008',
+    {'name': 'Rolling Meadows', 'county': 'Cook County',
      'blurb': 'Rolling Meadows is a regular part of our northwest suburbs routes.'},
-    {'name': 'Elk Grove Village', 'county': 'Cook and DuPage Counties', 'zips': '60007',
+    {'name': 'Elk Grove Village', 'county': 'Cook and DuPage Counties',
      'blurb': 'We clean homes and businesses throughout Elk Grove Village.'},
-    {'name': 'Schaumburg', 'county': 'Cook and DuPage Counties', 'zips': '60173, 60193, 60194 and 60195',
+    {'name': 'Schaumburg', 'county': 'Cook and DuPage Counties',
      'blurb': 'We serve Schaumburg homes and businesses with pure-water, streak-free cleaning.'},
+    {'name': 'Chicago', 'county': 'Cook County',
+     'blurb': 'We serve homes and businesses on Chicago\'s North and Northwest Side, a short drive down '
+              'Milwaukee Avenue from our Glenview base.'},
 ]
 
 # Real job photos and videos (assets/jobs). 'town' is where the job was done.
@@ -272,7 +275,7 @@ TOWN_CENTERS = {
     'Northfield': (42.0997, -87.7809), 'Buffalo Grove': (42.1664, -87.9631), 'Kenilworth': (42.0859, -87.7176),
     'Winnetka': (42.1081, -87.7359), 'Evanston': (42.0451, -87.6877), 'Riverwoods': (42.1675, -87.8973),
     'Skokie': (42.0324, -87.7416), 'Morton Grove': (42.0406, -87.7826), 'Glencoe': (42.1350, -87.7581), 'Rolling Meadows': (42.0842, -88.0131),
-    'Elk Grove Village': (42.0039, -87.9703), 'Schaumburg': (42.0334, -88.0834),
+    'Elk Grove Village': (42.0039, -87.9703), 'Chicago': (41.9700, -87.7600), 'Schaumburg': (42.0334, -88.0834),
 }
 
 # Customers with completed work per town, from Flyra (2026-10-22). Towns are
@@ -280,7 +283,7 @@ TOWN_CENTERS = {
 # footer shows the top 12. Glenview has 100+; its exact count isn't needed.
 CUSTOMER_COUNTS = {
     'Glenview': 100, 'Arlington Heights': 87, 'Park Ridge': 78, 'Northbrook': 38, 'Deerfield': 36,
-    'Mount Prospect': 17, 'Prospect Heights': 15, 'Wilmette': 9, 'Des Plaines': 5, 'Golf': 5, 'Niles': 4,
+    'Mount Prospect': 17, 'Prospect Heights': 15, 'Chicago': 9, 'Wilmette': 9, 'Des Plaines': 5, 'Golf': 5, 'Niles': 4,
     'Highland Park': 3, 'Northfield': 3, 'Buffalo Grove': 2, 'Kenilworth': 2, 'Winnetka': 2,
     'Evanston': 1, 'Riverwoods': 1,
 }
