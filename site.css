@@ -937,3 +937,27 @@ a.area-tag { text-decoration: none; border-bottom-width: 1.5px; }
   .trust-card p { font-size: var(--fs-14); }
 }
 .reviews-widget { min-height: 200px; }
+
+/* ══════════════════════════════════════
+   TOWN LINKS: look tappable + areas page
+══════════════════════════════════════ */
+.area-hint { text-align: center; font-size: var(--fs-14); font-weight: 600; color: var(--sky-700); margin: calc(-1 * var(--space-6)) 0 var(--space-5); }
+.area-hint i { margin-right: .3rem; }
+a.area-tag { display: flex; align-items: center; justify-content: center; gap: .45rem; color: var(--ink-1); font-weight: 600; cursor: pointer; }
+a.area-tag i { color: var(--sky-700); font-size: .8em; }
+a.area-tag .area-tag-arrow { margin-left: auto; opacity: .5; transition: transform var(--d-fast) var(--ease), opacity var(--d-fast) var(--ease); }
+a.area-tag:hover .area-tag-arrow { transform: translateX(3px); opacity: 1; }
+
+.area-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
+.area-card { background: var(--surface-raised); border: 1px solid var(--border-1); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-1); }
+.area-card-head { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-5); text-decoration: none; border-bottom: 1px solid var(--border-1); }
+.area-card-head > i:first-child { color: var(--sky-700); }
+.area-card-head span { display: flex; flex-direction: column; }
+.area-card-head strong { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-20); color: var(--ink-1); }
+.area-card-head small { font-size: var(--fs-13); color: var(--ink-3); }
+.area-card-arrow { margin-left: auto; color: var(--sky-700); transition: transform var(--d-fast) var(--ease); }
+.area-card-head:hover .area-card-arrow { transform: translateX(3px); }
+.area-card-links { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: var(--space-4) var(--space-5) var(--space-5); }
+.area-card-links a { padding: 6px 12px; border-radius: var(--r-pill); background: var(--sky-100); color: var(--sky-700); font-size: var(--fs-13); font-weight: 600; text-decoration: none; border-bottom: none; }
+.area-card-links a:hover { background: var(--sky); color: #fff; }
+a.area-tag { justify-content: flex-start; text-align: left; }

@@ -90,6 +90,7 @@ SHARED_NAV = f'''<nav class="site-nav">
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="services.html">Services</a></li>
+      <li><a href="areas.html">Areas</a></li>
       <li><a href="services.html#pricing">Pricing</a></li>
       <li><a href="faq.html">FAQ</a></li>
       <li><a href="about.html">About</a></li>
@@ -109,6 +110,7 @@ SHARED_NAV = f'''<nav class="site-nav">
 <div class="mobile-menu">
   <a href="index.html">Home</a>
   <a href="services.html">Services</a>
+  <a href="areas.html">Service Areas</a>
   <a href="services.html#pricing">Pricing</a>
   <a href="faq.html">FAQ</a>
   <a href="about.html">About</a>
@@ -486,7 +488,7 @@ def build_town(town):
     <div class="breadcrumb">
       <a href="index.html">Home</a>
       <i class="fas fa-chevron-right"></i>
-      <a href="index.html#areas">Service Areas</a>
+      <a href="areas.html">Service Areas</a>
       <i class="fas fa-chevron-right"></i>
       <span>{name}</span>
     </div>
@@ -628,6 +630,50 @@ def build_town_service(town, svc):
     return path
 
 
+# ── Service areas page ────────────────────────────────────────
+
+def build_areas():
+    cards = '\n'.join(f'''      <div class="area-card">
+        <a class="area-card-head" href="{town_slug(t['name'])}">
+          <i class="fas fa-map-marker-alt"></i>
+          <span><strong>{t['name']}</strong><small>{t['zips']}</small></span>
+          <i class="fas fa-arrow-right area-card-arrow"></i>
+        </a>
+        <div class="area-card-links">
+{chr(10).join(f'          <a href="{town_service_file(t["name"], s)}">{s["name"]}</a>' for s in D.SERVICES if is_local(s))}
+        </div>
+      </div>''' for t in D.TOWNS)
+    body = f'''<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Service Areas</span>
+    </div>
+    <h1>Areas We Serve</h1>
+    <p>Window cleaning, pressure washing and gutter cleaning across the North Shore. Pick your town to see local services and prices.</p>
+{hero_buttons()}
+  </div>
+</section>
+
+<section class="bg-paper">
+  <div class="container">
+    <div class="area-cards">
+{cards}
+    </div>
+    <p class="faq-more">Don't see your town? <a href="{QUOTE}">Ask us</a> — we probably cover it.</p>
+  </div>
+</section>
+
+{cta_banner()}'''
+    page('areas.html', 'Service Areas | Window Cleaning Across the North Shore | ClearSide Exteriors',
+         'ClearSide Exteriors serves Glenview, Wilmette, Northbrook, Evanston, Skokie and more North Shore towns with '
+         'window cleaning, pressure washing and gutter cleaning. Find your town.',
+         [breadcrumb_schema([('Home', ''), ('Service Areas', 'areas.html')])],
+         body)
+    return 'areas.html'
+
+
 # ── FAQ page ──────────────────────────────────────────────────
 
 def build_faq():
@@ -704,7 +750,7 @@ def build_sitemap(paths):
 def main():
     generated = ([build_service(s) for s in D.SERVICES] + [build_town(t) for t in D.TOWNS]
                  + [build_town_service(t, s) for t in D.TOWNS for s in D.SERVICES if is_local(s)]
-                 + [build_faq()])
+                 + [build_faq(), build_areas()])
     pages = HAND_PAGES + generated
     for p in pages:
         fill_shared(p)
