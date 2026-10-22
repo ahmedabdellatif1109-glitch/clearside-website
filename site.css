@@ -828,3 +828,111 @@ a.area-tag { text-decoration: none; border-bottom-width: 1.5px; }
 .plan-tag { align-self: center; }
 .plan-perks { text-align: center; max-width: none; }
 .plan-perks li { justify-content: center; }
+
+/* ══════════════════════════════════════
+   PRICING CARDS (services page)
+══════════════════════════════════════ */
+.pc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-5); }
+.pc-card {
+  display: flex; flex-direction: column; background: var(--surface-raised);
+  border: 1px solid var(--border-1); border-radius: var(--r-lg); padding: var(--space-6);
+  box-shadow: var(--shadow-1); transition: transform var(--d-base) var(--ease), box-shadow var(--d-base) var(--ease);
+}
+.pc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-3); }
+.pc-head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-5); }
+.pc-icon {
+  width: 44px; height: 44px; border-radius: var(--r-md); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--sky-100); color: var(--sky-700); font-size: 1.1rem;
+}
+.pc-head h3 { font-family: var(--font-display); font-size: var(--fs-20); line-height: 1.2; }
+.pc-from { padding-bottom: var(--space-5); margin-bottom: var(--space-4); border-bottom: 1px solid var(--border-1); }
+.pc-from span { display: block; font-size: var(--fs-12); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
+.pc-from strong { font-family: var(--font-display); font-weight: 400; font-size: 2.4rem; line-height: 1; color: var(--ink-1); }
+.pc-list { display: grid; gap: var(--space-3); margin-bottom: var(--space-6); }
+.pc-list li { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); font-size: var(--fs-15); color: var(--ink-2); }
+.pc-list li b { font-weight: 700; color: var(--ink-1); white-space: nowrap; }
+.pc-list li.pc-check { justify-content: flex-start; align-items: flex-start; }
+.pc-list li.pc-check i { color: var(--sky-700); margin-top: 4px; }
+.pc-btn {
+  margin-top: auto; justify-content: center; width: 100%;
+  background: var(--sky-100); color: var(--sky-700); border-color: var(--sky-100);
+}
+.pc-btn:hover { background: var(--sky); color: #fff; border-color: var(--sky); }
+
+/* Price lists on service and town pages: keep prices tidy */
+.price-box li, .town-card li { border-bottom-style: solid; border-bottom-color: var(--border-1); align-items: baseline; }
+.price-box li span, .town-card li span { flex: 1; }
+.price-box li strong, .town-card li strong { max-width: 60%; }
+
+/* ══════════════════════════════════════
+   FOOTER BRAND
+══════════════════════════════════════ */
+.footer-brand p { color: rgba(255,255,255,.68); }
+.footer-licensed {
+  display: inline-flex !important; align-items: center; gap: .45rem; width: auto;
+  padding: 7px 16px; border-radius: var(--r-pill);
+  background: rgba(91,184,232,.12); border: 1px solid rgba(91,184,232,.35);
+  font-size: var(--fs-13); letter-spacing: .02em;
+}
+.footer-licensed i { margin-right: 0; }
+.footer-brand { text-align: center; }
+.social-link {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); color: #fff;
+}
+.social-link:hover { background: var(--sky); border-color: var(--sky); color: #fff; transform: translateY(-2px); }
+.pc-head { min-height: 50px; }
+
+/* ══════════════════════════════════════
+   TOWN PAGES: trust cards + town panel
+══════════════════════════════════════ */
+.trust-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); margin-bottom: var(--space-6); }
+.trust-card {
+  background: var(--surface-raised); border: 1px solid var(--border-1); border-radius: var(--r-lg);
+  padding: var(--space-8) var(--space-6); text-align: center; box-shadow: var(--shadow-1);
+}
+.trust-card-icon {
+  width: 52px; height: 52px; border-radius: 50%; margin: 0 auto var(--space-4);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  background: var(--sky-100); color: var(--sky-700); font-size: 1.25rem;
+}
+.trust-card h3 { font-family: var(--font-body); font-weight: 700; font-size: var(--fs-18); margin-bottom: var(--space-2); }
+.trust-card p { font-size: var(--fs-15); color: var(--ink-2); line-height: var(--lh-base); }
+
+.town-panel {
+  display: grid; grid-template-columns: 1.3fr 2fr auto; align-items: center; gap: var(--space-6);
+  background: var(--surface-raised); border: 1px solid var(--border-1); border-radius: var(--r-lg);
+  padding: var(--space-6) var(--space-8); box-shadow: var(--shadow-1);
+}
+.town-panel-title { display: flex; align-items: center; gap: var(--space-4); }
+.town-panel-title .trust-card-icon { margin: 0; }
+.town-panel-title h3 { font-family: var(--font-display); font-size: var(--fs-24); margin-bottom: 2px; }
+.town-panel-title p { font-size: var(--fs-14); color: var(--ink-3); }
+.town-panel-title a { color: var(--sky-700); font-weight: 600; border-bottom: none; }
+.town-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+.town-facts dt { font-size: var(--fs-12); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
+.town-facts dd { font-size: var(--fs-15); font-weight: 600; color: var(--ink-1); }
+.town-panel .btn { white-space: nowrap; }
+
+@media (max-width: 1100px) {
+  .town-panel { grid-template-columns: 1fr; padding: var(--space-6); }
+  .town-panel .btn { justify-self: start; }
+}
+@media (max-width: 768px) {
+  .trust-cards { grid-template-columns: 1fr; }
+  .trust-card { padding: var(--space-6); }
+  .town-facts { grid-template-columns: 1fr 1fr; }
+  .town-panel .btn { justify-self: stretch; justify-content: center; }
+}
+.town-panel { grid-template-columns: minmax(220px, 1fr) 2.6fr auto; }
+.town-facts { grid-template-columns: .8fr 1.3fr 1fr .9fr; }
+@media (max-width: 1100px) { .town-panel { grid-template-columns: 1fr; } }
+@media (max-width: 768px) {
+  .town-facts { grid-template-columns: 1fr 1fr; }
+  .trust-cards { gap: var(--space-3); }
+  .trust-card { display: grid; grid-template-columns: 44px 1fr; column-gap: var(--space-4); text-align: left; padding: var(--space-5); }
+  .trust-card .trust-card-icon { width: 44px; height: 44px; margin: 0; grid-row: span 2; font-size: 1.05rem; }
+  .trust-card h3 { font-size: var(--fs-16); margin-bottom: 4px; }
+  .trust-card p { font-size: var(--fs-14); }
+}

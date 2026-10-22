@@ -424,6 +424,47 @@ def build_service(svc):
 
 # ── Town pages ────────────────────────────────────────────────
 
+def town_trust_section(town, eyebrow, heading, near_html, button_html):
+    """Three trust cards plus a town info panel, shared by town pages."""
+    cards = [('fa-shield-halved', 'Licensed &amp; Insured',
+              'ClearSide Exteriors, LLC is fully licensed and insured, so you are covered on every job.'),
+             ('fa-circle-check', 'Streak-Free Guarantee',
+              'If you see a streak or anything we missed, we come back and fix it at no charge.'),
+             ('fa-graduation-cap', 'Student-Founded &amp; Local',
+              f'Based in Glenview and serving the North Shore for {D.YEARS_IN_BUSINESS} years, '
+              f'with {D.HOMES_SERVICED} homes serviced.')]
+    card_html = '\n'.join(f'''      <div class="trust-card">
+        <div class="trust-card-icon"><i class="fas {i}"></i></div>
+        <h3>{h}</h3>
+        <p>{p}</p>
+      </div>''' for i, h, p in cards)
+    name = town['name']
+    return f'''<section class="bg-paper">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{eyebrow}</span>
+      <h2>{heading}</h2>
+    </div>
+    <div class="trust-cards">
+{card_html}
+    </div>
+    <div class="town-panel">
+      <div class="town-panel-title">
+        <div class="trust-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div><h3>{name}, IL</h3><p>{near_html}</p></div>
+      </div>
+      <dl class="town-facts">
+        <div><dt>County</dt><dd>{town['county']}</dd></div>
+        <div><dt>ZIP codes</dt><dd>{town['zips']}</dd></div>
+        <div><dt>Response</dt><dd>Within a few hours</dd></div>
+        <div><dt>Estimates</dt><dd>Always free</dd></div>
+      </dl>
+      {button_html}
+    </div>
+  </div>
+</section>'''
+
+
 def build_town(town):
     path = town_slug(town['name'])
     by_name = {t['name']: t for t in D.TOWNS}
@@ -464,41 +505,7 @@ def build_town(town):
   </div>
 </section>
 
-<section class="bg-paper">
-  <div class="container">
-    <div class="why-grid">
-      <div class="why-content">
-        <span class="eyebrow">Why {name} Chooses ClearSide</span>
-        <h2>Your Neighbor, Not a Franchise</h2>
-        <div class="why-features">
-          <div class="feature-row">
-            <div class="feat-icon"><i class="fas fa-shield-halved"></i></div>
-            <div class="feat-text"><h4>Licensed &amp; Insured</h4><p>ClearSide Exteriors, LLC is fully licensed and insured, so you are covered on every job.</p></div>
-          </div>
-          <div class="feature-row">
-            <div class="feat-icon"><i class="fas fa-circle-check"></i></div>
-            <div class="feat-text"><h4>Streak-Free Guarantee</h4><p>If you see a streak or anything we missed, we come back and fix it at no charge.</p></div>
-          </div>
-          <div class="feature-row">
-            <div class="feat-icon"><i class="fas fa-graduation-cap"></i></div>
-            <div class="feat-text"><h4>Student-Founded &amp; Local</h4><p>Based in Glenview and serving the North Shore for {D.YEARS_IN_BUSINESS} years, with {D.HOMES_SERVICED} homes serviced.</p></div>
-          </div>
-        </div>
-      </div>
-      <div class="town-card">
-        <h3><i class="fas fa-map-marker-alt"></i> {name}, IL</h3>
-        <ul>
-          <li><span>County</span><strong>{town['county']}</strong></li>
-          <li><span>ZIP codes</span><strong>{town['zips']}</strong></li>
-          <li><span>Response time</span><strong>Usually within a few hours</strong></li>
-          <li><span>Estimates</span><strong>Always free</strong></li>
-        </ul>
-        <p>We also serve nearby {near_links}.</p>
-        <a href="{QUOTE}" class="btn btn-primary btn-sm">Get a {name} Quote <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </div>
-  </div>
-</section>
+{town_trust_section(town, f'Why {name} Chooses ClearSide', 'Your Neighbor, Not a Franchise', f'We also serve nearby {near_links}.', f'<a href="{QUOTE}" class="btn btn-primary">Get Your {name} Quote <i class="fas fa-arrow-right"></i></a>')}
 
 {reviews_section()}
 
@@ -577,41 +584,7 @@ def build_town_service(town, svc):
   </div>
 </section>
 
-<section class="bg-paper">
-  <div class="container">
-    <div class="why-grid">
-      <div class="why-content">
-        <span class="eyebrow">Local &amp; Trusted</span>
-        <h2>Why {name} Homeowners Choose ClearSide</h2>
-        <div class="why-features">
-          <div class="feature-row">
-            <div class="feat-icon"><i class="fas fa-shield-halved"></i></div>
-            <div class="feat-text"><h4>Licensed &amp; Insured</h4><p>ClearSide Exteriors, LLC is fully licensed and insured, so you are covered on every job.</p></div>
-          </div>
-          <div class="feature-row">
-            <div class="feat-icon"><i class="fas fa-circle-check"></i></div>
-            <div class="feat-text"><h4>Satisfaction Guarantee</h4><p>If you see a streak or anything we missed, we come back and fix it at no charge.</p></div>
-          </div>
-          <div class="feature-row">
-            <div class="feat-icon"><i class="fas fa-graduation-cap"></i></div>
-            <div class="feat-text"><h4>Student-Founded &amp; Local</h4><p>Based in Glenview and serving the North Shore for {D.YEARS_IN_BUSINESS} years, with {D.HOMES_SERVICED} homes serviced.</p></div>
-          </div>
-        </div>
-      </div>
-      <div class="town-card">
-        <h3><i class="fas fa-map-marker-alt"></i> {name}, IL</h3>
-        <ul>
-          <li><span>County</span><strong>{town['county']}</strong></li>
-          <li><span>ZIP codes</span><strong>{town['zips']}</strong></li>
-          <li><span>Response time</span><strong>Usually within a few hours</strong></li>
-          <li><span>Estimates</span><strong>Always free</strong></li>
-        </ul>
-        <p>Also serving nearby: {near_links}.</p>
-        <a href="{town_slug(name)}" class="ec-more" style="margin-left:0;">All services in {name} <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </div>
-  </div>
-</section>
+{town_trust_section(town, 'Local &amp; Trusted', f'Why {name} Homeowners Choose ClearSide', f'Also serving nearby: {near_links}.', f'<a href="{town_slug(name)}" class="btn btn-primary">All Services in {name} <i class="fas fa-arrow-right"></i></a>')}
 
 <section class="bg-white">
   <div class="container">
