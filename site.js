@@ -79,10 +79,25 @@ function getAttribution() {
 }
 
 const POPUP_STORAGE_KEY  = 'cs_popup_seen';
+const POPUP_SKIP_KEY     = 'cs_popup_skip';   // this visit only
+const VISIT_START_KEY    = 'cs_visit_start';
+const QUICK_QUOTE_MS     = 10 * 1000;          // a quote tap this early means skip the popup
 const POPUP_COOLDOWN_MS  = 7 * 24 * 60 * 60 * 1000; // 7 days
+
+// When this visit to the site started (shared across pages in the same tab)
+function visitStart() {
+  let start = null;
+  try {
+    start = sessionStorage.getItem(VISIT_START_KEY);
+    if (!start) { start = String(Date.now()); sessionStorage.setItem(VISIT_START_KEY, start); }
+  } catch {}
+  return start ? parseInt(start, 10) : PAGE_START;
+}
+const PAGE_START = Date.now();
 
 loadAnalytics();
 const attribution = getAttribution();
+visitStart();
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -100,6 +115,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const link = e.target.closest('a[href^="tel:"], a[href^="sms:"]');
     if (!link) return;
     track(link.href.startsWith('tel:') ? 'phone_call_click' : 'text_click', { link_location: window.location.pathname });
+  });
+
+  /* ── Quote tap in the first 10 seconds: no popup this visit ── */
+  document.addEventListener('click', e => {
+    if (!e.target.closest('a[href^="contact.html"]') || e.target.closest('#popupOverlay')) return;
+    if (Date.now() - visitStart() <= QUICK_QUOTE_MS) {
+      try { sessionStorage.setItem(POPUP_SKIP_KEY, '1'); } catch {}
+    }
   });
 
   /* ── Footer year ── */
@@ -272,21 +295,26 @@ function initPopup() {
   const overlay = document.getElementById('popupOverlay');
   if (!overlay) return;
 
-  // Check cooldown
-  let lastSeen = null;
+  // Add ?popup to the address to always show it (for testing)
+  const forced = new URLSearchParams(window.location.search).has('popup');
+
+  // Check cooldown (seen or closed in the last 7 days, or skipped this visit)
+  let lastSeen = null, skipped = null;
   try { lastSeen = localStorage.getItem(POPUP_STORAGE_KEY); } catch {}
-  if (lastSeen && Date.now() - parseInt(lastSeen) < POPUP_COOLDOWN_MS) return;
+  try { skipped = sessionStorage.getItem(POPUP_SKIP_KEY); } catch {}
+  if (!forced && (skipped || (lastSeen && Date.now() - parseInt(lastSeen) < POPUP_COOLDOWN_MS))) return;
 
   let triggered = false;
 
-  // Visitors who head straight for a quote are already converting:
-  // never interrupt them with the discount popup, now or on later visits.
+  // Someone who taps a quote button in their first 10 seconds on the site is
+  // already converting: skip the popup for the rest of this visit. Later
+  // quote taps don't affect it.
   document.addEventListener('click', e => {
     if (!e.target.closest('a[href^="contact.html"]') || e.target.closest('#popupOverlay')) return;
+    if (Date.now() - visitStart() > QUICK_QUOTE_MS) return;
     triggered = true;
     clearTimeout(timer);
     window.removeEventListener('scroll', scrollHandler);
-    try { localStorage.setItem(POPUP_STORAGE_KEY, Date.now().toString()); } catch {}
   });
 
   function openPopup() {
