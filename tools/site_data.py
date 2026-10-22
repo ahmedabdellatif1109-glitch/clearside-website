@@ -52,7 +52,7 @@ SERVICES = [
              'windows you have, how many stories, and access. We give you a free, exact quote before any work starts.'),
             ('How often should I have my windows cleaned?',
              'Most North Shore homeowners do twice a year, in spring and fall. Homes near busy roads, trees or '
-             'construction often do three or four visits a year. We offer recurring plans for all of these.'),
+             'construction often do three visits a year, which is our best-value plan.'),
         ],
     },
     {
@@ -243,6 +243,6 @@ GENERAL_FAQS = [
     ('What is your satisfaction guarantee?',
      'If you see a streak or anything we missed, tell us and we will come back and fix it at no charge.'),
     ('Do you offer recurring service?',
-     'Yes. We offer once-a-year, twice-a-year, three-times-a-year and quarterly plans. Most customers choose spring '
-     'and fall.'),
+     'Yes. We offer once-a-year, twice-a-year and three-times-a-year plans. The three-times-a-year plan is our '
+     'best value: spring, summer and fall visits keep your windows clear all season.'),
 ]
