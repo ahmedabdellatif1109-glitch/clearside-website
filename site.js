@@ -150,6 +150,17 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Service Areas map (Leaflet + OpenStreetMap, loaded only on that page) ── */
   initTownMap();
 
+  /* ── Announcement bar: scroll at half speed once the visitor scrolls down ── */
+  const barScroll = document.querySelector('.announce-track')?.getAnimations?.()[0];
+  if (barScroll) {
+    let slowed = false;
+    const setBarSpeed = () => {
+      const slow = window.scrollY > 40;
+      if (slow !== slowed) { slowed = slow; barScroll.updatePlaybackRate(slow ? 0.5 : 1); }
+    };
+    window.addEventListener('scroll', setBarSpeed, { passive: true });
+    setBarSpeed();
+  }
   document.querySelector('.announce-bar')?.addEventListener('click', () => track('announcement_bar_click', { page: window.location.pathname }));
 
   /* ── Footer year ── */
