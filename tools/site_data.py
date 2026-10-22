@@ -15,6 +15,9 @@ INSTAGRAM_PROFILE = ''
 YEARS_IN_BUSINESS = '4+'
 HOMES_SERVICED = '600+'
 
+# Services that also get a page per town, e.g. "Wilmette Window Cleaning".
+LOCAL_SERVICES = ['window-cleaning', 'pressure-washing', 'gutter-cleaning']
+
 # Starting prices come from the ClearSide price book in Flyra.
 SERVICES = [
     {
@@ -185,15 +188,15 @@ TOWNS = [
      'near': ['Morton Grove', 'Park Ridge', 'Skokie', 'Des Plaines', 'Glenview'],
      'blurb': 'Niles sits just south of Glenview and is a regular stop on our routes.'},
     {'name': 'Arlington Heights', 'county': 'Cook County', 'zips': '60004 and 60005',
-     'near': ['Mt. Prospect', 'Des Plaines', 'Park Ridge'],
+     'near': ['Mount Prospect', 'Des Plaines', 'Park Ridge'],
      'blurb': 'We serve homes and businesses across Arlington Heights, from the neighborhoods around downtown to '
               'the north side.'},
-    {'name': 'Mt. Prospect', 'county': 'Cook County', 'zips': '60056',
+    {'name': 'Mount Prospect', 'county': 'Cook County', 'zips': '60056',
      'near': ['Arlington Heights', 'Des Plaines', 'Park Ridge'],
      'blurb': 'Mount Prospect homeowners get the same pure-water, streak-free service we bring to every North '
               'Shore home.'},
     {'name': 'Des Plaines', 'county': 'Cook County', 'zips': '60016 and 60018',
-     'near': ['Park Ridge', 'Mt. Prospect', 'Niles', 'Glenview'],
+     'near': ['Park Ridge', 'Mount Prospect', 'Niles', 'Glenview'],
      'blurb': 'Des Plaines is a short drive from our Glenview base, and we clean homes and storefronts here '
               'throughout the season.'},
     {'name': 'Northbrook', 'county': 'Cook County', 'zips': '60062',
@@ -228,7 +231,7 @@ GENERAL_FAQS = [
      'Usually within a few hours. The fastest way to reach us is to call or text ' + PHONE_DISPLAY + '.'),
     ('What areas do you serve?',
      'We are based in Glenview and serve the North Shore and northwest suburbs, including Wilmette, Northbrook, '
-     'Northfield, Skokie, Evanston, Glencoe, Deerfield, Niles, Morton Grove, Park Ridge, Des Plaines, Mt. Prospect '
+     'Northfield, Skokie, Evanston, Glencoe, Deerfield, Niles, Morton Grove, Park Ridge, Des Plaines, Mount Prospect '
      'and Arlington Heights. If you do not see your town, just ask.'),
     ('What does it cost?',
      'Exterior window cleaning starts at $150, interior window cleaning at $200, gutter cleaning at $200, patio '

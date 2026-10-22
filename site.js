@@ -348,7 +348,7 @@ function initPopup() {
       e.preventDefault();
       errorEl.hidden = true;
       const emailInput = popupForm.querySelector('input[name="email"]');
-      if (!emailInput.value.trim() || !emailInput.checkValidity()) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailInput.value.trim())) {
         showPopupError('Please enter a valid email address.');
         emailInput.focus();
         return;
@@ -388,8 +388,36 @@ function initContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
 
+  // Clear a field's error as soon as the visitor fixes it
+  form.addEventListener('input', e => {
+    if (e.target.classList.contains('field-invalid') && fieldProblem(e.target) === '') {
+      e.target.classList.remove('field-invalid');
+      e.target.removeAttribute('aria-invalid');
+    }
+  });
+
   form.addEventListener('submit', async e => {
     e.preventDefault();
+
+    // Nothing is sent until every required field is filled in correctly
+    const problems = [];
+    form.querySelectorAll('input:not([type="hidden"]):not([name="website"]), select, textarea').forEach(field => {
+      const problem = fieldProblem(field);
+      field.classList.toggle('field-invalid', problem !== '');
+      if (problem) {
+        field.setAttribute('aria-invalid', 'true');
+        problems.push({ field, problem });
+      } else {
+        field.removeAttribute('aria-invalid');
+      }
+    });
+    if (problems.length) {
+      showFormError(problems.length === 1 ? problems[0].problem : 'Please fill in the highlighted fields.');
+      problems[0].field.focus();
+      return;
+    }
+    form.querySelector('.form-error')?.remove();
+
     const btn = form.querySelector('.form-submit');
     const orig = btn.innerHTML;
     btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Sending…';
@@ -418,11 +446,21 @@ function initContactForm() {
     }
   });
 
+  function fieldProblem(field) {
+    const label = (form.querySelector(`label[for="${field.id}"]`)?.textContent || 'This field').replace('*', '').trim();
+    const value = field.value.trim();
+    if (field.required && !value) return `Please fill in ${label}.`;
+    if (field.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) return 'Please enter a valid email address.';
+    if (field.type === 'tel' && value && value.replace(/\D/g, '').length < 10) return 'Please enter a 10-digit phone number.';
+    return '';
+  }
+
   function showFormError(msg) {
     let el = form.querySelector('.form-error');
     if (!el) {
       el = document.createElement('p');
       el.className = 'form-error';
+      el.setAttribute('role', 'alert');
       el.style.cssText = 'color:#D14B3D;font-size:.875rem;margin-top:.75rem;font-weight:500;';
       form.appendChild(el);
     }

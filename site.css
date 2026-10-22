@@ -798,3 +798,7 @@ a.area-tag { text-decoration: none; border-bottom-width: 1.5px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .spin { animation: spin .8s linear infinite; }
 .form-sms-note { display: block; line-height: 1.5; }
+
+/* Form fields left empty or filled in wrong */
+.form-group .field-invalid { border-color: #D14B3D; background: #FEF3F2; }
+.form-group .field-invalid:focus { border-color: #D14B3D; }

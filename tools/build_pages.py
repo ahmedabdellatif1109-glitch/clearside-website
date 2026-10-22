@@ -26,12 +26,31 @@ def esc(s):
     return html.escape(s, quote=True)
 
 
+def town_key(name):
+    return re.sub(r'[^a-z0-9]+', '-', name.lower().replace('mt.', 'mount')).strip('-')
+
+
 def town_slug(name):
-    return 'window-cleaning-' + re.sub(r'[^a-z0-9]+', '-', name.lower().replace('mt.', 'mount')).strip('-') + '-il.html'
+    """The town's hub page, e.g. wilmette-il.html."""
+    return town_key(name) + '-il.html'
 
 
 def service_file(svc):
     return svc['slug'] + '.html'
+
+
+def is_local(svc):
+    return svc['slug'] in D.LOCAL_SERVICES
+
+
+def town_service_file(town_name, svc):
+    """A town + service page such as wilmette-window-cleaning.html, or the
+    town hub for services that don't get their own town pages."""
+    return f"{town_key(town_name)}-{svc['slug']}.html" if is_local(svc) else town_slug(town_name)
+
+
+def city(name):
+    return name.replace('Mt.', 'Mount') + ', IL'
 
 
 def photo(name, alt, sizes='(max-width: 768px) 100vw, 50vw', lazy=True, cls=''):
@@ -309,7 +328,7 @@ def build_service(svc):
     path = service_file(svc)
     price_rows = '\n'.join(f'          <li><span>{esc(n)}</span><strong>{esc(p)}</strong></li>' for n, p in svc['prices'])
     included = '\n'.join(f'          <li><i class="fas fa-circle-check"></i> {esc(i)}</li>' for i in svc['included'])
-    towns = '\n'.join(f'      <a class="area-tag" href="{town_slug(t["name"])}">{t["name"]}</a>' for t in D.TOWNS)
+    towns = '\n'.join(f'      <a class="area-tag" href="{town_service_file(t["name"], svc)}">{t["name"]}</a>' for t in D.TOWNS)
     others = '\n'.join(f'      <a class="svc-mini" href="{service_file(s)}"><i class="fas {s["icon"]}"></i> {s["name"]}</a>'
                        for s in D.SERVICES if s is not svc)
     body = f'''<section class="page-hero">
@@ -410,13 +429,13 @@ def build_town(town):
     by_name = {t['name']: t for t in D.TOWNS}
     near = [by_name[n] for n in town['near'] if n in by_name]
     near_links = ', '.join(f'<a href="{town_slug(t["name"])}">{t["name"]}</a>' for t in near)
-    cards = '\n'.join(f'''      <a class="svc-link-card" href="{service_file(s)}">
+    name = town['name']
+    cards = '\n'.join(f'''      <a class="svc-link-card" href="{town_service_file(name, s) if is_local(s) else service_file(s)}">
         <div class="svc-icon"><i class="fas {s['icon']}"></i></div>
-        <h3>{s['name']}</h3>
+        <h3>{(name + ' ') if is_local(s) else ''}{s['name']}</h3>
         <p>{esc(s['short'])}</p>
         <span class="svc-price">{'From $' + str(s['from']) if s['from'] else 'Free quote'}</span>
       </a>''' for s in D.SERVICES)
-    name = town['name']
     body = f'''<section class="page-hero">
   <div class="container">
     <div class="breadcrumb">
@@ -426,7 +445,7 @@ def build_town(town):
       <i class="fas fa-chevron-right"></i>
       <span>{name}</span>
     </div>
-    <h1>Window Cleaning &amp; Pressure Washing in {name}, IL</h1>
+    <h1>{name} Exterior Cleaning: Windows, Pressure Washing &amp; Gutters</h1>
     <p>{esc(town['blurb'])}</p>
 {hero_buttons()}
   </div>
@@ -485,7 +504,7 @@ def build_town(town):
 
 {cta_banner(f'Get Your Free {name} Estimate')}'''
     page(path,
-         f'Window Cleaning {name} IL | Pressure Washing & Gutters | ClearSide Exteriors',
+         f'{name} IL Exterior Cleaning | Windows, Pressure Washing & Gutters | ClearSide',
          f'Window cleaning, pressure washing and gutter cleaning in {name}, IL. Local, licensed & insured, '
          f'streak-free guaranteed. Free estimates: {D.PHONE_DISPLAY}.',
          [{'@context': 'https://schema.org', '@type': 'Service', 'name': f'Window Cleaning in {name}, IL',
@@ -493,6 +512,141 @@ def build_town(town):
            'url': D.SITE_URL + '/' + path, 'provider': {'@id': D.SITE_URL + '/#business'},
            'areaServed': {'@type': 'City', 'name': name.replace('Mt.', 'Mount') + ', IL'}},
           breadcrumb_schema([('Home', ''), (name, path)])],
+         body)
+    return path
+
+
+# ── Town + service pages ("Wilmette Window Cleaning") ─────────
+
+def build_town_service(town, svc):
+    name = town['name']
+    path = town_service_file(name, svc)
+    title = f"{name} {svc['name']}"
+    by_name = {t['name']: t for t in D.TOWNS}
+    near = [by_name[n] for n in town['near'] if n in by_name]
+    near_links = ', '.join(f'<a href="{town_service_file(t["name"], svc)}">{t["name"]} {svc["name"].lower()}</a>'
+                           for t in near)
+    price_rows = '\n'.join(f'          <li><span>{esc(n)}</span><strong>{esc(p)}</strong></li>' for n, p in svc['prices'])
+    included = '\n'.join(f'          <li><i class="fas fa-circle-check"></i> {esc(i)}</li>' for i in svc['included'])
+    others = '\n'.join(f'      <a class="svc-mini" href="{town_service_file(name, s) if is_local(s) else service_file(s)}">'
+                       f'<i class="fas {s["icon"]}"></i> {(name + " ") if is_local(s) else ""}{s["name"]}</a>'
+                       for s in D.SERVICES if s is not svc)
+    faqs = [(f"Do you offer {svc['name'].lower()} in {name}?",
+             f"Yes. We serve all of {name} ({town['zips']}) in {town['county']}. {town['blurb']} "
+             f"Call or text {D.PHONE_DISPLAY} or request a quote online, and we usually reply within a few hours.")] \
+        + svc['faqs']
+    body = f'''<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="{town_slug(name)}">{name}</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>{svc['name']}</span>
+    </div>
+    <h1>{title}</h1>
+    <p>{esc(svc['short'])} Serving {name} homes in {town['zips']}. Licensed, insured and streak-free guaranteed.</p>
+{hero_buttons()}
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="container">
+    <div class="detail-grid">
+      <div class="detail-content">
+        <span class="eyebrow">{svc['name']} in {name}, IL</span>
+        <h2>What's Included</h2>
+        <p>{esc(svc['intro'])}</p>
+        <ul class="check-list">
+{included}
+        </ul>
+        <div class="price-box">
+          <h3><i class="fas fa-tag"></i> {name} Pricing</h3>
+          <ul>
+{price_rows}
+          </ul>
+          <p>Every home is different, so we always give you an exact, free quote before any work starts. New customers get 10% off their first cleaning.</p>
+          <a href="{QUOTE}" class="btn btn-primary btn-sm">Get My {name} Quote <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="detail-photos">
+        {photo(svc['photo'], svc['photo_alt'] + ' near ' + name + ', IL', lazy=False)}
+        {photo(svc['photo2'], svc['photo2_alt'])}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-paper">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-content">
+        <span class="eyebrow">Local &amp; Trusted</span>
+        <h2>Why {name} Homeowners Choose ClearSide</h2>
+        <div class="why-features">
+          <div class="feature-row">
+            <div class="feat-icon"><i class="fas fa-shield-halved"></i></div>
+            <div class="feat-text"><h4>Licensed &amp; Insured</h4><p>ClearSide Exteriors, LLC is fully licensed and insured, so you are covered on every job.</p></div>
+          </div>
+          <div class="feature-row">
+            <div class="feat-icon"><i class="fas fa-circle-check"></i></div>
+            <div class="feat-text"><h4>Satisfaction Guarantee</h4><p>If you see a streak or anything we missed, we come back and fix it at no charge.</p></div>
+          </div>
+          <div class="feature-row">
+            <div class="feat-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div class="feat-text"><h4>Student-Founded &amp; Local</h4><p>Based in Glenview and serving the North Shore for {D.YEARS_IN_BUSINESS} years, with {D.HOMES_SERVICED} homes serviced.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="town-card">
+        <h3><i class="fas fa-map-marker-alt"></i> {name}, IL</h3>
+        <ul>
+          <li><span>County</span><strong>{town['county']}</strong></li>
+          <li><span>ZIP codes</span><strong>{town['zips']}</strong></li>
+          <li><span>Response time</span><strong>Usually within a few hours</strong></li>
+          <li><span>Estimates</span><strong>Always free</strong></li>
+        </ul>
+        <p>Also serving nearby: {near_links}.</p>
+        <a href="{town_slug(name)}" class="ec-more" style="margin-left:0;">All services in {name} <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Questions</span>
+      <h2>{title} FAQ</h2>
+    </div>
+{faq_html(faqs)}
+    <div class="svc-mini-row">
+{others}
+    </div>
+  </div>
+</section>
+
+{reviews_section()}
+
+{cta_banner(f'Get Your Free {name} Estimate')}'''
+    service_schema = {
+        '@context': 'https://schema.org', '@type': 'Service',
+        'name': title, 'serviceType': svc['name'], 'description': svc['intro'],
+        'url': D.SITE_URL + '/' + path,
+        'provider': {'@id': D.SITE_URL + '/#business'},
+        'areaServed': {'@type': 'City', 'name': city(name)},
+    }
+    if svc['from']:
+        service_schema['offers'] = {'@type': 'Offer', 'priceCurrency': 'USD',
+                                    'priceSpecification': {'@type': 'PriceSpecification', 'minPrice': svc['from'],
+                                                           'priceCurrency': 'USD'}}
+    from_text = f" From ${svc['from']}." if svc['from'] else ''
+    page(path,
+         f'{title} IL | ClearSide Exteriors',
+         f"{name}, IL {svc['name'].lower()} by a local, licensed & insured team.{from_text} "
+         f"Free estimates: {D.PHONE_DISPLAY}.",
+         [service_schema, faq_schema(faqs),
+          breadcrumb_schema([('Home', ''), (name, town_slug(name)), (svc['name'], path)])],
          body)
     return path
 
@@ -569,7 +723,9 @@ def build_sitemap(paths):
 
 
 def main():
-    generated = [build_service(s) for s in D.SERVICES] + [build_town(t) for t in D.TOWNS] + [build_faq()]
+    generated = ([build_service(s) for s in D.SERVICES] + [build_town(t) for t in D.TOWNS]
+                 + [build_town_service(t, s) for t in D.TOWNS for s in D.SERVICES if is_local(s)]
+                 + [build_faq()])
     pages = HAND_PAGES + generated
     for p in pages:
         fill_shared(p)
