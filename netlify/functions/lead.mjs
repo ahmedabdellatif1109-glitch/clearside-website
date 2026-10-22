@@ -1,5 +1,6 @@
-// Sends website form submissions to Flyra as leads in the "Website Leads"
-// pipeline, which starts the website lead follow-up sequence.
+// Sends website form submissions to Flyra as leads: quote requests go to the
+// "Website Leads" pipeline (which starts the follow-up sequence) and 10% off
+// popup signups go to "Website – 10% Off Signups".
 // Popup signups are also emailed their discount code through Flyra.
 // Requires the Flyra API key in Netlify as FLYRA_API_KEY2 (or FLYRA_API_KEY / flyraapikey),
 // with the leads and email permissions.
@@ -10,6 +11,8 @@ const FLYRA_EMAIL_URL = 'https://app.flyra.io/v2026-06-01/actions/flyra_send_ema
 const DISCOUNT_CODE = 'CLEARSIDE10';
 const REPLY_TO = 'clearsidexteriors@gmail.com';
 const WEBSITE_LEADS_PIPELINE = 'pipe_c0b4eb83-263d-40d6-a802-19b529180cb1';
+// 10% off popup signups (email only) are kept apart from quote requests
+const POPUP_SIGNUPS_PIPELINE = 'pipe_350d3832-5a1f-42f0-9966-56958e89a194';
 
 const clean = (v, max = 500) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 
@@ -105,7 +108,7 @@ export default async (req) => {
   const lead = {
     first_name: clean(fields.firstName, 100),
     last_name: clean(fields.lastName, 100),
-    pipeline_id: WEBSITE_LEADS_PIPELINE,
+    pipeline_id: source === 'popup' ? POPUP_SIGNUPS_PIPELINE : WEBSITE_LEADS_PIPELINE,
     source: source === 'popup' ? 'Website popup' : source === 'page-form' ? 'Website page form' : 'Website contact form',
     notes: [
       service && `Service: ${service}`,
