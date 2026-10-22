@@ -1047,3 +1047,19 @@ a.area-tag { justify-content: flex-start; text-align: left; }
 .town-facts { grid-template-columns: repeat(3, 1fr); }
 @media (max-width: 768px) { .town-facts { grid-template-columns: 1fr 1fr; } }
 .area-card { display: flex; } .area-card-head { flex: 1; align-items: center; }
+
+/* Every job card's media area has the same shape, so cards line up */
+.ba-pair, .job-media { aspect-ratio: 4 / 3; max-height: none; height: auto; }
+.ba-pair { grid-template-rows: 100%; }
+.ba-half { aspect-ratio: auto; height: 100%; }
+.job-media img, .job-media video { object-position: center 60%; }
+.job-card { display: flex; flex-direction: column; }
+.job-card figcaption { flex-wrap: wrap; margin-top: auto; }
+.job-card figcaption span { white-space: normal; }
+/* Photos fill their frame instead of setting its size */
+.ba-half, .job-media { position: relative; overflow: hidden; min-height: 0; }
+.ba-half img, .job-media img, .job-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ba-tag { z-index: 1; }
+/* Same card size whether a page has 1, 2 or 3 jobs */
+.job-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 460px)); justify-content: center; max-width: none; }
+@media (max-width: 480px) { .job-grid { grid-template-columns: 1fr; } }
