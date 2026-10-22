@@ -97,6 +97,12 @@ SHARED_HEAD = f'''  <meta name="theme-color" content="#1A2332">
   <link rel="stylesheet" href="site.css">
   <script src="site.js" defer></script>'''
 
+# Rotating bar under the nav: the messages repeat so one group is wider than any
+# screen, and a second copy follows it so the scroll loops without a gap.
+ANNOUNCE_ITEMS = '<span class="announce-item"><i class="fas fa-shield-halved"></i> Fully Licensed &amp; Insured</span><span class="announce-item"><i class="fas fa-star"></i> Rated 5.0 Stars on Google</span><span class="announce-item"><i class="fas fa-tag"></i> Free Estimates</span><span class="announce-item announce-cta">Get a Free Quote <i class="fas fa-arrow-right"></i></span>'
+ANNOUNCE_GROUP = '<span class="announce-group">' + ANNOUNCE_ITEMS * 3 + '</span>'
+ANNOUNCE_GROUP_HIDDEN = ANNOUNCE_GROUP.replace('class="announce-group"', 'class="announce-group" aria-hidden="true"')
+
 SHARED_NAV = f'''<nav class="site-nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
@@ -122,10 +128,7 @@ SHARED_NAV = f'''<nav class="site-nav">
     </div>
   </div>
   <a class="announce-bar" href="{QUOTE}" aria-label="Get a free quote: fully licensed and insured, rated 5.0 stars on Google, free estimates">
-    <span class="announce-msg is-active"><i class="fas fa-shield-halved"></i> Fully Licensed &amp; Insured</span>
-    <span class="announce-msg"><i class="fas fa-star"></i> Rated 5.0 Stars on Google</span>
-    <span class="announce-msg"><i class="fas fa-tag"></i> Free Estimates</span>
-    <span class="announce-cta">Get a quote <i class="fas fa-arrow-right"></i></span>
+    <span class="announce-track">{ANNOUNCE_GROUP}{ANNOUNCE_GROUP_HIDDEN}</span>
   </a>
 </nav>
 <div class="mobile-menu">
