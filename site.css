@@ -1043,3 +1043,7 @@ a.area-tag { justify-content: flex-start; text-align: left; }
   .area-card-head strong { font-size: var(--fs-16); line-height: 1.25; }
   .area-card-head small { font-size: var(--fs-12); }
 }
+/* Town facts: County, Response, Estimates */
+.town-facts { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 768px) { .town-facts { grid-template-columns: 1fr 1fr; } }
+.area-card { display: flex; } .area-card-head { flex: 1; align-items: center; }

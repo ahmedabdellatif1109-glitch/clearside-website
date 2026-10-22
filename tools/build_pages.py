@@ -35,10 +35,6 @@ def town_slug(name):
     return town_key(name) + '-il.html'
 
 
-def zip_codes(town):
-    return re.findall(r'\d{5}', town['zips'])
-
-
 def sorted_towns():
     """Towns where we've done the most work first, then alphabetical."""
     return sorted(D.TOWNS, key=lambda x: (-D.CUSTOMER_COUNTS.get(x['name'], 0), x['name']))
@@ -558,7 +554,6 @@ def town_trust_section(town, eyebrow, heading, near_html, button_html):
       </div>
       <dl class="town-facts">
         <div><dt>County</dt><dd>{town['county']}</dd></div>
-        <div><dt>ZIP codes</dt><dd class="zip-chips">{''.join(f'<span>{z}</span>' for z in zip_codes(town))}</dd></div>
         <div><dt>Response</dt><dd>Within a few hours</dd></div>
         <div><dt>Estimates</dt><dd>Always free</dd></div>
       </dl>
@@ -606,7 +601,7 @@ def build_town(town):
     <div class="section-head">
       <span class="eyebrow">Services in {name}</span>
       <h2>Everything Your {name} Home Needs</h2>
-      <p>Looking for window cleaning in {name}? We serve {name} ({town['zips']}) in {town['county']} with streak-free windows, spotless driveways and clear gutters. Free estimates, always.</p>
+      <p>Looking for window cleaning in {name}? We serve all of {name} in {town['county']} with streak-free windows, spotless driveways and clear gutters. Free estimates, always.</p>
     </div>
     <div class="svc-link-grid">
 {cards}
@@ -650,7 +645,7 @@ def build_town_service(town, svc):
                        f'<i class="fas {s["icon"]}"></i> {(name + " ") if is_local(s) else ""}{s["name"]}</a>'
                        for s in D.SERVICES if s is not svc)
     faqs = [(f"Do you offer {svc['name'].lower()} in {name}?",
-             f"Yes. We serve all of {name} ({town['zips']}) in {town['county']}. {town['blurb']} "
+             f"Yes. We serve all of {name} in {town['county']}. {town['blurb']} "
              f"Call or text {D.PHONE_DISPLAY} or request a quote online, and we usually reply within a few hours.")] \
         + svc['faqs']
     body = f'''<section class="page-hero">
@@ -663,7 +658,7 @@ def build_town_service(town, svc):
       <span>{svc['name']}</span>
     </div>
     <h1>{title}</h1>
-    <p>{esc(svc['short'])} Serving {name} homes in {town['zips']}. Licensed, insured and streak-free guaranteed.</p>
+    <p>{esc(svc['short'])} Serving homes across {name}. Licensed, insured and streak-free guaranteed.</p>
 {hero_buttons()}
   </div>
 </section>
@@ -743,7 +738,7 @@ def build_areas():
     cards = '\n'.join(f'''      <div class="area-card">
         <a class="area-card-head" href="{town_slug(t['name'])}">
           <i class="fas fa-map-marker-alt"></i>
-          <span><strong>{t['name']}</strong><small>{' · '.join(zip_codes(t))}</small></span>
+          <span><strong>{t['name']}</strong></span>
           <i class="fas fa-arrow-right area-card-arrow"></i>
         </a>
       </div>''' for t in sorted_towns())
