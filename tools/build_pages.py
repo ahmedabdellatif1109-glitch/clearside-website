@@ -537,9 +537,8 @@ def build_service(svc):
                                     'priceSpecification': {'@type': 'PriceSpecification', 'minPrice': svc['from'],
                                                            'priceCurrency': 'USD'}}
     page(path,
-         f"{svc['name']} Glenview IL & North Shore | ClearSide Exteriors",
-         f"{svc['short']} Serving Glenview, Wilmette, Northbrook, Evanston and the North Shore. "
-         f"Licensed & insured. Free estimates: {D.PHONE_DISPLAY}.",
+         f"{svc['name']} in Glenview, IL | ClearSide",
+         f"{svc['short']} Glenview & the North Shore. Licensed & insured. Call {D.PHONE_DISPLAY}.",
          [service_schema, faq_schema(svc['faqs']),
           breadcrumb_schema([('Home', ''), ('Services', 'services.html'), (svc['name'], path)])],
          body)
@@ -725,9 +724,9 @@ def build_town(town):
 
 {quote_section(town_name=name)}'''
     page(path,
-         f'{name} IL Exterior Cleaning | Windows, Pressure Washing & Gutters | ClearSide',
-         f'Window cleaning, pressure washing and gutter cleaning in {name}, IL. Local, licensed & insured, '
-         f'streak-free guaranteed. Free estimates: {D.PHONE_DISPLAY}.',
+         f'{name}, IL Exterior Cleaning Services | ClearSide',
+         f'Window cleaning, pressure washing and gutter cleaning in {name}, IL. Local, licensed & insured. '
+         f'Free estimates: {D.PHONE_DISPLAY}.',
          [{'@context': 'https://schema.org', '@type': 'Service', 'name': f'Window Cleaning in {name}, IL',
            'serviceType': 'Window cleaning, pressure washing and gutter cleaning',
            'url': D.SITE_URL + '/' + path, 'provider': {'@id': D.SITE_URL + '/#business'},
@@ -883,9 +882,9 @@ def build_areas():
 </section>
 
 {cta_banner()}'''
-    page('areas.html', 'Service Areas | Window Cleaning Across the North Shore | ClearSide Exteriors',
-         'ClearSide Exteriors serves Glenview, Wilmette, Northbrook, Evanston, Skokie and more North Shore towns with '
-         'window cleaning, pressure washing and gutter cleaning. Find your town.',
+    page('areas.html', 'Service Areas | ClearSide Exteriors, Glenview IL',
+         f'Window cleaning, pressure washing and gutter cleaning in {len(D.TOWNS)} North Shore and northwest suburban '
+         'towns, from Glenview and Northbrook to Chicago. Find yours.',
          [breadcrumb_schema([('Home', ''), ('Service Areas', 'areas.html')])],
          body)
     return 'areas.html'
@@ -918,9 +917,9 @@ def build_faq():
 
 {cta_banner()}'''
     all_faqs = [qa for _, f in groups for qa in f]
-    page('faq.html', 'FAQ | Window Cleaning Pricing & Questions | ClearSide Exteriors',
+    page('faq.html', 'FAQ | Pricing & Questions | ClearSide Exteriors',
          'Answers about window cleaning, pressure washing and gutter cleaning prices, scheduling, insurance and our '
-         'streak-free guarantee. ClearSide Exteriors, Glenview IL.',
+         'streak-free guarantee. ClearSide Exteriors, Glenview.',
          [faq_schema(all_faqs), breadcrumb_schema([('Home', ''), ('FAQ', 'faq.html')])],
          body)
     return 'faq.html'
