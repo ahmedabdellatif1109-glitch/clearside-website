@@ -243,6 +243,7 @@ GENERAL_FAQS = [
     ('What is your satisfaction guarantee?',
      'If you see a streak or anything we missed, tell us and we will come back and fix it at no charge.'),
     ('Do you offer recurring service?',
-     'Yes. The once-a-year plan saves you $25, the twice-a-year plan saves you $50, and our best-value '
-     'three-times-a-year plan saves you $100 and includes unlimited touch-ups in between visits.'),
+     'Yes. The once-a-year plan takes $25 off every visit, the twice-a-year plan takes $50 off every visit, '
+     'and our best-value three-times-a-year plan takes $100 off every visit and includes unlimited touch-ups '
+     'in between visits.'),
 ]
