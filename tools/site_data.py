@@ -204,8 +204,6 @@ TOWNS = [
               'throughout the season.'},
     {'name': 'Northbrook', 'county': 'Cook County',
      'blurb': 'Northbrook is right next to Glenview and one of the towns we serve most.'},
-    {'name': 'Skokie', 'county': 'Cook County',
-     'blurb': 'From single-family homes to small businesses, we keep Skokie windows and driveways clean.'},
     {'name': 'Morton Grove', 'county': 'Cook County',
      'blurb': 'Morton Grove borders Glenview, so we are always close by.'},
     {'name': 'Park Ridge', 'county': 'Cook County',
@@ -280,7 +278,7 @@ TOWN_CENTERS = {
     'Golf': (42.0581, -87.7898), 'Niles': (42.0189, -87.8028), 'Highland Park': (42.1817, -87.8003),
     'Northfield': (42.0997, -87.7809), 'Buffalo Grove': (42.1664, -87.9631), 'Kenilworth': (42.0859, -87.7176),
     'Winnetka': (42.1081, -87.7359), 'Evanston': (42.0451, -87.6877), 'Riverwoods': (42.1675, -87.8973),
-    'Skokie': (42.0324, -87.7416), 'Morton Grove': (42.0406, -87.7826), 'Glencoe': (42.1350, -87.7581), 'Rolling Meadows': (42.0842, -88.0131),
+    'Morton Grove': (42.0406, -87.7826), 'Glencoe': (42.1350, -87.7581), 'Rolling Meadows': (42.0842, -88.0131),
     'Elk Grove Village': (42.0039, -87.9703), 'Chicago': (41.9700, -87.7600), 'Schaumburg': (42.0334, -88.0834),
 }
 

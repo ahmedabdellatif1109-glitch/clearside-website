@@ -280,7 +280,9 @@ section    { padding: var(--space-12) 0; }
 .reviewer-loc  { font-size: var(--fs-13); color: var(--ink-3); }
 
 /* ── Service area ── */
-.area-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-3); max-width: 900px; margin: 0 auto; }
+.area-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); max-width: 900px; margin: 0 auto; }
+/* 24 towns: 4 or 2 per row keeps every row full */
+@media (max-width: 640px) { .area-grid { grid-template-columns: repeat(2, 1fr); } }
 .area-tag {
   background: var(--surface-raised); border: 1.5px solid var(--border-1);
   border-radius: var(--r-md); padding: var(--space-3) var(--space-4);
