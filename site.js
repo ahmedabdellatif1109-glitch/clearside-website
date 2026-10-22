@@ -531,6 +531,16 @@ function initContactForm() {
 function initTownMap() {
   const el = document.getElementById('town-map');
   if (!el) return;
+  // Only download the map once it's close to being on screen
+  const watcher = new IntersectionObserver(entries => {
+    if (!entries.some(e => e.isIntersecting)) return;
+    watcher.disconnect();
+    loadTownMap(el);
+  }, { rootMargin: '400px 0px' });
+  watcher.observe(el);
+}
+
+function loadTownMap(el) {
   const css = document.createElement('link');
   css.rel = 'stylesheet';
   css.href = 'assets/vendor/leaflet/leaflet.css';

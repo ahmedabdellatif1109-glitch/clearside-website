@@ -742,9 +742,17 @@ def build_town_service(town, svc):
 
 # ── Service areas page ────────────────────────────────────────
 
+def town_map_html():
+    """Interactive map of every town; site.js loads Leaflet when it scrolls into view."""
+    towns = [{'name': x['name'], 'url': town_slug(x['name']), 'lat': D.TOWN_CENTERS[x['name']][0],
+              'lon': D.TOWN_CENTERS[x['name']][1]} for x in sorted_towns()]
+    return f'''    <div class="town-map-wrap">
+      <div id="town-map" class="town-map" role="region" aria-label="Map of the towns we serve" data-towns="{esc(json.dumps(towns))}"></div>
+      <p class="town-map-hint"><i class="fas fa-hand-pointer"></i> Tap a pin to see that town's page</p>
+    </div>'''
+
+
 def build_areas():
-    map_towns = [{'name': x['name'], 'url': town_slug(x['name']), 'lat': D.TOWN_CENTERS[x['name']][0],
-                  'lon': D.TOWN_CENTERS[x['name']][1]} for x in sorted_towns()]
     cards = '\n'.join(f'''      <div class="area-card">
         <a class="area-card-head" href="{town_slug(t['name'])}">
           <i class="fas fa-map-marker-alt"></i>
@@ -767,10 +775,7 @@ def build_areas():
 
 <section class="bg-paper">
   <div class="container">
-    <div class="town-map-wrap">
-      <div id="town-map" class="town-map" role="region" aria-label="Map of the towns we serve" data-towns="{esc(json.dumps(map_towns))}"></div>
-      <p class="town-map-hint"><i class="fas fa-hand-pointer"></i> Tap a pin to see that town's page</p>
-    </div>
+{town_map_html()}
     <div class="area-cards">
 {cards}
     </div>
@@ -842,6 +847,8 @@ def fill_shared(path):
     tags = '\n'.join(f'      <a class="area-tag" href="{town_slug(x["name"])}"><i class="fas fa-map-marker-alt"></i> '
                      f'{x["name"]} <i class="fas fa-chevron-right area-tag-arrow"></i></a>' for x in sorted_towns())
     text = re.sub(r'(<div class="area-grid">\n).*?(\n    </div>)', lambda m: m.group(1) + tags + m.group(2), text, flags=re.S)
+    if '<!-- shared:townmap -->' in text:
+        text = fill(text, 'townmap', town_map_html())
     if '<!-- shared:reviews -->' in text:
         text = fill(text, 'reviews', reviews_section())
     if path == 'index.html':
