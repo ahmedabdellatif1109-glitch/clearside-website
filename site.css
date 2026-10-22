@@ -1161,7 +1161,9 @@ a.area-tag { justify-content: flex-start; text-align: left; }
 /* ══════════════════════════════════════
    ROTATING ANNOUNCEMENT BAR (top of every page, links to the quote form)
 ══════════════════════════════════════ */
-:root { --bar-h: 36px; --nav-total: calc(68px + var(--bar-h)); }
+/* Only the homepage shows the bar (<html class="has-announce">); other pages keep the plain nav height */
+:root { --bar-h: 0px; --nav-total: calc(68px + var(--bar-h)); }
+:root.has-announce { --bar-h: 36px; }
 .announce-bar {
   position: relative; display: flex; align-items: center;
   height: var(--bar-h); background: var(--salmon); color: #fff; overflow: hidden;
@@ -1176,7 +1178,7 @@ a.area-tag { justify-content: flex-start; text-align: left; }
 .announce-item i { font-size: .9em; }
 .announce-cta { text-decoration: underline; text-underline-offset: 3px; }
 @keyframes announce-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (max-width: 768px) { :root { --bar-h: 32px; } .announce-bar { font-size: var(--fs-12); } .announce-item { padding: 0 1.25rem; } .announce-track { animation-duration: 60s; } }
+@media (max-width: 768px) { :root.has-announce { --bar-h: 32px; } .announce-bar { font-size: var(--fs-12); } .announce-item { padding: 0 1.25rem; } .announce-track { animation-duration: 60s; } }
 @media (prefers-reduced-motion: reduce) { .announce-track { animation: none; } }
 
 /* Everything below the header moves down by the bar's height */
@@ -1189,3 +1191,18 @@ a.area-tag { justify-content: flex-start; text-align: left; }
 }
 #quote { scroll-margin-top: calc(var(--nav-total) + 16px); }
 #quote { scroll-margin-top: calc(var(--nav-total) + 36px); }
+
+/* Very small phones (320–360px wide): let grid and flex children shrink instead of pushing past the screen */
+.town-panel > *, .town-panel-title > *, .detail-grid > *, .town-facts > * { min-width: 0; }
+.town-panel-title p, .detail-content { overflow-wrap: anywhere; }
+@media (max-width: 360px) {
+  .nav-inner { gap: var(--space-2); }
+  .nav-logo img { max-width: 120px; height: auto; }
+  .nav-mobile-actions { gap: 6px; }
+  .nav-icon-btn { width: 38px; height: 38px; }
+}
+.contact-grid > * { min-width: 0; }
+@media (max-width: 360px) {
+  .btn { white-space: normal; text-align: center; }
+  .contact-method { overflow-wrap: anywhere; }
+}

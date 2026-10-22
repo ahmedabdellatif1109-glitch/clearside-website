@@ -127,9 +127,6 @@ SHARED_NAV = f'''<nav class="site-nav">
       <button class="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     </div>
   </div>
-  <a class="announce-bar" href="{QUOTE}" aria-label="Get a free quote: fully licensed and insured, rated 5.0 stars on Google, free estimates">
-    <span class="announce-track">{ANNOUNCE_GROUP}{ANNOUNCE_GROUP_HIDDEN}</span>
-  </a>
 </nav>
 <div class="mobile-menu">
   <a href="index.html">Home</a>
@@ -143,6 +140,14 @@ SHARED_NAV = f'''<nav class="site-nav">
   <a href="{SMS}"><i class="fas fa-comment-sms"></i> Text {D.PHONE_DISPLAY}</a>
   <a href="{QUOTE}" class="btn btn-primary">Get a Free Quote</a>
 </div>'''
+
+# The rotating bar sits under the menu row on the homepage only
+ANNOUNCE_BAR = f'''  <a class="announce-bar" href="{QUOTE}" aria-label="Get a free quote: fully licensed and insured, rated 5.0 stars on Google, free estimates">
+    <span class="announce-track">{ANNOUNCE_GROUP}{ANNOUNCE_GROUP_HIDDEN}</span>
+  </a>
+'''
+HOME_NAV = SHARED_NAV.replace('  </div>\n</nav>', '  </div>\n' + ANNOUNCE_BAR + '</nav>', 1)
+
 
 
 def shared_footer():
@@ -161,7 +166,7 @@ def shared_footer():
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="assets/logo/clearside-full-transparent-sm.png" alt="ClearSide Exteriors" width="300" height="113" loading="lazy">
-        <p>Professional exterior cleaning for Glenview and greater Cook County. Student-owned, community-driven, spotless results.</p>
+        <p>Professional exterior cleaning for Glenview and greater Cook County. Student-owned and based in Glenview.</p>
         <p class="footer-licensed"><i class="fas fa-shield-halved"></i> Licensed &amp; Insured</p>
         <div class="footer-socials">
 {social_html}
@@ -273,7 +278,7 @@ def cta_banner(heading='Get Your Free Estimate Today'):
   <div class="container">
     <span class="eyebrow" style="color:rgba(255,255,255,.5);">Ready to Get Started?</span>
     <h2>{heading}</h2>
-    <p>Call, text, or fill out our form. We'll get back to you fast with a no-obligation quote.</p>
+    <p>Call, text, or fill out our form. We'll get back to you quickly with a free quote.</p>
     <div class="cta-btns">
       <a href="{QUOTE}" class="btn btn-primary"><i class="fas fa-comments-dollar"></i> Request a Quote</a>
       <a href="tel:{D.PHONE_E164}" class="btn btn-outline-white"><i class="fas fa-phone"></i> {D.PHONE_DISPLAY}</a>
@@ -401,7 +406,7 @@ def quote_section(town_name=None, svc=None):
         <h3>Request Your Quote</h3>
         <p>Fields marked * are required.</p>
         <form id="contactForm" novalidate>
-          <input type="hidden" name="_subject" value="New Lead — {esc(what)} page">
+          <input type="hidden" name="_subject" value="New Lead: {esc(what)} page">
           <input type="hidden" name="source" value="page-form">
           <input type="hidden" name="page" value="{esc(what)}">
           <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;">
@@ -894,7 +899,7 @@ def build_areas():
     <div class="area-cards">
 {cards}
     </div>
-    <p class="faq-more">Don't see your town? <a href="{QUOTE}">Ask us</a> — we probably cover it.</p>
+    <p class="faq-more">Don't see your town? <a href="{QUOTE}">Ask us</a>. We probably cover it.</p>
   </div>
 </section>
 
@@ -956,7 +961,7 @@ def fill_shared(path):
     with open(full) as f:
         text = f.read()
     text = fill(text, 'head', SHARED_HEAD)
-    text = fill(text, 'nav', SHARED_NAV)
+    text = fill(text, 'nav', HOME_NAV if path == 'index.html' else SHARED_NAV)
     text = fill(text, 'footer', shared_footer())
     # Town buttons on hand-written pages always list every town we serve
     tags = '\n'.join(f'      <a class="area-tag" href="{town_slug(x["name"])}"><i class="fas fa-map-marker-alt"></i> '
