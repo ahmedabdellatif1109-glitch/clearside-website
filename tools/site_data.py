@@ -197,7 +197,7 @@ TOWNS = [
      'blurb': 'We serve homes and businesses across Arlington Heights, from the neighborhoods around downtown to '
               'the north side.'},
     {'name': 'Mount Prospect', 'county': 'Cook County',
-     'blurb': 'Mount Prospect homeowners get the same pure-water, streak-free service we bring to every North '
+     'blurb': 'Mount Prospect homeowners get the same careful, detail-first service we bring to every North '
               'Shore home.'},
     {'name': 'Des Plaines', 'county': 'Cook County',
      'blurb': 'Des Plaines is a short drive from our Glenview base, and we clean homes and storefronts here '
@@ -235,7 +235,7 @@ TOWNS = [
     {'name': 'Elk Grove Village', 'county': 'Cook and DuPage Counties',
      'blurb': 'We clean homes and businesses throughout Elk Grove Village.'},
     {'name': 'Schaumburg', 'county': 'Cook and DuPage Counties',
-     'blurb': 'We serve Schaumburg homes and businesses with pure-water, streak-free cleaning.'},
+     'blurb': 'We serve Schaumburg homes and businesses with window cleaning, pressure washing and gutter cleaning.'},
     {'name': 'Chicago', 'county': 'Cook County',
      'blurb': 'We serve homes and businesses on Chicago\'s North and Northwest Side, a short drive down '
               'Milwaukee Avenue from our Glenview base.'},

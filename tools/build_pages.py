@@ -152,7 +152,7 @@ def shared_footer():
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="assets/logo/clearside-full-transparent-sm.png" alt="ClearSide Exteriors" width="300" height="113" loading="lazy">
-        <p>Professional exterior cleaning for Glenview and greater Cook County. Student-owned, community-driven, streak-free results.</p>
+        <p>Professional exterior cleaning for Glenview and greater Cook County. Student-owned, community-driven, spotless results.</p>
         <p class="footer-licensed"><i class="fas fa-shield-halved"></i> Licensed &amp; Insured</p>
         <div class="footer-socials">
 {social_html}
@@ -383,7 +383,7 @@ def quote_section(town_name=None, svc=None):
         <ul class="check-list">
           <li><i class="fas fa-circle-check"></i> Free, exact quote before any work starts</li>
           <li><i class="fas fa-circle-check"></i> Licensed &amp; insured</li>
-          <li><i class="fas fa-circle-check"></i> Streak-free satisfaction guarantee</li>
+          <li><i class="fas fa-circle-check"></i> {guarantee(svc)[2].capitalize()}</li>
           <li><i class="fas fa-circle-check"></i> New customers get 10% off their first cleaning</li>
         </ul>
         <p class="form-sms-note"><i class="fas fa-comment-sms"></i> Prefer your phone? <a href="tel:{D.PHONE_E164}">Call</a> or <a href="{SMS}">text</a> {D.PHONE_DISPLAY}.</p>
@@ -463,7 +463,7 @@ def build_service(svc):
       <span>{svc['name']}</span>
     </div>
     <h1>{svc['name']} in Glenview &amp; the North Shore</h1>
-    <p>{esc(svc['lede'].format(town='Glenview and the North Shore') if 'lede' in svc else svc['short'])} Licensed, insured and streak-free guaranteed.</p>
+    <p>{esc(svc['lede'].format(town='Glenview and the North Shore') if 'lede' in svc else svc['short'])} Licensed, insured and {guarantee(svc)[3]} guaranteed.</p>
 {hero_buttons()}
   </div>
 </section>
@@ -631,12 +631,20 @@ def service_work_section(svc):
 
 # ── Town pages ────────────────────────────────────────────────
 
-def town_trust_section(town, eyebrow, heading, near_html, button_html):
+def guarantee(svc=None):
+    """Streak-free wording only where windows are the subject."""
+    if svc and svc['slug'] == 'window-cleaning':
+        return ('Streak-Free Guarantee', 'If you see a streak or anything we missed, we come back and fix it at no charge.',
+                'Streak-free satisfaction guarantee', 'streak-free')
+    return ('Satisfaction Guarantee', "If anything isn't right, we come back and fix it at no charge.",
+            '100% satisfaction guarantee', 'satisfaction')
+
+
+def town_trust_section(town, eyebrow, heading, near_html, button_html, svc=None):
     """Three trust cards plus a town info panel, shared by town pages."""
     cards = [('fa-shield-halved', 'Licensed &amp; Insured',
               'ClearSide Exteriors, LLC is fully licensed and insured, so you are covered on every job.'),
-             ('fa-circle-check', 'Streak-Free Guarantee',
-              'If you see a streak or anything we missed, we come back and fix it at no charge.'),
+             ('fa-circle-check', guarantee(svc)[0], guarantee(svc)[1]),
              ('fa-graduation-cap', 'Student-Founded &amp; Local',
               f'Based in Glenview and serving the North Shore for {D.YEARS_IN_BUSINESS} years, '
               f'with {D.HOMES_SERVICED} homes serviced.')]
@@ -764,7 +772,7 @@ def build_town_service(town, svc):
       <span>{svc['name']}</span>
     </div>
     <h1>{title}</h1>
-    <p>{esc(svc['lede'].format(town=name))} Licensed, insured and {'streak-free' if svc['slug'] == 'window-cleaning' else 'satisfaction'} guaranteed.</p>
+    <p>{esc(svc['lede'].format(town=name))} Licensed, insured and {guarantee(svc)[3]} guaranteed.</p>
 {hero_buttons()}
   </div>
 </section>
@@ -798,7 +806,7 @@ def build_town_service(town, svc):
 
 {town_work_section(name, svc)}
 
-{town_trust_section(town, 'Local &amp; Trusted', f'Why {name} Homeowners Choose ClearSide', f'Also serving nearby: {near_links}.', f'<a href="{town_slug(name)}" class="btn btn-primary">All Services in {name} <i class="fas fa-arrow-right"></i></a>')}
+{town_trust_section(town, 'Local &amp; Trusted', f'Why {name} Homeowners Choose ClearSide', f'Also serving nearby: {near_links}.', f'<a href="{town_slug(name)}" class="btn btn-primary">All Services in {name} <i class="fas fa-arrow-right"></i></a>', svc)}
 
 <section class="bg-white">
   <div class="container">
