@@ -727,7 +727,7 @@ def build_town(town):
          f'{name}, IL Exterior Cleaning Services | ClearSide',
          f'Window cleaning, pressure washing and gutter cleaning in {name}, IL. Local, licensed & insured. '
          f'Free estimates: {D.PHONE_DISPLAY}.',
-         [{'@context': 'https://schema.org', '@type': 'Service', 'name': f'Window Cleaning in {name}, IL',
+         [{'@context': 'https://schema.org', '@type': 'Service', 'name': f'Exterior Cleaning in {name}, IL',
            'serviceType': 'Window cleaning, pressure washing and gutter cleaning',
            'url': D.SITE_URL + '/' + path, 'provider': {'@id': D.SITE_URL + '/#business'},
            'areaServed': {'@type': 'City', 'name': name.replace('Mt.', 'Mount') + ', IL'}},
@@ -764,7 +764,7 @@ def build_town_service(town, svc):
       <span>{svc['name']}</span>
     </div>
     <h1>{title}</h1>
-    <p>{esc(svc['lede'].format(town=name))} Licensed, insured and streak-free guaranteed.</p>
+    <p>{esc(svc['lede'].format(town=name))} Licensed, insured and {'streak-free' if svc['slug'] == 'window-cleaning' else 'satisfaction'} guaranteed.</p>
 {hero_buttons()}
   </div>
 </section>
