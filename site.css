@@ -1078,3 +1078,29 @@ a.area-tag { justify-content: flex-start; text-align: left; }
 .leaflet-tooltip { font-family: var(--font-body); font-weight: 600; }
 @media (max-width: 768px) { .town-map { height: 360px; } }
 .leaflet-interactive:focus { outline: none; }
+
+/* ══════════════════════════════════════
+   LAPTOP/TABLET: service photos at a natural shape (no thin strips)
+══════════════════════════════════════ */
+@media (min-width: 769px) {
+  .expand-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); align-items: start; }
+  .ec-photo, .ec.open .ec-photo { height: 260px; }
+  .ec-photo img { object-position: center 40%; }
+
+  /* Recurring plans card: photo left, text right */
+  .svc-card { display: grid; grid-template-columns: minmax(280px, 40%) 1fr; }
+  .svc-card-img, .svc-card.open .svc-card-img { height: 100%; min-height: 300px; }
+  .svc-card-img img { height: 100%; object-fit: cover; object-position: center 35%; }
+  .svc-card-body { justify-content: center; padding: var(--space-8); }
+
+  /* Before/after: closer to the photos' tall shape */
+  .why-photo { max-width: 520px; margin-inline: auto; }
+  .ba-wrap { height: 640px; }
+}
+@media (min-width: 1025px) {
+  .expand-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 769px) {
+  .svc-card-img { position: relative; }
+  .svc-card-img img { position: absolute; inset: 0; width: 100%; }
+}
