@@ -3,20 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About | Student-Owned Window Cleaning Glenview IL | ClearSide Exteriors</title>
-  <meta name="description" content="ClearSide Exteriors is a student-owned exterior cleaning company founded by a North Shore student. 600+ homes serviced, 4+ years serving Glenview and Cook County, IL with streak-free results.">
+  <title>About ClearSide Exteriors | Student-Owned, Glenview IL</title>
+  <meta name="description" content="ClearSide Exteriors is a student-founded window and exterior cleaning company in Glenview, IL. 600+ homes serviced, licensed and insured.">
   <link rel="canonical" href="https://clearsideexteriors.com/about.html">
   <meta name="geo.region" content="US-IL">
   <meta name="geo.placename" content="Glenview, Illinois">
-  <meta property="og:title" content="About | ClearSide Exteriors – Student-Owned, Glenview IL">
+  <meta property="og:title" content="About ClearSide Exteriors | Student-Owned, Glenview IL">
   <meta property="og:description" content="Student-owned exterior cleaning company founded by a North Shore student. 600+ homes serviced. 4+ years serving Glenview, IL.">
   <meta property="og:url" content="https://clearsideexteriors.com/about.html">
+<!-- shared:head -->
+  <meta name="theme-color" content="#1A2332">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta property="og:site_name" content="ClearSide Exteriors">
+  <meta property="og:image" content="https://clearsideexteriors.com/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://clearsideexteriors.com/assets/og-image.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
+<!-- /shared:head -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -30,32 +44,45 @@
 </head>
 <body>
 
-<!-- ── Nav ── -->
+<!-- shared:nav -->
 <nav class="site-nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <img src="assets/logo/clearside-full-transparent.png" alt="ClearSide Exteriors logo">
+      <img src="assets/logo/clearside-full-transparent-sm.png" alt="ClearSide Exteriors logo" width="300" height="113">
     </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="areas.html">Areas</a></li>
+      <li><a href="services.html#pricing">Pricing</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-right">
       <a href="tel:+12249859327" class="nav-phone"><i class="fas fa-phone"></i> (224) 985-9327</a>
-      <a href="contact.html" class="btn btn-primary btn-sm nav-cta">Get a Free Quote</a>
+      <a href="contact.html#quote" class="btn btn-primary btn-sm nav-cta">Get a Free Quote</a>
     </div>
-    <button class="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <div class="nav-mobile-actions">
+      <a href="tel:+12249859327" class="nav-icon-btn" aria-label="Call (224) 985-9327"><i class="fas fa-phone"></i></a>
+      <a href="sms:+12249859327" class="nav-icon-btn" aria-label="Text (224) 985-9327"><i class="fas fa-comment-sms"></i></a>
+      <button class="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </nav>
 <div class="mobile-menu">
   <a href="index.html">Home</a>
   <a href="services.html">Services</a>
+  <a href="areas.html">Service Areas</a>
+  <a href="services.html#pricing">Pricing</a>
+  <a href="faq.html">FAQ</a>
   <a href="about.html">About</a>
   <a href="contact.html">Contact</a>
-  <a href="contact.html" class="btn btn-primary">Get a Free Quote</a>
+  <a href="tel:+12249859327"><i class="fas fa-phone"></i> Call (224) 985-9327</a>
+  <a href="sms:+12249859327"><i class="fas fa-comment-sms"></i> Text (224) 985-9327</a>
+  <a href="contact.html#quote" class="btn btn-primary">Get a Free Quote</a>
 </div>
+<!-- /shared:nav -->
 
 <!-- ── Page Hero ── -->
 <section class="page-hero">
@@ -76,7 +103,7 @@
     <div class="about-grid">
       <div class="about-visual reveal">
         <div class="about-img-box">
-          <img src="assets/photos/founder-equipment.jpg" alt="ClearSide founder with professional cleaning equipment">
+          <img src="assets/photos/founder-equipment-sm.jpg" srcset="assets/photos/founder-equipment-sm.jpg 800w, assets/photos/founder-equipment.jpg 1200w" sizes="(max-width: 768px) 100vw, 1160px" width="1200" height="1600" loading="lazy" decoding="async" alt="ClearSide founder with professional cleaning equipment">
         </div>
         <div class="about-badge">
           <div class="badge-num">4+</div>
@@ -142,8 +169,8 @@
 <section class="bg-paper" style="padding:var(--space-8) 0;">
   <div class="container">
     <div class="about-photo-strip reveal">
-      <div class="about-strip-img"><img src="assets/photos/job-site-residential-truck.jpg" alt="ClearSide team arriving at a residential job site"></div>
-      <div class="about-strip-img"><img src="assets/photos/pressure-washing.png" alt="Professional pressure washing service by ClearSide Exteriors"></div>
+      <div class="about-strip-img"><img src="assets/photos/job-site-residential-truck-sm.jpg" srcset="assets/photos/job-site-residential-truck-sm.jpg 800w, assets/photos/job-site-residential-truck.jpg 900w" sizes="(max-width: 768px) 100vw, 1160px" width="900" height="1600" loading="lazy" decoding="async" alt="ClearSide team arriving at a residential job site"></div>
+      <div class="about-strip-img"><img src="assets/photos/pressure-washing-sm.jpg" srcset="assets/photos/pressure-washing-sm.jpg 800w, assets/photos/pressure-washing.jpg 916w" sizes="(max-width: 768px) 100vw, 1160px" width="916" height="1600" loading="lazy" decoding="async" alt="Professional pressure washing service by ClearSide Exteriors"></div>
     </div>
   </div>
 </section>
@@ -156,8 +183,8 @@
         <span class="eyebrow">Why It Matters</span>
         <h2>The Student-Owned Difference</h2>
         <p style="color:var(--ink-2);margin-bottom:var(--space-4);font-size:var(--fs-16);">When you hire ClearSide, you're not calling a national franchise. You're supporting a young entrepreneur in your own community who is doing this the hard way — earning every customer, building a reputation job by job.</p>
-        <p style="color:var(--ink-2);margin-bottom:var(--space-6);font-size:var(--fs-16);">We have something to prove, and that shows in the results. Every single job is an opportunity to grow the business we've spent three years building — so we never phone it in.</p>
-        <a href="contact.html" class="btn btn-primary">Work With Us <i class="fas fa-arrow-right"></i></a>
+        <p style="color:var(--ink-2);margin-bottom:var(--space-6);font-size:var(--fs-16);">We have something to prove, and that shows in the results. Every single job is an opportunity to grow the business we've spent four years building — so we never phone it in.</p>
+        <a href="contact.html#quote" class="btn btn-primary">Work With Us <i class="fas fa-arrow-right"></i></a>
       </div>
       <div class="stats-block reveal d2">
         <div class="stat-tile">
@@ -189,21 +216,33 @@
       <h2>Proudly Serving the North Shore &amp; Cook County</h2>
       <p>We serve communities across the North Shore and greater Cook County area.</p>
     </div>
+    <p class="area-hint"><i class="fas fa-hand-pointer"></i> Tap your town for local services and prices</p>
     <div class="area-grid">
-      <div class="area-tag primary">Glenview <i class="fas fa-star" style="font-size:.65rem;margin-left:.2rem;"></i></div>
-      <div class="area-tag">Wilmette</div>
-      <div class="area-tag">Northfield</div>
-      <div class="area-tag">Niles</div>
-      <div class="area-tag">Arlington Heights</div>
-      <div class="area-tag">Mt. Prospect</div>
-      <div class="area-tag">Des Plaines</div>
-      <div class="area-tag">Northbrook</div>
-      <div class="area-tag">Skokie</div>
-      <div class="area-tag">Morton Grove</div>
-      <div class="area-tag">Park Ridge</div>
-      <div class="area-tag">Deerfield</div>
-      <div class="area-tag">Glencoe</div>
-      <div class="area-tag">Evanston</div>
+      <a class="area-tag" href="glenview-il.html"><i class="fas fa-map-marker-alt"></i> Glenview <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="arlington-heights-il.html"><i class="fas fa-map-marker-alt"></i> Arlington Heights <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="park-ridge-il.html"><i class="fas fa-map-marker-alt"></i> Park Ridge <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="northbrook-il.html"><i class="fas fa-map-marker-alt"></i> Northbrook <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="deerfield-il.html"><i class="fas fa-map-marker-alt"></i> Deerfield <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="mount-prospect-il.html"><i class="fas fa-map-marker-alt"></i> Mount Prospect <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="prospect-heights-il.html"><i class="fas fa-map-marker-alt"></i> Prospect Heights <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="chicago-il.html"><i class="fas fa-map-marker-alt"></i> Chicago <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="wilmette-il.html"><i class="fas fa-map-marker-alt"></i> Wilmette <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="des-plaines-il.html"><i class="fas fa-map-marker-alt"></i> Des Plaines <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="golf-il.html"><i class="fas fa-map-marker-alt"></i> Golf <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="niles-il.html"><i class="fas fa-map-marker-alt"></i> Niles <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="highland-park-il.html"><i class="fas fa-map-marker-alt"></i> Highland Park <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="northfield-il.html"><i class="fas fa-map-marker-alt"></i> Northfield <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="buffalo-grove-il.html"><i class="fas fa-map-marker-alt"></i> Buffalo Grove <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="kenilworth-il.html"><i class="fas fa-map-marker-alt"></i> Kenilworth <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="winnetka-il.html"><i class="fas fa-map-marker-alt"></i> Winnetka <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="evanston-il.html"><i class="fas fa-map-marker-alt"></i> Evanston <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="riverwoods-il.html"><i class="fas fa-map-marker-alt"></i> Riverwoods <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="elk-grove-village-il.html"><i class="fas fa-map-marker-alt"></i> Elk Grove Village <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="glencoe-il.html"><i class="fas fa-map-marker-alt"></i> Glencoe <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="morton-grove-il.html"><i class="fas fa-map-marker-alt"></i> Morton Grove <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="rolling-meadows-il.html"><i class="fas fa-map-marker-alt"></i> Rolling Meadows <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="schaumburg-il.html"><i class="fas fa-map-marker-alt"></i> Schaumburg <i class="fas fa-chevron-right area-tag-arrow"></i></a>
+      <a class="area-tag" href="skokie-il.html"><i class="fas fa-map-marker-alt"></i> Skokie <i class="fas fa-chevron-right area-tag-arrow"></i></a>
     </div>
   </div>
 </section>
@@ -215,48 +254,77 @@
     <h2>Ready for Crystal-Clear Results?</h2>
     <p>Get a free, no-obligation estimate from your local North Shore exterior cleaning experts.</p>
     <div class="cta-btns">
-      <a href="contact.html" class="btn btn-primary"><i class="fas fa-comments-dollar"></i> Get a Free Quote</a>
+      <a href="contact.html#quote" class="btn btn-primary"><i class="fas fa-comments-dollar"></i> Get a Free Quote</a>
       <a href="tel:+12249859327" class="btn btn-outline-white"><i class="fas fa-phone"></i> (224) 985-9327</a>
+      <a href="sms:+12249859327" class="btn btn-outline-white"><i class="fas fa-comment-sms"></i> Text Us</a>
     </div>
   </div>
 </section>
 
-<!-- ── Footer ── -->
+<!-- shared:footer -->
 <footer>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="assets/logo/clearside-full-transparent.png" alt="ClearSide Exteriors">
-        <p>Professional exterior cleaning for Glenview and greater Cook County. Student-owned, community-driven, streak-free results.</p>
+        <img src="assets/logo/clearside-full-transparent-sm.png" alt="ClearSide Exteriors" width="300" height="113" loading="lazy">
+        <p>Professional exterior cleaning for Glenview and greater Cook County. Student-owned, community-driven, spotless results.</p>
+        <p class="footer-licensed"><i class="fas fa-shield-halved"></i> Licensed &amp; Insured</p>
         <div class="footer-socials">
-          <a href="https://share.google/kghBrJvmS0UEbrGW1" class="social-link" aria-label="Google Business" target="_blank" rel="noopener"><i class="fab fa-google"></i></a>
+          <a href="https://share.google/kghBrJvmS0UEbrGW1" class="social-link" aria-label="Google reviews" target="_blank" rel="noopener"><i class="fab fa-google"></i></a>
           <a href="https://www.facebook.com/ClearSideExteriorsLLC/" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
       <div class="footer-col">
-        <h4>Quick Links</h4>
+        <h4>Services</h4>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="window-cleaning.html">Window Cleaning</a></li>
+          <li><a href="screen-cleaning.html">Screen Cleaning</a></li>
+          <li><a href="pressure-washing.html">Pressure Washing</a></li>
+          <li><a href="gutter-cleaning.html">Gutter Cleaning</a></li>
+          <li><a href="commercial-window-cleaning.html">Commercial Window Cleaning</a></li>
+          <li><a href="services.html#pricing">Pricing</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Areas We Serve</h4>
+        <ul class="footer-areas">
+          <li><a href="glenview-il.html">Glenview</a></li>
+          <li><a href="arlington-heights-il.html">Arlington Heights</a></li>
+          <li><a href="park-ridge-il.html">Park Ridge</a></li>
+          <li><a href="northbrook-il.html">Northbrook</a></li>
+          <li><a href="deerfield-il.html">Deerfield</a></li>
+          <li><a href="mount-prospect-il.html">Mount Prospect</a></li>
+          <li><a href="prospect-heights-il.html">Prospect Heights</a></li>
+          <li><a href="chicago-il.html">Chicago</a></li>
+          <li><a href="wilmette-il.html">Wilmette</a></li>
+          <li><a href="des-plaines-il.html">Des Plaines</a></li>
+          <li><a href="golf-il.html">Golf</a></li>
+          <li><a href="niles-il.html">Niles</a></li>
+          <li class="footer-all-areas"><a href="areas.html">All 25 areas <i class="fas fa-arrow-right"></i></a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Contact Us</h4>
-        <div class="footer-contact-row"><i class="fas fa-phone"></i><a href="tel:+12249859327">(224) 985-9327</a></div>
+        <div class="footer-contact-row"><i class="fas fa-phone"></i><a href="tel:+12249859327">Call (224) 985-9327</a></div>
+        <div class="footer-contact-row"><i class="fas fa-comment-sms"></i><a href="sms:+12249859327">Text (224) 985-9327</a></div>
         <div class="footer-contact-row"><i class="fas fa-envelope"></i><a href="mailto:clearsidexteriors@gmail.com">clearsidexteriors@gmail.com</a></div>
         <div class="footer-contact-row"><i class="fas fa-map-marker-alt"></i><span>Glenview, IL &amp; Cook County</span></div>
+        <a href="contact.html#quote" class="btn btn-primary btn-sm footer-quote">Get a Free Quote</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 ClearSide Exteriors, LLC. All rights reserved.</p>
-      <p>Student-owned &amp; operated — Glenview, IL</p>
+      <p>&copy; <span class="js-year">2026</span> ClearSide Exteriors, LLC. All rights reserved.</p>
+      <p>Student-owned &amp; operated &middot; Licensed &amp; insured &middot; Glenview, IL</p>
     </div>
   </div>
 </footer>
 
-<script src="site.js"></script>
+<div class="mobile-cta-bar">
+  <a href="tel:+12249859327"><i class="fas fa-phone"></i> Call</a>
+  <a href="sms:+12249859327"><i class="fas fa-comment-sms"></i> Text</a>
+  <a href="contact.html#quote" class="mcb-quote"><i class="fas fa-comments-dollar"></i> Free Quote</a>
+</div>
+<!-- /shared:footer -->
 </body>
 </html>

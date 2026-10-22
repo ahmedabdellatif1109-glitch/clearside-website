@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /design-handoff.html
+Disallow: /ui_kits/
+
+Sitemap: https://clearsideexteriors.com/sitemap.xml
