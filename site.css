@@ -936,3 +936,4 @@ a.area-tag { text-decoration: none; border-bottom-width: 1.5px; }
   .trust-card h3 { font-size: var(--fs-16); margin-bottom: 4px; }
   .trust-card p { font-size: var(--fs-14); }
 }
+.reviews-widget { min-height: 200px; }

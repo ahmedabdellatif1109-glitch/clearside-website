@@ -12,6 +12,9 @@ GOOGLE_PROFILE = 'https://share.google/kghBrJvmS0UEbrGW1'
 FACEBOOK_PROFILE = 'https://www.facebook.com/ClearSideExteriorsLLC/'
 # Leave empty until there is a real account; the footer hides the icon when blank.
 INSTAGRAM_PROFILE = ''
+# Elfsight Google Reviews widget ID (the part after "elfsight-app-" in the
+# embed code). Leave empty to show the three fixed reviews instead.
+ELFSIGHT_APP_ID = ''
 YEARS_IN_BUSINESS = '4+'
 HOMES_SERVICED = '600+'
 

@@ -272,15 +272,19 @@ def reviews_section():
           </div>
         </div>
       </div>''' for n, t in REVIEWS)
+    # With an Elfsight widget ID set, the live Google reviews replace the fixed cards
+    if D.ELFSIGHT_APP_ID:
+        reviews = (f'    <div class="elfsight-app-{D.ELFSIGHT_APP_ID} reviews-widget" data-elfsight-app-lazy></div>\n'
+                   '    <script src="https://elfsightcdn.com/platform.js" async></script>')
+    else:
+        reviews = f'    <div class="reviews-grid">\n{cards}\n    </div>'
     return f'''<section class="bg-white">
   <div class="container">
     <div class="section-head">
       <span class="eyebrow">What Customers Say</span>
       <h2>Trusted by North Shore Homeowners</h2>
     </div>
-    <div class="reviews-grid">
-{cards}
-    </div>
+{reviews}
     <p class="reviews-more"><a href="{D.GOOGLE_PROFILE}" target="_blank" rel="noopener">Read all our reviews on Google <i class="fas fa-arrow-right"></i></a></p>
   </div>
 </section>'''
@@ -675,6 +679,8 @@ def fill_shared(path):
     text = fill(text, 'head', SHARED_HEAD)
     text = fill(text, 'nav', SHARED_NAV)
     text = fill(text, 'footer', shared_footer())
+    if '<!-- shared:reviews -->' in text:
+        text = fill(text, 'reviews', reviews_section())
     if path == 'index.html':
         text = re.sub(r'(<script type="application/ld\+json" id="business-schema">\n).*?(\n  </script>)',
                       lambda m: m.group(1) + json.dumps(business_schema(), indent=2, ensure_ascii=False)
