@@ -7,7 +7,7 @@
    2. For each, copy the form ID (e.g. xpzgkwqr)
    3. Replace the placeholders below
    4. Leads also go to Flyra through /api/lead (Netlify Function),
-      which needs FLYRA_API_KEY set in Netlify environment variables
+      which needs FLYRA_API_KEY2 set in Netlify environment variables
 ═══════════════════════════════════════════════ */
 const CONTACT_ENDPOINT = 'https://formspree.io/f/xwvzwovg';
 const POPUP_ENDPOINT   = 'https://formspree.io/f/xwvzwovg';

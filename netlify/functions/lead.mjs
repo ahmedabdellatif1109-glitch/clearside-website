@@ -1,7 +1,7 @@
 // Sends website form submissions to Flyra as leads in the "Website Leads"
 // pipeline, which starts the website lead follow-up sequence.
 // Popup signups are also emailed their discount code through Flyra.
-// Requires the Flyra API key in Netlify as FLYRA_API_KEY (or flyraapikey),
+// Requires the Flyra API key in Netlify as FLYRA_API_KEY2 (or FLYRA_API_KEY / flyraapikey),
 // with the leads and email permissions.
 
 const FLYRA_URL = 'https://app.flyra.io/v2026-06-01/actions/flyra_create_lead';
@@ -44,14 +44,15 @@ function flyra(url, apiKey, body) {
 
 // Opening /api/lead in a browser reports whether the key is set and whether
 // Flyra accepts it. It never reveals the key itself.
-async function connectionCheck(apiKey) {
+async function connectionCheck(apiKey, keyName) {
   if (!apiKey) {
-    return Response.json({ keySet: false, problem: 'FLYRA_API_KEY is not set for this deploy in Netlify.' });
+    return Response.json({ keySet: false, problem: 'FLYRA_API_KEY2 is not set for this deploy in Netlify.' });
   }
   const res = await flyra('https://app.flyra.io/v2026-06-01/actions/flyra_list_organizations', apiKey, {});
   const detail = res.ok ? '' : (await res.text()).slice(0, 300);
   return Response.json({
     keySet: true,
+    usingVariable: keyName,
     keyLooksRight: apiKey.startsWith('flr_live_'),
     flyraAcceptsKey: res.ok,
     flyraStatus: res.status,
@@ -60,8 +61,9 @@ async function connectionCheck(apiKey) {
 }
 
 export default async (req) => {
-  const apiKey = process.env.FLYRA_API_KEY || process.env.flyraapikey;
-  if (req.method === 'GET') return connectionCheck(apiKey);
+  const keyName = ['FLYRA_API_KEY2', 'FLYRA_API_KEY', 'flyraapikey'].find(name => process.env[name]);
+  const apiKey = keyName ? process.env[keyName] : '';
+  if (req.method === 'GET') return connectionCheck(apiKey, keyName);
   if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
 
   if (!apiKey) return Response.json({ error: 'Flyra API key is not set' }, { status: 500 });
