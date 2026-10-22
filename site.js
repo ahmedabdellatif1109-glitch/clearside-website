@@ -23,10 +23,87 @@ function sendLeadToFlyra(form) {
   }).catch(err => console.error('Flyra lead failed', err));
 }
 
+/* ═══════════════════════════════════════════════
+   ANALYTICS — Google Analytics 4
+   Paste the GA4 Measurement ID (looks like G-XXXXXXXXXX) below.
+   Until it is set, nothing is loaded. Phone taps, text taps and form
+   submissions are sent as events either way once it is set.
+═══════════════════════════════════════════════ */
+const GA_MEASUREMENT_ID = '';
+
+// New-customer discount shown in the popup. Keep in sync with
+// DISCOUNT_CODE in netlify/functions/lead.mjs (the email copy).
+const DISCOUNT_CODE = 'CLEARSIDE10';
+
+const ATTRIBUTION_KEY = 'cs_attribution';
+
+function loadAnalytics() {
+  if (!GA_MEASUREMENT_ID) return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', GA_MEASUREMENT_ID);
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+  document.head.appendChild(s);
+}
+
+function track(event, params) {
+  if (window.gtag) gtag('event', event, params || {});
+}
+
+// Remembers where the visitor first came from (ad, Google, Facebook, etc.)
+// so it can be attached to their lead in Flyra and the Formspree email.
+function getAttribution() {
+  let stored = null;
+  try { stored = localStorage.getItem(ATTRIBUTION_KEY); } catch {}
+  if (stored) return stored;
+
+  const params = new URLSearchParams(window.location.search);
+  const parts = [];
+  ['utm_source', 'utm_medium', 'utm_campaign'].forEach(k => {
+    if (params.get(k)) parts.push(`${k.replace('utm_', '')}=${params.get(k)}`);
+  });
+  if (params.get('gclid')) parts.push('google ads click');
+  if (params.get('fbclid')) parts.push('facebook click');
+  if (!parts.length) {
+    let ref = '';
+    try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch {}
+    parts.push(ref && ref !== window.location.hostname ? `referrer=${ref}` : 'direct');
+  }
+  parts.push(`landing=${window.location.pathname}`);
+  const value = parts.join(', ');
+  try { localStorage.setItem(ATTRIBUTION_KEY, value); } catch {}
+  return value;
+}
+
 const POPUP_STORAGE_KEY  = 'cs_popup_seen';
 const POPUP_COOLDOWN_MS  = 7 * 24 * 60 * 60 * 1000; // 7 days
 
+loadAnalytics();
+const attribution = getAttribution();
+
 document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── Lead source on every form ── */
+  document.querySelectorAll('form').forEach(form => {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'attribution';
+    input.value = attribution;
+    form.appendChild(input);
+  });
+
+  /* ── Call / text tap tracking ── */
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href^="tel:"], a[href^="sms:"]');
+    if (!link) return;
+    track(link.href.startsWith('tel:') ? 'phone_call_click' : 'text_click', { link_location: window.location.pathname });
+  });
+
+  /* ── Footer year ── */
+  document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
 
   /* ── Sticky nav ── */
   const nav = document.querySelector('.site-nav');
@@ -93,8 +170,14 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       const item  = btn.closest('.faq-item');
       const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
     });
   });
 
@@ -190,7 +273,8 @@ function initPopup() {
   if (!overlay) return;
 
   // Check cooldown
-  const lastSeen = localStorage.getItem(POPUP_STORAGE_KEY);
+  let lastSeen = null;
+  try { lastSeen = localStorage.getItem(POPUP_STORAGE_KEY); } catch {}
   if (lastSeen && Date.now() - parseInt(lastSeen) < POPUP_COOLDOWN_MS) return;
 
   let triggered = false;
@@ -205,7 +289,7 @@ function initPopup() {
   function closePopup() {
     overlay.classList.remove('open');
     document.body.style.overflow = '';
-    localStorage.setItem(POPUP_STORAGE_KEY, Date.now().toString());
+    try { localStorage.setItem(POPUP_STORAGE_KEY, Date.now().toString()); } catch {}
   }
 
   // Trigger: 9s delay
@@ -238,33 +322,52 @@ function initPopup() {
     if (e.key === 'Escape' && overlay.classList.contains('open')) closePopup();
   });
 
-  // Popup form submit
+  // Popup form submit: the code is revealed on screen as soon as the lead
+  // is saved (Flyra or Formspree), and /api/lead also emails a copy.
   const popupForm = document.getElementById('popupForm');
   if (popupForm) {
+    const errorEl = document.getElementById('popupError');
+    const btnLabel = '<i class="fas fa-tag"></i> Claim My 10% Off';
+
+    function showPopupError(msg) {
+      errorEl.textContent = msg;
+      errorEl.hidden = false;
+    }
+
     popupForm.addEventListener('submit', async e => {
       e.preventDefault();
+      errorEl.hidden = true;
+      const emailInput = popupForm.querySelector('input[name="email"]');
+      if (!emailInput.value.trim() || !emailInput.checkValidity()) {
+        showPopupError('Please enter a valid email address.');
+        emailInput.focus();
+        return;
+      }
+
       const btn = popupForm.querySelector('.popup-submit');
       btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Sending…';
       btn.disabled = true;
 
-      try {
-        sendLeadToFlyra(popupForm);
-        const res = await fetch(POPUP_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: new FormData(popupForm),
-        });
-        if (res.ok) {
-          popupForm.style.display = 'none';
-          document.getElementById('popupSkip').style.display = 'none';
-          document.getElementById('popupSuccess').style.display = 'block';
-          localStorage.setItem(POPUP_STORAGE_KEY, Date.now().toString());
-        } else {
-          throw new Error('Submission failed');
-        }
-      } catch {
-        btn.innerHTML = 'Claim My 10% Off';
+      const post = url => fetch(url, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(popupForm),
+      }).then(res => { if (!res.ok) throw new Error(`${url} ${res.status}`); return res; });
+
+      const results = await Promise.allSettled([post(FLYRA_LEAD_ENDPOINT), post(POPUP_ENDPOINT)]);
+      results.filter(r => r.status === 'rejected').forEach(r => console.error('Popup submission failed', r.reason));
+
+      if (results.some(r => r.status === 'fulfilled')) {
+        document.getElementById('popupCode').textContent = DISCOUNT_CODE;
+        popupForm.style.display = 'none';
+        document.getElementById('popupSkip').style.display = 'none';
+        document.getElementById('popupSuccess').style.display = 'block';
+        try { localStorage.setItem(POPUP_STORAGE_KEY, Date.now().toString()); } catch {}
+        track('generate_lead', { form: 'popup' });
+      } else {
+        btn.innerHTML = btnLabel;
         btn.disabled = false;
+        showPopupError("Sorry, that didn't go through. Please try again, or text (224) 985-9327 and we'll send your code.");
       }
     });
   }
@@ -292,6 +395,7 @@ function initContactForm() {
       if (res.ok) {
         form.style.display = 'none';
         document.getElementById('formSuccess').style.display = 'block';
+        track('generate_lead', { form: 'contact' });
       } else {
         const data = await res.json();
         throw new Error(data?.errors?.map(er => er.message).join(', ') || 'Submission failed');

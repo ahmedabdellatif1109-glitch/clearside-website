@@ -1,2 +1,14 @@
 [build]
   publish = "."
+
+# Photos, logos and icons rarely change: let browsers cache them for 30 days.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Internal design files are not part of the public site.
+[[headers]]
+  for = "/design-handoff.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
