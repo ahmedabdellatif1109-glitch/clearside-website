@@ -463,7 +463,7 @@ def build_service(svc):
       <span>{svc['name']}</span>
     </div>
     <h1>{svc['name']} in Glenview &amp; the North Shore</h1>
-    <p>{esc(svc['short'])} Licensed, insured and streak-free guaranteed.</p>
+    <p>{esc(svc['lede'].format(town='Glenview and the North Shore') if 'lede' in svc else svc['short'])} Licensed, insured and streak-free guaranteed.</p>
 {hero_buttons()}
   </div>
 </section>
@@ -537,7 +537,7 @@ def build_service(svc):
                                     'priceSpecification': {'@type': 'PriceSpecification', 'minPrice': svc['from'],
                                                            'priceCurrency': 'USD'}}
     page(path,
-         f"{svc['name']} in Glenview, IL | ClearSide",
+         f"North Shore {svc['name']} | ClearSide Exteriors",
          f"{svc['short']} Glenview & the North Shore. Licensed & insured. Call {D.PHONE_DISPLAY}.",
          [service_schema, faq_schema(svc['faqs']),
           breadcrumb_schema([('Home', ''), ('Services', 'services.html'), (svc['name'], path)])],
@@ -708,7 +708,7 @@ def build_town(town):
     <div class="section-head">
       <span class="eyebrow">Services in {name}</span>
       <h2>Everything Your {name} Home Needs</h2>
-      <p>Looking for window cleaning in {name}? We serve all of {name} in {town['county']} with streak-free windows, spotless driveways and clear gutters. Free estimates, always.</p>
+      <p>Looking for window cleaners in {name}? We serve all of {name} in {town['county']} with streak-free windows, spotless driveways and clear gutters. Free estimates, always.</p>
     </div>
     <div class="svc-link-grid">
 {cards}
@@ -764,7 +764,7 @@ def build_town_service(town, svc):
       <span>{svc['name']}</span>
     </div>
     <h1>{title}</h1>
-    <p>{esc(svc['short'])} Serving homes across {name}. Licensed, insured and streak-free guaranteed.</p>
+    <p>{esc(svc['lede'].format(town=name))} Licensed, insured and streak-free guaranteed.</p>
 {hero_buttons()}
   </div>
 </section>
@@ -829,8 +829,8 @@ def build_town_service(town, svc):
                                                            'priceCurrency': 'USD'}}
     from_text = f" From ${svc['from']}." if svc['from'] else ''
     page(path,
-         f'{title} IL | ClearSide Exteriors',
-         f"{name}, IL {svc['name'].lower()} by a local, licensed & insured team.{from_text} "
+         f"{svc['name']} in {name}, IL | ClearSide",
+         f"Looking for {svc['search']} in {name}, IL? Local, licensed & insured.{from_text} "
          f"Free estimates: {D.PHONE_DISPLAY}.",
          [service_schema, faq_schema(faqs),
           breadcrumb_schema([('Home', ''), (name, town_slug(name)), (svc['name'], path)])],
@@ -865,7 +865,7 @@ def build_areas():
       <i class="fas fa-chevron-right"></i>
       <span>Service Areas</span>
     </div>
-    <h1>Areas We Serve</h1>
+    <h1>Window Cleaning &amp; Pressure Washing Service Areas</h1>
     <p>Window cleaning, pressure washing and gutter cleaning across the North Shore. Pick your town to see local services and prices.</p>
 {hero_buttons()}
   </div>

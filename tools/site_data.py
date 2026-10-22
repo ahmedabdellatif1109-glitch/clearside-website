@@ -35,7 +35,9 @@ SERVICES = [
         'from': 150,
         'prices': [('Exterior window cleaning', 'from $150'), ('Interior window cleaning', 'from $200'),
                    ('Screen cleaning', 'added to any window cleaning')],
-        'intro': ('We clean the outside of your windows with a water-fed pole system and deionized (pure) water, '
+        'search': 'window cleaners',
+        'lede': 'Professional window cleaners serving homes across {town}.',
+        'intro': ('Our window cleaners clean the outside of your windows with a water-fed pole system and deionized (pure) water, '
                   'scrubbing glass, frames and sills with nylon and boar-hair brushes. Pure water has no minerals, '
                   'so it dries spot-free with no soap left behind. Inside, we use professional squeegees and '
                   'solution, then wipe down the frames and sills.'),
@@ -98,7 +100,9 @@ SERVICES = [
         'prices': [('Sidewalk pressure washing', 'from $75'), ('Patio pressure washing', 'from $150'),
                    ('Driveway pressure washing', 'from $200'),
                    ('House soft wash (siding)', 'from $300')],
-        'intro': ('Pressure washing strips years of dirt, algae, mold, mildew and oil stains off hard surfaces. '
+        'search': 'pressure washing and power washing',
+        'lede': 'Pressure washing and power washing for homes across {town}.',
+        'intro': ('Pressure washing (also called power washing) strips years of dirt, algae, mold, mildew and oil stains off hard surfaces. '
                   'On driveways we pre-treat, surface clean and post-treat with an eco-friendly solution so the '
                   'concrete stays cleaner for longer. On siding we soft wash at low pressure, which cleans without '
                   'damaging the surface.'),
@@ -130,8 +134,10 @@ SERVICES = [
         'from': 100,
         'prices': [('Gutter cleaning (inside the gutters)', 'from $200'),
                    ('Exterior gutter scrub (outside face)', 'from $100')],
+        'search': 'gutter cleaners',
+        'lede': 'Professional gutter cleaners serving homes across {town}.',
         'intro': ('Clogged gutters overflow, and that water ends up in your foundation, fascia and landscaping. '
-                  'We remove all debris by hand, flush the gutters with water, and make sure every downspout is '
+                  'Our gutter cleaners remove all debris by hand, flush the gutters with water, and make sure every downspout is '
                   'flowing. We can also scrub the outside face of the gutters to remove the black streaks.'),
         'included': ['All debris removed by hand and bagged',
                      'Gutters flushed with water',
