@@ -100,16 +100,18 @@ export default async (req) => {
   const service = clean(fields.service, 100);
   const message = clean(fields.message, 2000);
   const attribution = clean(fields.attribution, 300);
+  const page = clean(fields.page, 120);
 
   const lead = {
     first_name: clean(fields.firstName, 100),
     last_name: clean(fields.lastName, 100),
     pipeline_id: WEBSITE_LEADS_PIPELINE,
-    source: source === 'popup' ? 'Website popup' : 'Website contact form',
+    source: source === 'popup' ? 'Website popup' : source === 'page-form' ? 'Website page form' : 'Website contact form',
     notes: [
       service && `Service: ${service}`,
       message && `Message: ${message}`,
       source === 'popup' && `Sent 10% off code ${DISCOUNT_CODE}`,
+      page && `Sent from the ${page} page`,
       attribution && `Came from: ${attribution}`,
     ].filter(Boolean).join('\n'),
     // The follow-up sequence is all texts, so only start it when we have a phone number.

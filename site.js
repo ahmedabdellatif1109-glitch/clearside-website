@@ -559,8 +559,10 @@ function loadTownMap(el) {
         radius: 9, weight: 3, color: '#ffffff', fillColor: '#E8967A', fillOpacity: 1,
       }).addTo(map);
       pin.bindTooltip(t.name, { direction: 'top', offset: [0, -8] });
-      pin.bindPopup(`<div class="map-popup"><strong>${t.name}</strong><a href="${t.url}">See ${t.name} services &rarr;</a></div>`);
-      pin.on('click', () => track('map_town_click', { town: t.name }));
+      pin.on('click', () => {
+        track('map_town_click', { town: t.name });
+        window.location.href = t.url;
+      });
       return pin;
     });
     map.fitBounds(L.featureGroup(pins).getBounds(), { padding: [24, 24] });

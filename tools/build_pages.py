@@ -345,6 +345,105 @@ def page(path, title, desc, schemas, body):
         f.write(doc)
 
 
+# ── On-page quote form ────────────────────────────────────────
+
+FORM_SERVICE_VALUE = {'window-cleaning': 'res-exterior-windows', 'screen-cleaning': 'res-screen-cleaning',
+                      'pressure-washing': 'res-pressure-washing', 'gutter-cleaning': 'res-gutter-cleaning',
+                      'commercial-window-cleaning': 'com-window-cleaning'}
+FORM_OPTIONS = [('Residential', [('res-exterior-windows', 'Exterior Window Cleaning'),
+                                 ('res-interior-windows', 'Interior Window Cleaning'),
+                                 ('res-screen-cleaning', 'Screen Cleaning'),
+                                 ('res-pressure-washing', 'Pressure Washing'),
+                                 ('res-gutter-cleaning', 'Gutter Cleaning')]),
+                ('Commercial', [('com-window-cleaning', 'Commercial Window Cleaning'),
+                                ('com-pressure-washing', 'Commercial Pressure Washing')]),
+                (None, [('service-plan', 'Recurring Service Plan'), ('multiple', 'Multiple Services / Not Sure')])]
+
+
+def quote_section(town_name=None, svc=None):
+    """The contact-page quote form, pre-filled for this page's town and service."""
+    chosen = FORM_SERVICE_VALUE.get(svc['slug']) if svc else None
+    def opt(v, label):
+        return f'<option value="{v}"{" selected" if v == chosen else ""}>{label}</option>'
+    groups = []
+    for group, opts in FORM_OPTIONS:
+        inner = ''.join(opt(v, l) for v, l in opts)
+        groups.append(f'<optgroup label="{group}">{inner}</optgroup>' if group else inner)
+    placeholder = f'<option value="" disabled{"" if chosen else " selected"}>Select a service…</option>'
+    what = (f'{town_name} {svc["name"]}' if town_name and svc else town_name or (svc['name'] if svc else ''))
+    heading = f'Get Your Free {town_name} Quote' if town_name else f'Get Your Free {svc["name"]} Quote'
+    addr = f'123 Main St, {town_name}, IL' if town_name else '123 Main St, Glenview, IL'
+    return f"""<section class="bg-paper quote-section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <span class="eyebrow">Free Estimate</span>
+        <h2>{heading}</h2>
+        <p>Tell us a little about your property and we'll text or call you back with an exact price, usually within a few hours. No pressure, no obligation.</p>
+        <ul class="check-list">
+          <li><i class="fas fa-circle-check"></i> Free, exact quote before any work starts</li>
+          <li><i class="fas fa-circle-check"></i> Licensed &amp; insured</li>
+          <li><i class="fas fa-circle-check"></i> Streak-free satisfaction guarantee</li>
+          <li><i class="fas fa-circle-check"></i> New customers get 10% off their first cleaning</li>
+        </ul>
+        <p class="form-sms-note"><i class="fas fa-comment-sms"></i> Prefer your phone? <a href="tel:{D.PHONE_E164}">Call</a> or <a href="{SMS}">text</a> {D.PHONE_DISPLAY}.</p>
+      </div>
+      <div class="form-card" id="quote">
+        <h3>Request Your Quote</h3>
+        <p>Fields marked * are required.</p>
+        <form id="contactForm" novalidate>
+          <input type="hidden" name="_subject" value="New Lead — {esc(what)} page">
+          <input type="hidden" name="source" value="page-form">
+          <input type="hidden" name="page" value="{esc(what)}">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Jane" required autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Smith" required autocomplete="family-name">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone / Text *</label>
+              <input type="tel" id="phone" name="phone" placeholder="(224) 555-0000" required autocomplete="tel">
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="jane@email.com" autocomplete="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="service">Service Interested In *</label>
+            <select id="service" name="service" required>{placeholder}{''.join(groups)}</select>
+          </div>
+          <div class="form-group">
+            <label for="address">Property Address *</label>
+            <input type="text" id="address" name="address" placeholder="{esc(addr)}" required autocomplete="street-address">
+          </div>
+          <div class="form-group">
+            <label for="message">Details / Questions</label>
+            <textarea id="message" name="message" placeholder="Number of stories, windows, anything we should know…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit">
+            <i class="fas fa-paper-plane"></i> Send My Request
+          </button>
+        </form>
+        <div id="formSuccess">
+          <i class="fas fa-circle-check" style="font-size:3rem;color:#22c55e;display:block;margin:0 auto 1rem;"></i>
+          <h3>Request Received!</h3>
+          <p>Thanks! We'll get back to you with a quote as soon as possible, usually within a few hours.</p>
+          <p style="margin-top:var(--space-4);font-size:var(--fs-15);">Need us sooner? Call or text <a href="tel:{D.PHONE_E164}" style="color:var(--sky-700);font-weight:700;border-bottom:none;">{D.PHONE_DISPLAY}</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>"""
+
+
 # ── Service pages ─────────────────────────────────────────────
 
 def build_service(svc):
@@ -425,7 +524,7 @@ def build_service(svc):
   </div>
 </section>
 
-{cta_banner()}'''
+{quote_section(svc=svc)}'''
     service_schema = {
         '@context': 'https://schema.org', '@type': 'Service',
         'name': svc['name'], 'serviceType': svc['name'], 'description': svc['intro'],
@@ -624,7 +723,7 @@ def build_town(town):
 
 {reviews_section()}
 
-{cta_banner(f'Get Your Free {name} Estimate')}'''
+{quote_section(town_name=name)}'''
     page(path,
          f'{name} IL Exterior Cleaning | Windows, Pressure Washing & Gutters | ClearSide',
          f'Window cleaning, pressure washing and gutter cleaning in {name}, IL. Local, licensed & insured, '
@@ -717,7 +816,7 @@ def build_town_service(town, svc):
 
 {reviews_section()}
 
-{cta_banner(f'Get Your Free {name} Estimate')}'''
+{quote_section(town_name=name, svc=svc)}'''
     service_schema = {
         '@context': 'https://schema.org', '@type': 'Service',
         'name': title, 'serviceType': svc['name'], 'description': svc['intro'],
@@ -748,7 +847,7 @@ def town_map_html():
               'lon': D.TOWN_CENTERS[x['name']][1]} for x in sorted_towns()]
     return f'''    <div class="town-map-wrap">
       <div id="town-map" class="town-map" role="region" aria-label="Map of the towns we serve" data-towns="{esc(json.dumps(towns))}"></div>
-      <p class="town-map-hint"><i class="fas fa-hand-pointer"></i> Tap a pin to see that town's page</p>
+      <p class="town-map-hint"><i class="fas fa-hand-pointer"></i> Tap a town to see its page</p>
     </div>'''
 
 
@@ -851,6 +950,8 @@ def fill_shared(path):
         text = fill(text, 'townmap', town_map_html())
     if '<!-- shared:reviews -->' in text:
         text = fill(text, 'reviews', reviews_section())
+    if 'id="quote"' in text:
+        text = text.replace('href="contact.html#quote"', 'href="#quote"')
     if path == 'index.html':
         text = re.sub(r'(<script type="application/ld\+json" id="business-schema">\n).*?(\n  </script>)',
                       lambda m: m.group(1) + json.dumps(business_schema(), indent=2, ensure_ascii=False)
