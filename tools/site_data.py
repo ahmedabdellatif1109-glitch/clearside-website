@@ -33,8 +33,8 @@ SERVICES = [
         'photo2': 'interior-window-cleaning',
         'photo2_alt': 'Interior window cleaning with a professional squeegee',
         'from': 150,
-        'prices': [('Exterior window cleaning', 'from $150'), ('Interior window cleaning', 'from $200'),
-                   ('Screen cleaning', 'added to any window cleaning')],
+        'prices': [('Exterior window cleaning', 'From $150'), ('Interior window cleaning', 'From $100'),
+                   ('Screen cleaning', 'Added to any window cleaning')],
         'search': 'window cleaners',
         'lede': 'Professional window cleaners serving homes across {town}.',
         'intro': ('Our window cleaners clean the outside of your windows with a water-fed pole system and deionized (pure) water, '
@@ -53,7 +53,7 @@ SERVICES = [
              'left behind when normal water dries, so pure water dries clean. Inside, we use a professional squeegee '
              'and solution.'),
             ('How much does window cleaning cost?',
-             'Exterior window cleaning starts at $150 and interior at $200. Your exact price depends on how many '
+             'Exterior window cleaning starts at $150 and interior at $100. Your exact price depends on how many '
              'windows you have, how many stories, and access. We give you a free, exact quote before any work starts.'),
             ('How often should I have my windows cleaned?',
              'Most North Shore homeowners do twice a year, in spring and fall. Homes near busy roads, trees or '
@@ -70,7 +70,7 @@ SERVICES = [
         'photo2': 'interior-squeegee-cleaning',
         'photo2_alt': 'Screen and window detailing',
         'from': None,
-        'prices': [('Screen cleaning', 'added to any window cleaning, priced by screen count')],
+        'prices': [('Screen cleaning', 'Added to any window cleaning, priced by screen count')],
         'intro': ('Screens hold more dust and pollen than almost any surface on your home, and dirty screens make '
                   'freshly cleaned windows look dull. We remove every screen, hand-scrub it with a soft brush and '
                   'solution, detail the frame, rinse it, and put it back once it is dry.'),
@@ -97,9 +97,9 @@ SERVICES = [
         'photo2': 'deck-pressure-washing',
         'photo2_alt': 'Deck pressure washing in progress',
         'from': 75,
-        'prices': [('Sidewalk pressure washing', 'from $75'), ('Patio pressure washing', 'from $150'),
-                   ('Driveway pressure washing', 'from $200'),
-                   ('House soft wash (siding)', 'from $300')],
+        'prices': [('Sidewalk pressure washing', 'From $75'), ('Patio pressure washing', 'From $150'),
+                   ('Driveway pressure washing', 'From $200'),
+                   ('House soft wash (siding)', 'From $300')],
         'search': 'pressure washing and power washing',
         'lede': 'Pressure washing and power washing for homes across {town}.',
         'intro': ('Pressure washing (also called power washing) strips years of dirt, algae, mold, mildew and oil stains off hard surfaces. '
@@ -132,8 +132,8 @@ SERVICES = [
         'photo2': 'stone-house-residential',
         'photo2_alt': 'Stone house exterior after gutter and window service',
         'from': 100,
-        'prices': [('Gutter cleaning (inside the gutters)', 'from $200'),
-                   ('Exterior gutter scrub (outside face)', 'from $100')],
+        'prices': [('Gutter cleaning (inside the gutters)', 'From $200'),
+                   ('Exterior gutter scrub (outside face)', 'From $100')],
         'search': 'gutter cleaners',
         'lede': 'Professional gutter cleaners serving homes across {town}.',
         'intro': ('Clogged gutters overflow, and that water ends up in your foundation, fascia and landscaping. '
@@ -305,7 +305,7 @@ GENERAL_FAQS = [
      'northwest suburbs, from Evanston and Winnetka to Arlington Heights, Schaumburg and Elk Grove Village. See the full list '
      'on our Service Areas page, and if you do not see your town, just ask.'),
     ('What does it cost?',
-     'Exterior window cleaning starts at $150, interior window cleaning at $200, gutter cleaning at $200, sidewalk '
+     'Exterior window cleaning starts at $150, interior window cleaning at $100, gutter cleaning at $200, sidewalk '
      'washing at $75, patio washing at $150 and driveway washing at $200. Your exact price depends on the size of the job, and we always '
      'quote it before we start.'),
     ('Do you offer a discount for new customers?',
