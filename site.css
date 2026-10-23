@@ -187,7 +187,7 @@ section    { padding: var(--space-12) 0; }
 }
 
 /* ── Why us ── */
-.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
 .why-features { display: flex; flex-direction: column; gap: var(--space-6); }
 .feature-row { display: flex; gap: var(--space-4); align-items: flex-start; }
 .feat-icon {
