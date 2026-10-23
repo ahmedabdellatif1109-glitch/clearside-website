@@ -893,7 +893,7 @@ def build_areas():
       <i class="fas fa-chevron-right"></i>
       <span>Service Areas</span>
     </div>
-    <h1>Window Cleaning &amp; Pressure Washing Service Areas</h1>
+    <h1>Exterior Cleaning Service Areas</h1>
     <p>Window cleaning, pressure washing and gutter cleaning across the North Shore. Pick your town to see local services and prices.</p>
 {hero_buttons()}
   </div>
