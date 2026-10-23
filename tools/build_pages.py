@@ -558,7 +558,7 @@ def build_service(svc):
                                                            'priceCurrency': 'USD'}}
     page(path,
          f"North Shore {svc['name']} | ClearSide Exteriors",
-         f"{svc['short']} Glenview & the North Shore. Licensed & insured. Call {D.PHONE_DISPLAY}.",
+         f"{svc['short']} Glenview & the North Shore, IL. Licensed & insured. Call {D.PHONE_DISPLAY}.",
          [service_schema, faq_schema(svc['faqs']),
           breadcrumb_schema([('Home', ''), ('Services', 'services.html'), (svc['name'], path)])],
          body)
