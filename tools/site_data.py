@@ -33,7 +33,7 @@ SERVICES = [
         'photo2': 'interior-window-cleaning',
         'photo2_alt': 'Interior window cleaning with a professional squeegee',
         'from': 150,
-        'prices': [('Exterior window cleaning', 'from $150'), ('Interior window cleaning', 'from $200'),
+        'prices': [('Exterior window cleaning', 'from $150'), ('Interior window cleaning', 'from $100'),
                    ('Screen cleaning', 'Added to any window cleaning')],
         'search': 'window cleaners',
         'lede': 'Professional window cleaners serving homes across {town}.',
@@ -53,7 +53,7 @@ SERVICES = [
              'left behind when normal water dries, so pure water dries clean. Inside, we use a professional squeegee '
              'and solution.'),
             ('How much does window cleaning cost?',
-             'Exterior window cleaning starts at $150 and interior at $200. Your exact price depends on how many '
+             'Exterior window cleaning starts at $150 and interior at $100. Your exact price depends on how many '
              'windows you have, how many stories, and access. We give you a free, exact quote before any work starts.'),
             ('How often should I have my windows cleaned?',
              'Most North Shore homeowners do twice a year, in spring and fall. Homes near busy roads, trees or '
@@ -305,7 +305,7 @@ GENERAL_FAQS = [
      'northwest suburbs, from Evanston and Winnetka to Arlington Heights, Schaumburg and Elk Grove Village. See the full list '
      'on our Service Areas page, and if you do not see your town, just ask.'),
     ('What does it cost?',
-     'Exterior window cleaning starts at $150, interior window cleaning at $200, gutter cleaning at $200, sidewalk '
+     'Exterior window cleaning starts at $150, interior window cleaning at $100, gutter cleaning at $200, sidewalk '
      'washing at $75, patio washing at $150 and driveway washing at $200. Your exact price depends on the size of the job, and we always '
      'quote it before we start.'),
     ('Do you offer a discount for new customers?',
