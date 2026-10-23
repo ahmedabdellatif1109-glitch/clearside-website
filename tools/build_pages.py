@@ -458,11 +458,17 @@ def quote_section(town_name=None, svc=None):
 </section>"""
 
 
+def price_row(name, price):
+    # Add-on rows ("Added to any window cleaning") get a green check instead of a price
+    check = '<i class="fas fa-circle-check"></i> ' if price.startswith('Added to') else ''
+    return f'          <li><span>{esc(name)}</span><strong>{check}{esc(price)}</strong></li>'
+
+
 # ── Service pages ─────────────────────────────────────────────
 
 def build_service(svc):
     path = service_file(svc)
-    price_rows = '\n'.join(f'          <li><span>{esc(n)}</span><strong>{esc(p)}</strong></li>' for n, p in svc['prices'])
+    price_rows = '\n'.join(price_row(n, p) for n, p in svc['prices'])
     included = '\n'.join(f'          <li><i class="fas fa-circle-check"></i> {esc(i)}</li>' for i in svc['included'])
     towns = '\n'.join(f'      <a class="area-tag" href="{town_service_file(t["name"], svc)}">{t["name"]}</a>' for t in sorted_towns())
     others = '\n'.join(f'      <a class="svc-mini" href="{service_file(s)}"><i class="fas {s["icon"]}"></i> {s["name"]}</a>'
@@ -767,7 +773,7 @@ def build_town_service(town, svc):
     near_links = ', '.join(f'<a href="{town_service_file(t["name"], svc)}">{t["name"]}</a>'
                            for t in nearest_towns(name))
     near_links += ' <a href="areas.html">and more</a>'
-    price_rows = '\n'.join(f'          <li><span>{esc(n)}</span><strong>{esc(p)}</strong></li>' for n, p in svc['prices'])
+    price_rows = '\n'.join(price_row(n, p) for n, p in svc['prices'])
     included = '\n'.join(f'          <li><i class="fas fa-circle-check"></i> {esc(i)}</li>' for i in svc['included'])
     others = '\n'.join(f'      <a class="svc-mini" href="{town_service_file(name, s) if is_local(s) else service_file(s)}">'
                        f'<i class="fas {s["icon"]}"></i> {(name + " ") if is_local(s) else ""}{s["name"]}</a>'

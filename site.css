@@ -710,6 +710,7 @@ a.area-tag { text-decoration: none; border-bottom-width: 1.5px; }
   padding-bottom: var(--space-2); border-bottom: 1px dashed var(--border-2); font-size: var(--fs-14);
 }
 .price-box li strong, .town-card li strong, .price-card li strong { color: var(--ink-1); text-align: right; }
+.price-box li strong .fa-circle-check { color: #22c55e; margin-right: .25rem; }
 .price-box p, .town-card p { font-size: var(--fs-14); color: var(--ink-2); margin-bottom: var(--space-4); }
 .town-card a:not(.btn) { color: var(--sky-700); font-weight: 600; border-bottom: none; }
 

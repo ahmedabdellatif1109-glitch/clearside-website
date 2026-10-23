@@ -34,7 +34,7 @@ SERVICES = [
         'photo2_alt': 'Interior window cleaning with a professional squeegee',
         'from': 150,
         'prices': [('Exterior window cleaning', 'from $150'), ('Interior window cleaning', 'from $200'),
-                   ('Screen cleaning', 'added to any window cleaning')],
+                   ('Screen cleaning', 'Added to any window cleaning')],
         'search': 'window cleaners',
         'lede': 'Professional window cleaners serving homes across {town}.',
         'intro': ('Our window cleaners clean the outside of your windows with a water-fed pole system and deionized (pure) water, '
@@ -70,7 +70,7 @@ SERVICES = [
         'photo2': 'interior-squeegee-cleaning',
         'photo2_alt': 'Screen and window detailing',
         'from': None,
-        'prices': [('Screen cleaning', 'added to any window cleaning, priced by screen count')],
+        'prices': [('Screen cleaning', 'Added to any window cleaning, priced by screen count')],
         'intro': ('Screens hold more dust and pollen than almost any surface on your home, and dirty screens make '
                   'freshly cleaned windows look dull. We remove every screen, hand-scrub it with a soft brush and '
                   'solution, detail the frame, rinse it, and put it back once it is dry.'),
